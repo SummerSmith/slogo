@@ -16,7 +16,7 @@
     * The turtle, of whose instance is created in front-end, will have updated its fields/parameters/attributes to the translation provided by the parser for the executed command. After editing these characteristics, the front-end class(es) will *update* the turtle using a variety of specific methods (e.g. movement, direction changes, etc).
 
 
-##APIs
+## APIs
 ### Front end 
 #### Internal API
 * getImage()
