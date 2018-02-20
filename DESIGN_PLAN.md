@@ -77,6 +77,7 @@ Finally, in the case that commands entered by the user or incorrect or erroneous
 
 
 ## API Details (Maddie)
+
 Our design can be represented in some ways as a Model-View-Controller framework, with the frontend classes comprising the View, the Parser class comprising the Controller, and the backend classes comprising the Model.
 ### Frontend
 #### External
@@ -103,29 +104,42 @@ public interface Display {
 ```
 ### Backend
 #### External
-The external API of the backend involves giving information back to intermediate classes, in order for that information to be passed back to the frontend. 
+The external API of the backend involves giving information back to intermediate classes, like Turtle, in order for that information to be passed back to the frontend. This provides for functionalities like changing the turtle's visibility, which has to be known both by the frontend for display purposes and by the backend for the purpose of changing the state.
+```
+public interface Turtle {
+    public Point getLocation()
+    public double getHeading()
+    public boolean turtleIsShown()
+    public boolean getPenDown()
+}
+
+public interface Executor{
+    public List getNextPoints()
+    public List getCommandLog()
+    public List getCommands()
+}
+```
+
 #### Internal
-The internal API of the backend involves giving information back to intermediate classes, in order for that information to be passed back to the frontend. 
+The internal API of the backend involves executing commands to change the state of the Turtle. Because all of the Commands will be encapsulated by a single interface or superclass (one of the two), the only method necessary for the API is the execute method. This will allow greater flexibility in creating new commands in the future. It is also necessary within the backend for the Parser to interact with the commands and execute them through the Executor class.
 ```
 public interface Parser {
-	public Command parse(){
-	}
+    public Command parse()
 }
 
 
 public interface Command {
-
+    public void execute()
 }
 
 ```
-
 
 ## API Example Code (Maddie)
 
 ## Use Cases 
 * fd 50
     * command will be processed by parser
-    * passed to Execute class 
+    * passed to Execute class, which executes the forward command and saves fd 50 into the appropriate data structure in the UserCommands class
     * forward(50); 
         * edits the position of the turtle
         * new location will be added to array of points to move to
