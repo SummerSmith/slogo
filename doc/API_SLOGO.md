@@ -14,3 +14,80 @@
 
 5.  How is the GUI updated after a command has completed execution?
     * The turtle, of whose instance is created in front-end, will have updated its fields/parameters/attributes to the translation provided by the parser for the executed command. After editing these characteristics, the front-end class(es) will *update* the turtle using a variety of specific methods (e.g. movement, direction changes, etc).
+
+
+## APIs
+### Front end 
+#### Internal API
+* getImage()
+* drawTurtle()
+* drawLine()
+* update()
+
+#### External API 
+
+### Back end 
+#### Internal API 
+* forward(int x)
+* back (int x)
+* left (int x)
+* right (int x)
+* setHeading(int x)
+* towards(int x, int y)
+* setXY(int x, int y)
+* penDown()
+* penUp()
+* showTurtle()
+* home()
+* clearScreen()
+* xcor()
+* ycor()
+* heading()
+* isPendown()
+* isShowing()
+* sum()
+* difference()
+* product()
+* quotient()
+* remainder()
+* minus()
+* random()
+* sin()
+* cos()
+* tan()
+* atan()
+* log()
+* pow()
+* pi()
+* less()
+* greater()
+* equal()
+* notEqual()
+* and()
+* or()
+* not()
+* make/set()
+* repeat()
+* doTimes()
+* for()
+* if()
+* ifElse
+* to 
+
+### External API 
+* getLocation()
+* getHeading()
+* setX()
+* setY()
+* setHeading()
+* getLocation()
+* setShowing()
+* turtleIsShown()
+* setPenDown()
+* getPenDown()
+* getNextPoints()
+* addNextPoint()
+* getCommandLog()
+* getCommands()
+* saveNewCommand()
+* execute()
