@@ -1,4 +1,4 @@
-package gui_elements;
+package gui_elements.buttons;
 
 import java.io.FileInputStream;
 import java.io.IOException;

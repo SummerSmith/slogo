@@ -15,9 +15,9 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
-import gui_elements.Buttons;
 import gui_elements.ComboBoxes;
 import gui_elements.Labels;
+import gui_elements.buttons.Buttons;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
