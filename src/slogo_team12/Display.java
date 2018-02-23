@@ -15,9 +15,9 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
-import gui_elements.Buttons;
-import gui_elements.ComboBoxes;
-import gui_elements.Labels;
+import gui_elements.buttons.Buttons;
+import gui_elements.combo_boxes.ComboBoxes;
+import gui_elements.labels.Labels;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -147,15 +147,31 @@ public class Display extends Application {
     }
     
     private void setLabels() {
-    	Labels lbl = new Labels(root);
+    	SLogoLabel sll = new SlogoLabel(root);
+    	PenColorLabel pcl = new PenColorLabel(root);
+    	BackgroundColorLabel bcl = new BackgroundColorLabel(root);
+    	TurtleImageLabel til = new TurtleImageLabel(root);
+    	UserAPILabel ual = new UserAPILabel(root);
+    	LanguageLabel ll = new LanguageLabel(root);
+    	TurtleDisplayLabel tdl = new TurtleDisplayLabel(root);
+    	CommandWindowLabel cwl = new CommandWindowLabel(root);
+    	UserVariablesLabel uvl = new UserVariablesLabel(root);
+    	UserCommandsLabel ucl = new UserCommandsLabel(root);
+    	UserHistoryLabel uhl = new UserHistoryLabel(root);
     }
 
     private void setButtons() {
-    	Buttons btn = new Buttons(root);
+    	ClearButton cb = new ClearButton(root);
+    	RunButton rb = new RunButton(root);
+    	SaveMethodButton smb = new SaveMethodButton(root);
+    	UserAPIButton uab = new UserAPIButton(root);
     }
 
     private void setComboBoxes() {
-    	ComboBoxes cb = new ComboBoxes(root);
+    	PenColorComboBox pccb = new PenColorComboBox(root);
+    	BackgroundColorComboBox bccb = new BackgroundColorComboBox(root);
+    	TurtleImageComboBox ticb = new TurtleImageComboBox(root);
+    	LanguageComboBox lcb = new LanguageComboBox(root);
     }
 
     /**
