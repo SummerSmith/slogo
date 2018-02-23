@@ -17,3 +17,21 @@
 4.  Why do you think your API/design is _good_ (also define what your measure of good is)?
     * I think the design is good because it spreads out the responsibilities of the parser between multiple classes. There will not be one class that contains all the code.
     * In addition, the code is very flexible and should not have to be changed if other commands are added or a different number of commands is expected. 
+    
+    
+### Part 2
+1.  How do you think Design Patterns are currently represented in the design or could be used to help improve the design?
+    * Currently we are using a version of the strategy design plan or the command design plan for the backend. The Executor class will have information that the commands in the child classes will access and edit, based on their functionality. 
+
+2.  What feature/design problem are you most excited to work on?
+    * I am most excited to figure out the stack/tree and argument array process. I want to ensure that it will catch a command that has the wrong number of arguments or that has incorrect commands included.
+
+3.  What feature/design problem are you most worried about working on?
+    * I am most worried about catching mistakes in which there are the wrong number of arguments or where 15 is represented as ( 10 + 5 ). I think these cases will be the hardest to catch and properly execute. 
+
+4.  Come up with at least five use cases for your part (it is absolutely fine if they are useful for both teams).
+    * sum fd 50 rt 90
+    * fd fd 50 
+    * fd 50 
+    * sum rt 90 fd 50 
+    * difference rt 45 fd 10
