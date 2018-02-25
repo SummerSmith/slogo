@@ -30,10 +30,11 @@ public class ConstructNodes {
 		language = CurrLanguage;
 		mySymbols = new ArrayList<>();
 		commandTranslations = new HashMap<>();
+		determineNodeType = new DetermineNodeType();
+		nodes = new ArrayList<>();
 		makeCommandMap(path + language);
 		addPatterns(syntaxPath);
 		createNodeList();
-		determineNodeType = new DetermineNodeType();
 		System.out.println(nodes);
 	}
 	
@@ -100,11 +101,7 @@ public class ConstructNodes {
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
-			System.out.println(input);
-			nodes.add(determineNodeType.nodeType(identity, input.get(i)));
-			System.out.print(i + " ");
-			System.out.print(identity);
-			System.out.println(" " + input.get(i).toLowerCase());
+			addNode(determineNodeType.nodeType(identity, input.get(i)));
 		}
 	}
 	

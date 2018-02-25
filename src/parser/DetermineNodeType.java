@@ -39,9 +39,8 @@ public class DetermineNodeType {
 	}
 	
 	protected Node nodeType(String nodeType, String content) {
-		content = content.toLowerCase();
+		System.out.println(content);
 		if(nodeType.equalsIgnoreCase("Command")) {
-			System.out.println(content);
 			return makeCommandNode(content);
 		}
 		else if (nodeType.equalsIgnoreCase("Constant")) {
@@ -58,6 +57,7 @@ public class DetermineNodeType {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
 //		}
+		
 		if(content.equalsIgnoreCase("group")) {
 			return new GroupNode(content);
 		}
@@ -89,5 +89,4 @@ public class DetermineNodeType {
 			return new CommandNode(content);
 		}
 	}
-	
 }

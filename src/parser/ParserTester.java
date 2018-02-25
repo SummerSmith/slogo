@@ -8,6 +8,11 @@ public class ParserTester {
 		ArrayList<String> command = new ArrayList<>();
 		command.add("fd");
 		command.add("50");
+		command.add("+");
+		command.add("10");
+		command.add("20");
+		command.add("rt");
+		command.add("90");
 		ConstructNodes construct = new ConstructNodes(command, "English");
 	}
 }
