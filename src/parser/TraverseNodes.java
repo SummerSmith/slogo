@@ -6,20 +6,26 @@ import java.util.List;
 import nodes.CommandNode;
 import nodes.Node;
 import nodes.RepeatNode;
+import turtle.Turtle;
 import nodes.ArgumentNode;
 import nodes.GroupNode;
 
 public class TraverseNodes {
 
 	double count;
+	Turtle t;
+	CheckNextNodes completeCommand;
 	
-	public TraverseNodes() {}
+	public TraverseNodes(Turtle t1) {
+		t = t1;
+		completeCommand = new CheckNextNodes();
+	}
 	
 	private double recurse(List<Node> nodes) {
 		List<Node> nextList = new ArrayList<>();
 		for(int i = 0; i < nodes.size(); i++) {
-			if (nodes.get(i) instanceof CommandNode && check(nodes, i)) {
-				nextList.add(new Executor(turtle, nodes, i));
+			if (nodes.get(i) instanceof CommandNode && completeCommand.check(nodes, i)) {
+				nextList.add(new Executor(t, nodes, i));
 			}
 			else if (nodes.get(i) instanceof RepeatNode) {
 				i++;
@@ -39,8 +45,4 @@ public class TraverseNodes {
 		}
 	}
 	
-	//implement with map
-	private boolean check(List<Node> a, int i) {
-		return true;
-	}
 }
