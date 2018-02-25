@@ -1,8 +1,8 @@
 package nodes;
 
-public class VariableNode extends Node {
+public class ListNode extends Node{
 
-	public VariableNode(String name) {
+	public ListNode(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
