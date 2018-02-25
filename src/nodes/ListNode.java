@@ -1,8 +1,8 @@
 package nodes;
 
-public class GroupNode extends Node {
+public class ListNode extends Node{
 
-	public GroupNode(String name) {
+	public ListNode(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
