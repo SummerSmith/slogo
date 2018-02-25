@@ -8,4 +8,8 @@ public class Node {
 		type = name;
 		// TODO Auto-generated constructor stub
 	}
-}
+
+	public String toString() {
+		return type;
+	}
+ }

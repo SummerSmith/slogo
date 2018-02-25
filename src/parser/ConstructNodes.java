@@ -20,11 +20,12 @@ public class ConstructNodes {
 	private Map<String, String> commandTranslations;
 	private List<Entry<String, Pattern>> mySymbols;
 	
+	DetermineNodeType determineNodeType;
 	private final String path = "resources.languages/";
 	private final String syntaxPath = path + "syntax";
 	
 	
-	public ConstructNodes(List<String> strings, String CurrLanguage) {
+	public ConstructNodes(List<String> strings, String CurrLanguage) throws Exception {
 		input = strings;
 		language = CurrLanguage;
 		mySymbols = new ArrayList<>();
@@ -32,6 +33,8 @@ public class ConstructNodes {
 		makeCommandMap(path + language);
 		addPatterns(syntaxPath);
 		createNodeList();
+		determineNodeType = new DetermineNodeType();
+		System.out.println(nodes);
 	}
 	
 	 /**
@@ -79,28 +82,33 @@ public class ConstructNodes {
 	    while (iter.hasMoreElements()) {
 	            String key = iter.nextElement();
 	            String translated = resources.getString(key);
-	            String[] notEnglish = translated.split("|");
+	            String notEnglish[] = translated.split("\\|");
 	            for(int i = 0; i<notEnglish.length; i++) {
-	            		commandTranslations.put(notEnglish[i].toLowerCase(), key.toLowerCase());
+	            		commandTranslations.put(notEnglish[i].toLowerCase(), key);
 	            }
 	    }
-
 	}
 	
 	private String makeEnglish(String notEnglish) {
-		if(commandTranslations.keySet().contains(notEnglish)) {
-			return commandTranslations.get(notEnglish);
-		}
-		else {
-			//FIXME: throw invalid command error
-			return "invalid command";
+		return commandTranslations.get(notEnglish);
+	}
+	
+	private void createNodeList() throws Exception {
+		System.out.println(input);
+		for(int i = 0; i<input.size(); i++) {
+			String identity = getSymbol(input.get(i).toLowerCase());
+			if(identity.equalsIgnoreCase("command")) {
+				input.set(i, makeEnglish(input.get(i)));
+			}
+			System.out.println(input);
+			nodes.add(determineNodeType.nodeType(identity, input.get(i)));
+			System.out.print(i + " ");
+			System.out.print(identity);
+			System.out.println(" " + input.get(i).toLowerCase());
 		}
 	}
 	
-	private void createNodeList() {
-		for(int i = 0; i<input.size(); i++) {
-			String identity = getSymbol(input.get(i).toLowerCase());
-			System.out.println(identity);
-		}
+	protected void addNode(Node toAdd) {
+		nodes.add(toAdd);
 	}
 }

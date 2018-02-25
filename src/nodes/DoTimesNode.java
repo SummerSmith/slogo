@@ -1,8 +1,8 @@
 package nodes;
 
-public class ToNode extends Node {
-
-	public ToNode(String name) {
+public class DoTimesNode extends Node{
+	
+	public DoTimesNode(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
