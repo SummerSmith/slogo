@@ -21,7 +21,7 @@ import nodes.VariableNode;
 public class DetermineNodeType {
 	
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.languages/Nodes";
+	private final String file = "resources.nodes/Nodes";
 
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();

@@ -13,5 +13,11 @@ public class ArgumentNode extends Node {
 	public double getArgument() {
 		return argument;
 	}
+
+	@Override
+	public double evaluate() {
+		// TODO Auto-generated method stub
+		return argument;
+	}
 	
 }

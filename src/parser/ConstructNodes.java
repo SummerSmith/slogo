@@ -20,12 +20,13 @@ public class ConstructNodes {
 	private String language;
 	private Map<String, String> commandTranslations;
 	private List<Entry<String, Pattern>> mySymbols;
+	List<Node> headNodes;
 	
 	DetermineNodeType determineNodeType;
 	TraverseNodes traverse;
 	private Map<String, Integer> commandArguments;
 	private final String path = "resources.languages/";
-	private final String file = path + "Arguments";
+	private final String file = "resources.nodes/NumArguments";
 	private final String syntaxPath = path + "syntax";
 	
 	
@@ -36,17 +37,23 @@ public class ConstructNodes {
 		commandTranslations = new HashMap<>();
 		determineNodeType = new DetermineNodeType();
 		nodes = new ArrayList<>();
+		headNodes = new ArrayList<>();
 		parse();
 		traverse = new TraverseNodes(t, nodes);
+		headNodes.add(nodes.get(0));
 	}
 	
 	private void parse() throws Exception {
+		makeCommandArgumentsMap();
 		makeCommandMap(path + language);
 		addPatterns(syntaxPath);
 		createNodeList();
-		makeCommandArgumentsMap();
 		System.out.println(nodes);
-		traverse.createTree(nodes.get(0), 0);
+		headNodes.addAll(traverse.createTree(nodes.get(0), 0));
+	}
+	
+	protected List<Node> getHeadNodes(){
+		return headNodes;
 	}
 	
 	 /**
@@ -114,7 +121,13 @@ public class ConstructNodes {
 			}
 			Node temp = determineNodeType.nodeType(identity, input.get(i));
 			addNode(temp);
-			temp.setNumChildren(commandArguments.get(temp.getType()));
+			System.out.println(temp.getType());
+			if(commandArguments.containsKey(temp.getType())) {
+				temp.setNumChildren(commandArguments.get(temp.getType()));
+			}
+			else {
+				temp.setNumChildren(0);
+			}
 		}
 	}
 	
@@ -124,7 +137,10 @@ public class ConstructNodes {
 		Enumeration<String> iter = resources.getKeys();
 	    while (iter.hasMoreElements()) {
 	            String key = iter.nextElement();
-	            int numArgs = ((int)(resources.getObject(key)));
+	            System.out.print(key);
+	            String Args = resources.getString(key);
+	            System.out.println(Args);
+	            int numArgs = Integer.parseInt(Args);
 	            	commandArguments.put(key, numArgs);
 	    }
 	}
