@@ -13,4 +13,5 @@ public class ArgumentNode extends Node {
 	public double getArgument() {
 		return argument;
 	}
+	
 }
