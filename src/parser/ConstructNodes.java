@@ -11,6 +11,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 import nodes.Node;
+import turtle.Turtle;
 
 public class ConstructNodes {
 
@@ -21,21 +22,31 @@ public class ConstructNodes {
 	private List<Entry<String, Pattern>> mySymbols;
 	
 	DetermineNodeType determineNodeType;
+	TraverseNodes traverse;
+	private Map<String, Integer> commandArguments;
 	private final String path = "resources.languages/";
+	private final String file = path + "Arguments";
 	private final String syntaxPath = path + "syntax";
 	
 	
-	public ConstructNodes(List<String> strings, String CurrLanguage) throws Exception {
+	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception {
 		input = strings;
 		language = CurrLanguage;
 		mySymbols = new ArrayList<>();
 		commandTranslations = new HashMap<>();
 		determineNodeType = new DetermineNodeType();
 		nodes = new ArrayList<>();
+		parse();
+		traverse = new TraverseNodes(t, nodes);
+	}
+	
+	private void parse() throws Exception {
 		makeCommandMap(path + language);
 		addPatterns(syntaxPath);
 		createNodeList();
+		makeCommandArgumentsMap();
 		System.out.println(nodes);
+		traverse.createTree(nodes.get(0), 0);
 	}
 	
 	 /**
@@ -101,8 +112,21 @@ public class ConstructNodes {
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
-			addNode(determineNodeType.nodeType(identity, input.get(i)));
+			Node temp = determineNodeType.nodeType(identity, input.get(i));
+			addNode(temp);
+			temp.setNumChildren(commandArguments.get(temp.getType()));
 		}
+	}
+	
+	private void makeCommandArgumentsMap() {
+		commandArguments = new HashMap<>();
+		ResourceBundle resources = ResourceBundle.getBundle(file);
+		Enumeration<String> iter = resources.getKeys();
+	    while (iter.hasMoreElements()) {
+	            String key = iter.nextElement();
+	            int numArgs = ((int)(resources.getObject(key)));
+	            	commandArguments.put(key, numArgs);
+	    }
 	}
 	
 	protected void addNode(Node toAdd) {
