@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
+import nodes.CommandNode;
 import nodes.Node;
 import turtle.Turtle;
 
@@ -21,6 +22,7 @@ public class ConstructNodes {
 	private Map<String, String> commandTranslations;
 	private List<Entry<String, Pattern>> mySymbols;
 	List<Node> headNodes;
+	Turtle turtle;
 	
 	DetermineNodeType determineNodeType;
 	TraverseNodes traverse;
@@ -32,6 +34,7 @@ public class ConstructNodes {
 	
 	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception {
 		input = strings;
+		turtle = t;
 		language = CurrLanguage;
 		mySymbols = new ArrayList<>();
 		commandTranslations = new HashMap<>();
@@ -39,8 +42,6 @@ public class ConstructNodes {
 		nodes = new ArrayList<>();
 		headNodes = new ArrayList<>();
 		parse();
-		traverse = new TraverseNodes(t, nodes);
-		headNodes.add(nodes.get(0));
 	}
 	
 	private void parse() throws Exception {
@@ -49,7 +50,8 @@ public class ConstructNodes {
 		addPatterns(syntaxPath);
 		createNodeList();
 		System.out.println(nodes);
-		headNodes.addAll(traverse.createTree(nodes.get(0), 0));
+		traverse = new TraverseNodes(turtle, nodes);
+		headNodes.addAll(traverse.createTree(nodes.get(0)));
 	}
 	
 	protected List<Node> getHeadNodes(){
@@ -119,10 +121,13 @@ public class ConstructNodes {
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
-			Node temp = determineNodeType.nodeType(identity, input.get(i));
+			Node temp = determineNodeType.nodeType(identity, input.get(i), turtle);
 			addNode(temp);
-			System.out.println(temp.getType());
+			System.out.print(temp.getType());
+			System.out.println(temp instanceof CommandNode);
+			
 			if(commandArguments.containsKey(temp.getType())) {
+				System.out.println("contains key");
 				temp.setNumChildren(commandArguments.get(temp.getType()));
 			}
 			else {
@@ -137,12 +142,12 @@ public class ConstructNodes {
 		Enumeration<String> iter = resources.getKeys();
 	    while (iter.hasMoreElements()) {
 	            String key = iter.nextElement();
-	            System.out.print(key);
 	            String Args = resources.getString(key);
-	            System.out.println(Args);
 	            int numArgs = Integer.parseInt(Args);
 	            	commandArguments.put(key, numArgs);
 	    }
+	    System.out.println(commandArguments);
+	    System.out.println(commandArguments.get("Forward"));
 	}
 	
 	protected void addNode(Node toAdd) {

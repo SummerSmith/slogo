@@ -20,16 +20,15 @@ public class TraverseNodes {
 		nodes = allNodes;
 	}
 	
-	protected List<Node> createTree(Node curr, int index) {
-		curr.addChildren(nodes, index);
-		for(Node child : curr.getChildren()) {
-			index++;
-			createTree(child, index);
+	protected List<Node> createTree(Node curr) {
+		int index = 0;
+//		System.out.println("curr: " + curr + " " + curr.getNumChildren());
+		while (index < nodes.size()-1) {
+			temp.add(curr);
+//			System.out.println("temp: " + temp);
+			index += curr.addChildren(nodes, index);
 		}
-		if(index < nodes.size()-1) {
-			temp.add(nodes.get(index));
-			createTree(nodes.get(index), index);
-		}
+		System.out.println(temp);
 		return temp;
 	}
 	
