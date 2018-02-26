@@ -15,4 +15,10 @@ public class GroupNode extends Node {
 		return groupNodes;
 	}
 
+	@Override
+	public double evaluate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

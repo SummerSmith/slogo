@@ -1,21 +1,22 @@
 package parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nodes.Node;
-import turtle.Turtle;
 
 public class Executor {
-	
-//	Command command;
 
 	public Executor() {
 
 	}
 	
-	//implement reflection here
-	public String executeCommand(Turtle t, List<Node> nodes, int index) {
-		return Double.toString(50);
+	protected List<Double> executeCommands(List<Node> headNodes) {
+		List<Double> returnValues= new ArrayList<>();
+		for(Node head : headNodes) {
+			returnValues.add(head.evaluate());
+		}
+		return returnValues;
 	}
 	
 }
