@@ -6,13 +6,18 @@ public class IfElseNode extends Node {
 
 	public IfElseNode(String name, Turtle t) {
 		super(name, t);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		double returnVal = 0;
+		if(myChildren.get(0).evaluate() != 0) {
+			returnVal = myChildren.get(1).evaluate(); //true statements (this will be a GroupNode)
+		}
+		else {
+			returnVal = myChildren.get(2).evaluate(); //false statements (this will be a GroupNode)
+		}
+		return returnVal;
 	}
 
 }

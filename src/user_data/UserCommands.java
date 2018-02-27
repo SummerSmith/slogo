@@ -7,13 +7,13 @@ import java.util.Map;
 import nodes.Node;
 
 public class UserCommands {
-	private Map<String, List<Node>> myCommands;
+	private static Map<String, List<Node>> myCommands;
 
 	public UserCommands() {
 		myCommands = new HashMap(); //implementation can be whatever
 	}
 
-	public void add(String commandName, List<Node> commandNodes) {
+	public static void add(String commandName, List<Node> commandNodes) {
 		if(myCommands.containsKey(commandName)) {
 			myCommands.get(commandName).addAll(commandNodes);
 		}
@@ -21,5 +21,14 @@ public class UserCommands {
 			myCommands.put(commandName, commandNodes);
 		}	
 	}
-	
+
+	public static List<Node> get(String commandName){
+		if(myCommands.containsKey(commandName)) {
+			return myCommands.get(commandName);
+		}
+		else {
+			return null; //this might cause errors; careful
+		}
+	}
+
 }
