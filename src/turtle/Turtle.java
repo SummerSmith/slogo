@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Turtle {
-		
+import javafx.scene.Scene;
+
+public class Turtle {	
 	private Point location;
 	private double heading;
 	private boolean turtleIsShown;
@@ -14,12 +15,14 @@ public class Turtle {
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private final double INITIAL_HEADING = 0;
 	private List<Point> nextPoints;
+	private double isVisible;
 	
-	public Turtle() {
+	public Turtle(double isVisible) {
 		location = INITIAL_POINT;
 		heading = INITIAL_HEADING;
 		turtleIsShown = true;
 		penDown = true;
+		this.isVisible = isVisible;
 		createLists();
 	}
 	
@@ -35,20 +38,22 @@ public class Turtle {
 		location = new_location;
 	}
 
-	public int getXLocation() {
-		return location.x;
+	public double getXLocation() {
+		return location.getX();
 	}
 
-	public void setXLocation(int x) {
-		location.x = x;
+	public void setXLocation(double x) {
+		double y = location.getY();
+		location.setLocation(x,y);
 	}
 
-	public int getYLocation() {
-		return location.y;
+	public double getYLocation() {
+		return location.getY();
 	}
 	
-	public void setYLocation(int y) {
-		location.y = y;
+	public void setYLocation(double y) {
+		double x = location.getX();
+		location.setLocation(x,y);
 	}
 	
 	public double getHeading() {
@@ -85,5 +90,12 @@ public class Turtle {
 	
 	public void addNextPoints(Collection<Point> c) {
 		nextPoints.addAll(c);
+	}
+	
+	public void setVisible(double isVisible) {
+		this.isVisible = isVisible;
+	}
+	public double getVisible() {
+		return isVisible;
 	}
 }

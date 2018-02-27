@@ -22,7 +22,7 @@ public class UserCommands {
 		}	
 	}
 
-	public static List<Node> get(String commandName){
+	public static List<Node> getCommand(String commandName){
 		if(myCommands.containsKey(commandName)) {
 			return myCommands.get(commandName);
 		}
@@ -31,4 +31,8 @@ public class UserCommands {
 		}
 	}
 
+	public static Map<String, List<Node>> getCommandsMap(){
+		return myCommands;
+	}
+	
 }
