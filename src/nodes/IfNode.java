@@ -6,13 +6,17 @@ public class IfNode extends Node {
 
 	public IfNode(String name, Turtle t) {
 		super(name, t);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		double returnVal = 0;
+		if(myChildren.get(0).evaluate() != 0) {
+			for(Node child : myChildren) {
+				returnVal = child.evaluate(); //repeatNode will contain a GroupNode, but GroupNodes know how to evaluate themselves
+			}
+		}
+		return returnVal;
 	}
 
 }

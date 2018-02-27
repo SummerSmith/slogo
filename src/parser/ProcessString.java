@@ -3,7 +3,6 @@ package parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * 
@@ -28,14 +27,7 @@ public class ProcessString {
 		return commandList;
 	}
 	
-//	public List<String> processString(Scanner in){
-//		List<String> commandList = new ArrayList<>();
-//		while(in.hasNextLine()) {
-//			String line = in.nextLine();
-//		}
-//		return null;
-//	}
-	
+	//TEST
 	public static void main(String args[]) {
 		String s = "This is a test string\nHere is a new line             and some space\n# Here is a comment\n\nHere are two new lines";
 		System.out.println(s);
