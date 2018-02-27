@@ -89,9 +89,9 @@ public class DetermineNodeType {
 		else if(content.equalsIgnoreCase("list")) {
 			return new ListNode(content, turtle);
 		}
-		else if(userCommands.getMyCommands().keySet().contains(content)) {
-			return new UserCommandNode(content, turtle);
-		}
+//		else if(userCommands.getMyCommands().keySet().contains(content)) {
+//			return new UserCommandNode(content, turtle);
+//		}
 		else {
 			return new CommandNode(content, turtle);
 		}
