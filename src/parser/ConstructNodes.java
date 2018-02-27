@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
-import nodes.CommandNode;
 import nodes.Node;
 import turtle.Turtle;
 
@@ -49,9 +48,15 @@ public class ConstructNodes {
 		makeCommandMap(path + language);
 		addPatterns(syntaxPath);
 		createNodeList();
-		System.out.println(nodes);
 		traverse = new TraverseNodes(turtle, nodes);
-		headNodes.addAll(traverse.createTree(nodes.get(0)));
+		traverse.createTree(nodes.get(0));
+		headNodes.addAll(traverse.getTemp());
+		for(Node curr: headNodes) {
+			System.out.println(curr);
+			for(Node child : curr.getChildren()) {
+				System.out.println(child);
+			}
+		}
 	}
 	
 	protected List<Node> getHeadNodes(){
@@ -115,19 +120,15 @@ public class ConstructNodes {
 	}
 	
 	private void createNodeList() throws Exception {
-		System.out.println(input);
+//		System.out.println(input);
 		for(int i = 0; i<input.size(); i++) {
 			String identity = getSymbol(input.get(i).toLowerCase());
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
-			Node temp = determineNodeType.nodeType(identity, input.get(i), turtle);
+			Node temp = determineNodeType.getNodeType(identity, input.get(i), turtle);
 			addNode(temp);
-			System.out.print(temp.getType());
-			System.out.println(temp instanceof CommandNode);
-			
 			if(commandArguments.containsKey(temp.getType())) {
-				System.out.println("contains key");
 				temp.setNumChildren(commandArguments.get(temp.getType()));
 			}
 			else {
@@ -146,8 +147,6 @@ public class ConstructNodes {
 	            int numArgs = Integer.parseInt(Args);
 	            	commandArguments.put(key, numArgs);
 	    }
-	    System.out.println(commandArguments);
-	    System.out.println(commandArguments.get("Forward"));
 	}
 	
 	protected void addNode(Node toAdd) {

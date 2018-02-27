@@ -22,4 +22,8 @@ public class UserCommands {
 		}	
 	}
 	
+	public Map<String, List<Node>> getMyCommands(){
+		return myCommands;
+	}
+	
 }
