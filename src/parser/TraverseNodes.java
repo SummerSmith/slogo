@@ -20,39 +20,17 @@ public class TraverseNodes {
 		nodes = allNodes;
 	}
 	
-	protected List<Node> createTree(Node curr) {
-		int index = 0;
-//		System.out.println("curr: " + curr + " " + curr.getNumChildren());
-		while (index < nodes.size()-1) {
-			temp.add(curr);
-//			System.out.println("temp: " + temp);
-			index += curr.addChildren(nodes, index);
+	int index = 0;
+	protected void createTree(Node curr) {
+		temp.add(curr);
+		index += curr.addChildren(nodes, index) + 1;
+		if(index < nodes.size()) {
+			createTree(nodes.get(index));
 		}
-		System.out.println(temp);
-		return temp;
 	}
 	
-	//this method was for an old approach that does not work
-//	private double recurse(List<Node> nodes) {
-//		List<Node> nextList = new ArrayList<>();
-//		for(int i = 0; i < nodes.size(); i++) {
-//			if (nodes.get(i) instanceof CommandNode && completeCommand.check(nodes, i)) {
-//				nextList.add(new ArgumentNode(executor.executeCommand(t, nodes, i)));
-//			}
-//			else if (nodes.get(i) instanceof RepeatNode) {
-//				i++;
-//				count = 0;
-//				for(int x = 0; x < ((ArgumentNode)(nodes.get(i))).getArgument(); x++) {
-//					i++;
-//					count += recurse(((GroupNode)(nodes.get(i))).getGroupNodes());
-//				}
-//				nextList.add(new ArgumentNode(Double.toString(count)));
-//			}
-//		}
-//		if(nextList.size() != 1) {
-//			recurse(nextList);
-//		}
-//		return ((ArgumentNode)nextList.get(0)).getArgument();
-//	}
+	protected List<Node> getTemp(){
+		return temp;
+	}
 	
 }

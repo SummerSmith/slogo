@@ -18,14 +18,17 @@ import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.VariableNode;
 import turtle.Turtle;
+import user_data.UserCommands;
 
 public class DetermineNodeType {
 	
 	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.nodes/Nodes";
+	UserCommands userCommands;
 
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
+		userCommands = new UserCommands();
 		makeMap();
 	}
 	
@@ -39,8 +42,8 @@ public class DetermineNodeType {
 	    }
 	}
 	
-	protected Node nodeType(String nodeType, String content, Turtle turtle) {
-		System.out.println(content);
+	protected Node getNodeType(String nodeType, String content, Turtle turtle) {
+//		System.out.println(content);
 		if(nodeType.equalsIgnoreCase("Command")) {
 			return makeCommandNode(content, turtle);
 		}
@@ -85,6 +88,9 @@ public class DetermineNodeType {
 		}
 		else if(content.equalsIgnoreCase("list")) {
 			return new ListNode(content, turtle);
+		}
+		else if(userCommands.getMyCommands().keySet().contains(content)) {
+			return new UserCommandNode(content, turtle);
 		}
 		else {
 			return new CommandNode(content, turtle);
