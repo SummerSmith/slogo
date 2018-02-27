@@ -17,6 +17,7 @@ import nodes.IfNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.VariableNode;
+import turtle.Turtle;
 
 public class DetermineNodeType {
 	
@@ -38,55 +39,56 @@ public class DetermineNodeType {
 	    }
 	}
 	
-	protected Node nodeType(String nodeType, String content) {
+	protected Node nodeType(String nodeType, String content, Turtle turtle) {
 		System.out.println(content);
 		if(nodeType.equalsIgnoreCase("Command")) {
-			return makeCommandNode(content);
+			return makeCommandNode(content, turtle);
 		}
 		else if (nodeType.equalsIgnoreCase("Constant")) {
-			return new ArgumentNode(content); 
+			return new ArgumentNode(content, turtle); 
 		}
 		else if(nodeType.equalsIgnoreCase("Variable")) {
-			return new VariableNode(content);
+			return new VariableNode(content, turtle);
 		}
 		return null;
 	}
 	
-	private Node makeCommandNode(String content) {
+	private Node makeCommandNode(String content, Turtle turtle) {
 //		if(specialCommandNodes.containsKey(content)) {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
 //		}
 		
 		if(content.equalsIgnoreCase("group")) {
-			return new GroupNode(content);
+			return new GroupNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("for")) {
-			return new ForLoopNode(content);
+			return new ForLoopNode(content, turtle);
 		}
 		else if (content.equalsIgnoreCase("repeat")) {
-			return new RepeatNode(content);
+			return new RepeatNode(content, turtle);
 		}
 		else if (content.equalsIgnoreCase("dotimes")) {
-			return new DoTimesNode(content);
+			return new DoTimesNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("ifelse")) {
-			return new IfElseNode(content);
+			return new IfElseNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("makevariable")) {
-			return new VariableNode(content);
+			return new VariableNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("to")) {
-			return new ToNode(content);
+			return new ToNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("if")) {
-			return new IfNode(content);
+			return new IfNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("list")) {
-			return new ListNode(content);
+			return new ListNode(content, turtle);
 		}
 		else {
-			return new CommandNode(content);
+			return new CommandNode(content, turtle);
 		}
 	}
+
 }
