@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class HOME implements Command{
-	public HOME() {
+public class Home implements Command{
+	public Home() {
 		//do something here
 	}
 	

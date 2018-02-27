@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class TOWARDS implements Command{
-	public TOWARDS() {
+public class SetTowards implements Command{
+	public SetTowards() {
 		//do something here
 	}
 	

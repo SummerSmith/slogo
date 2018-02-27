@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class SETHEADING implements Command{
-	public SETHEADING() {
+public class SetHeading implements Command{
+	public SetHeading() {
 		//do something here
 	}
 	

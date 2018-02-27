@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class RIGHT implements Command{
-	public RIGHT() {
+public class Right implements Command{
+	public Right() {
 		//do something here
 	}
 	
@@ -13,7 +13,7 @@ public class RIGHT implements Command{
 	public double Execute(Turtle turtle, List<Double> args) {
 		double degrees = turtle.getHeading();
 		double new_degrees = degrees - args.get(0);
-		turtle.setHeading(degrees);
+		turtle.setHeading(new_degrees);
 		return args.get(0);
 	}
 }

@@ -15,14 +15,14 @@ public class Turtle {
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private final double INITIAL_HEADING = 0;
 	private List<Point> nextPoints;
-	private Scene scene;
+	private double isVisible;
 	
-	public Turtle(Scene scene) {
-		this.scene = scene;
+	public Turtle(double isVisible) {
 		location = INITIAL_POINT;
 		heading = INITIAL_HEADING;
 		turtleIsShown = true;
 		penDown = true;
+		this.isVisible = isVisible;
 		createLists();
 	}
 	
@@ -92,7 +92,10 @@ public class Turtle {
 		nextPoints.addAll(c);
 	}
 	
-	public Scene getScene() {
-		return scene;
+	public void setVisible(double isVisible) {
+		this.isVisible = isVisible;
+	}
+	public double getVisible() {
+		return isVisible;
 	}
 }
