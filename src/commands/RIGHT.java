@@ -10,10 +10,10 @@ public class RIGHT implements Command{
 	}
 	
 	@Override
-	public void Execute(Turtle turtle, List<Double> args) {
+	public double Execute(Turtle turtle, List<Double> args) {
 		double degrees = turtle.getHeading();
 		double new_degrees = degrees - args.get(0);
 		turtle.setHeading(degrees);
-		//return new Double(distance);
+		return args.get(0);
 	}
 }

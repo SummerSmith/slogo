@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javafx.scene.Scene;
+
 public class Turtle {	
 	private Point location;
 	private double heading;
@@ -13,8 +15,10 @@ public class Turtle {
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private final double INITIAL_HEADING = 0;
 	private List<Point> nextPoints;
+	private Scene scene;
 	
-	public Turtle() {
+	public Turtle(Scene scene) {
+		this.scene = scene;
 		location = INITIAL_POINT;
 		heading = INITIAL_HEADING;
 		turtleIsShown = true;
@@ -86,5 +90,9 @@ public class Turtle {
 	
 	public void addNextPoints(Collection<Point> c) {
 		nextPoints.addAll(c);
+	}
+	
+	public Scene getScene() {
+		return scene;
 	}
 }

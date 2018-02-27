@@ -9,11 +9,10 @@ public class LEFT implements Command{
 		//do something here
 	}
 	
-	@Override
-	public void Execute(Turtle turtle, List<Double> args) {
+	public double Execute(Turtle turtle, List<Double> args) {
 		double degrees = turtle.getHeading();
 		double new_degrees = degrees + args.get(0);
-		turtle.setHeading(degrees);
-		//return new Double(distance);
+		turtle.setHeading(new_degrees);
+		return args.get(0);
 	}
 }

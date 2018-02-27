@@ -9,8 +9,7 @@ public class FORWARD implements Command{
 
 	}
 	
-	@Override
-	public void Execute(Turtle turtle, List<Double> args) {
+	public double Execute(Turtle turtle, List<Double> args) {
 		double x_original = turtle.getXLocation();
 		double y_original = turtle.getYLocation();
 		Double direction = turtle.getHeading();
@@ -22,6 +21,6 @@ public class FORWARD implements Command{
 		Point next_point = new Point();
 		next_point.setLocation(x_next, y_next);
 		turtle.addNextPoint(next_point);
-		//return new Double(distance);
+		return distance;
 	}
 }
