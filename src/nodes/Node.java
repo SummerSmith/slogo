@@ -1,5 +1,6 @@
 package nodes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import turtle.Turtle;
@@ -14,21 +15,23 @@ public abstract class Node {
 	public Node(String name, Turtle t) {
 		type = name;
 		myTurtle = t;
+		myChildren = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {
-		for(int i = index + 1; i < index + this.getNumChildren(); i++) {
-			myChildren.add(nodes.get(i));
-			index += nodes.get(i).addChildren(nodes, index);
+		for(int i = 1; i <= this.getNumChildren(); i++) {
+			Node child = nodes.get(index + i);
+			myChildren.add(child);
+			child.addChildren(nodes, index+i);
 		}
-		return index;
+		return this.getNumChildren();
 	}
 	
 	public abstract double evaluate();
 	
 	public String getType() {
-		return type + " " + this.getNumChildren();
+		return type;
 	}
 
 	public List<Node> getChildren(){
