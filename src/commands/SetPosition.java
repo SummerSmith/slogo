@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class SETXY implements Command{
-	public SETXY() {
+public class SetPosition implements Command{
+	public SetPosition() {
 		//do something here
 	}
 	

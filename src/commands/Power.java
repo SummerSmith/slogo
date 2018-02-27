@@ -4,14 +4,12 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class PENDOWN implements Command{
-	public PENDOWN() {
+public class Power implements Command{
+	public Power() {
 		//do something here
 	}
 	
-	@Override
 	public double Execute(Turtle turtle, List<Double> args) {
-		turtle.setPenDown(true);
-		return 1;
+		return Math.pow(args.get(0),args.get(1));
 	}
 }

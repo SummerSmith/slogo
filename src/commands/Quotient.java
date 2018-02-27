@@ -4,12 +4,12 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class PENDOWNP implements Command{
-	public PENDOWNP() {
+public class Quotient implements Command{
+	public Quotient() {
 		//do something here
 	}
 	
 	public double Execute(Turtle turtle, List<Double> args) {
-		return turtle.getHeading() == 0 ? 1 : 0;
+		return args.get(0) / args.get(1);
 	}
 }

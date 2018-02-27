@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class BACK implements Command{
-	public BACK() {
+public class Backward implements Command{
+	public Backward() {
 		//do something here
 	}
 	

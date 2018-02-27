@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class LEFT implements Command{
-	public LEFT() {
+public class Left implements Command{
+	public Left() {
 		//do something here
 	}
 	

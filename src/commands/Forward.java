@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import turtle.Turtle;
 
-public class FORWARD implements Command{
-	public FORWARD() {
+public class Forward implements Command{
+	public Forward() {
 
 	}
 	
