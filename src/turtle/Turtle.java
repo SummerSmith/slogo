@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Turtle {
-		
+public class Turtle {	
 	private Point location;
 	private double heading;
 	private boolean turtleIsShown;
@@ -35,20 +34,22 @@ public class Turtle {
 		location = new_location;
 	}
 
-	public int getXLocation() {
-		return location.x;
+	public double getXLocation() {
+		return location.getX();
 	}
 
-	public void setXLocation(int x) {
-		location.x = x;
+	public void setXLocation(double x) {
+		double y = location.getY();
+		location.setLocation(x,y);
 	}
 
-	public int getYLocation() {
-		return location.y;
+	public double getYLocation() {
+		return location.getY();
 	}
 	
-	public void setYLocation(int y) {
-		location.y = y;
+	public void setYLocation(double y) {
+		double x = location.getX();
+		location.setLocation(x,y);
 	}
 	
 	public double getHeading() {
