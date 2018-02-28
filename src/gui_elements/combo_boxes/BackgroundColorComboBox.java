@@ -13,21 +13,23 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class BackgroundColorComboBox extends ComboBoxes {
 	
 	private static final String PROPERTIES_FILENAME = "background_color_combo_box.properties";
 	private final String FULL_COLOR_MAP_FILENAME = "data/color_map.properties";
 	private ComboBox myComboBox;
-	private BorderPane myBorderPane;
+	private Pane myPane;
 	private Map<String, String> color_map;
 	private Properties color_properties;
 	private InputStream input;
+	private int WHITE = 0;
 	
-	public BackgroundColorComboBox(ComboBox comboBox, Parent borderPane, Group root) {
+	public BackgroundColorComboBox(ComboBox comboBox, Parent pane, Group root) {
 		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
-		myBorderPane = (BorderPane) borderPane;
+		myPane = (Pane) pane;
 		initialize();
 	}
 	
@@ -61,13 +63,13 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	}
 	
 	private void setDefaultBackgroundColor() {
-		myComboBox.getSelectionModel().select(0);
+		myComboBox.getSelectionModel().select(WHITE);
 	}
 	
 	private void chooseBackgroundColor() {
     	myComboBox.setOnAction((Event ev) -> {
     		String color = (String) myComboBox.getSelectionModel().getSelectedItem();
-    		myBorderPane.setStyle(color_map.get(color));
+    		myPane.setStyle(color_map.get(color));
     	});
 	}
 }

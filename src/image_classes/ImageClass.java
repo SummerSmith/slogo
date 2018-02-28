@@ -44,7 +44,6 @@ public class ImageClass {
 	private void initialize() {
 		getProperties();
 		createImage();
-		addImage();
 	}
 	
 	private void getProperties() {
@@ -60,13 +59,15 @@ public class ImageClass {
     		image_xloc = Integer.parseInt(image_properties.getProperty(IMAGE_XLOC_PROPERTY));
     		image_yloc = Integer.parseInt(image_properties.getProperty(IMAGE_YLOC_PROPERTY));
      	} catch (IOException ex) {
-    		ex.printStackTrace();
+     		System.err.println("Image file input does not exist!");
+     	} catch (Exception ey) {
+     		System.err.println("Some image properties do not exist!");
     	} finally {
     		if (input != null) {
     			try {
     				input.close();
     			} catch (IOException e) {
-    				e.printStackTrace();
+    				System.err.println("Image file input cannot close!");
     			}
     		}
     	}
@@ -80,10 +81,6 @@ public class ImageClass {
 	    imageView.setY(image_yloc);
 	    imageView.setFitWidth(image_width);
 	    imageView.setFitHeight(image_height);
-	}
-	
-	private void addImage() {
-	    root.getChildren().add(imageView);
 	}
 	
 	public ImageView getImageView() {
