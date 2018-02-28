@@ -2,6 +2,9 @@ package slogo_team12;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import parser.ConstructNodes;
+import parser.ProcessString;
 import turtle.Turtle;
 import windows.CommandWindow;
 import windows.TurtleWindow;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -38,6 +42,9 @@ import gui_elements.labels.UserCommandsLabel;
 import gui_elements.labels.UserHistoryLabel;
 import gui_elements.labels.UserVariablesLabel;
 import image_classes.ImageClass;
+import image_classes.SLogoImageClass;
+import image_classes.TurtleImageClass;
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -50,6 +57,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -75,9 +83,10 @@ public class Display extends Application {
     private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
     private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
+    private final int FRAMES_PER_SECOND = 2;
+    private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
     private String title;
-	private String slogo_image_name = "slogo_image";
-	private String turtle_image_name = "turtle_image";
+    private static String myLanguage = "English";
 	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
     private boolean setIntroLabels = true;
     private Stage stage;
@@ -108,6 +117,9 @@ public class Display extends Application {
 	private TurtleImageComboBox turtle_image_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
+    private Timeline animation;
+    private int time_delay = INITIAL_TIME_DELAY;
+    private static boolean runButtonPressed = false;
 	
 	// Additional setup for the display
     private Scene myScene;
@@ -127,18 +139,46 @@ public class Display extends Application {
      */
     private void initialize() {
     	root = new Group();
-    	setProperties();
+    	getProperties();
         myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
         setStage();
     	setImages();
         setGUIComponents();
+        KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
+                e -> step());
+        Timeline animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        this.animation = animation;
+        animation.play();
     }
 
+    private void step() {
+//    	System.out.println("Hello");
+//    	System.out.println(turtle_image_object.getImageView().getLayoutX());
+//    	System.out.println(turtle_image_object.getImageView().getLayoutY());
+//    	turtle_image_object.getImageView().setLayoutY(- 5);    	
+//    	turtle_image_object.getImageView().setLayoutX(turtle_image_object.getImageView().getLayoutX());
+    	turtle_image_object.getImageView().setLayoutY(turtle_image_object.getImageView().getLayoutY() - 5);
+    	if(runButtonPressed) {
+    		String text = CommandWindow.getText();
+    		List<String> command_strings = ProcessString.processString(text);
+    		try {
+				ConstructNodes nodes = new ConstructNodes(turtle, command_strings, myLanguage);
+				
+			} catch (Exception e) {
+				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+			}
+    		CommandWindow.clearWindow();
+    		runButtonPressed = false;
+    	}
+    }
+    
     /**
-     * Reads in properties from a property file and sets the  
+     * Reads in properties from a property file and gets the  
      * screen properties.
      */
-    private void setProperties() {
+    private void getProperties() {
     	menu_properties = new Properties();
     	input = null;
      	try {
@@ -148,13 +188,15 @@ public class Display extends Application {
     		screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
     		screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
      	} catch (IOException ex) {
-    		ex.printStackTrace();
+    		System.err.println("Display file input does not exist!");
+     	} catch (Exception ey) {     		
+			System.err.println("The properties for the display could not be retrieved completely.");
     	} finally {
     		if (input != null) {
     			try {
     				input.close();
     			} catch (IOException e) {
-    				e.printStackTrace();
+    				System.err.println("Display file input cannot close!");
     			}
     		}
     	}
@@ -232,8 +274,8 @@ public class Display extends Application {
      * Sets the images for the display.
      */
     private void setImages() {
-    	slogo_image_object = new ImageClass(slogo_image_name, root);
-    	turtle_image_object = new ImageClass(turtle_image_name, root);
+    	slogo_image_object = new SLogoImageClass(root);
+    	turtle_image_object = new TurtleImageClass(root);
     }
     
     /**
@@ -250,6 +292,14 @@ public class Display extends Application {
     	return screen_height;
     }
 
+    public static void setRunButtonPressed() {
+    	runButtonPressed = true;
+    }
+    
+    public static void setLanguage(String language) {
+    	myLanguage = language;
+    }
+    
     /**
      * Starts the program.
      */

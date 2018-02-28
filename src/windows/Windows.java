@@ -12,7 +12,9 @@ public abstract class Windows {
 	protected final String WIDTH = "width";
 	protected final String HEIGHT = "height";
 	protected final String DIRECTORY_STRING = "data/windows_properties/";
-	protected int x, y, width, height;
+	protected int x, y;
+	protected static int width;
+	protected static int height;
 	protected Properties properties;
 	protected InputStream input;	
 		
