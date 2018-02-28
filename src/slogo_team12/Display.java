@@ -13,6 +13,7 @@ import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
 import windows.Windows;
 
+import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,6 +58,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -83,16 +85,21 @@ public class Display extends Application {
     private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
     private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
+    private static String myLanguage = "English";
+    private static String pen_color;
+    private String title;
     private final int FRAMES_PER_SECOND = 2;
     private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
-    private String title;
-    private static String myLanguage = "English";
-	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
+    private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
+    private int time_delay = INITIAL_TIME_DELAY;
+    private static boolean runButtonPressed;
+    private static boolean pen_down;
     private boolean setIntroLabels = true;
+    private List<Turtle> turtle_list = new ArrayList<Turtle>();
+    private Turtle current_turtle;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
-	private Turtle turtle;
 	private CommandWindow command_window;
 	private TurtleWindow turtle_window;
 	private UserHistoryWindow user_history_window;
@@ -118,8 +125,7 @@ public class Display extends Application {
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
-    private int time_delay = INITIAL_TIME_DELAY;
-    private static boolean runButtonPressed = false;
+    private ImageView imageView;
 	
 	// Additional setup for the display
     private Scene myScene;
@@ -131,6 +137,8 @@ public class Display extends Application {
     @Override
     public void start(Stage stage) {
     	this.stage = stage;
+    	current_turtle = new Turtle();
+    	turtle_list.add(current_turtle);
     	initialize();
     }
 
@@ -144,6 +152,8 @@ public class Display extends Application {
         setStage();
     	setImages();
         setGUIComponents();
+        setRunButtonPressed(false);
+        setPenDown(true);
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -154,24 +164,41 @@ public class Display extends Application {
     }
 
     private void step() {
-//    	System.out.println("Hello");
-//    	System.out.println(turtle_image_object.getImageView().getLayoutX());
-//    	System.out.println(turtle_image_object.getImageView().getLayoutY());
-//    	turtle_image_object.getImageView().setLayoutY(- 5);    	
-//    	turtle_image_object.getImageView().setLayoutX(turtle_image_object.getImageView().getLayoutX());
-    	turtle_image_object.getImageView().setLayoutY(turtle_image_object.getImageView().getLayoutY() - 5);
     	if(runButtonPressed) {
     		String text = CommandWindow.getText();
     		List<String> command_strings = ProcessString.processString(text);
     		try {
-				ConstructNodes nodes = new ConstructNodes(turtle, command_strings, myLanguage);
-				
-			} catch (Exception e) {
+				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
+				updateTurtle();
+				if(pen_down)
+					drawLine(current_turtle.getNextPoints());
+    		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
 			}
     		CommandWindow.clearWindow();
     		runButtonPressed = false;
     	}
+    }
+    
+    private void drawLine(List<Point> nextPoints) {
+    	for(int i = 0; i < nextPoints.size() - 1; i++) {
+    		Point curr_point = nextPoints.get(i);
+    		Point next_point = nextPoints.get(i + 1);
+    		int x_offset = (int) ((int) TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2);
+    		int y_offset = (int) ((int) TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2);
+    		Line line = new Line(curr_point.x + x_offset, 
+    							 curr_point.y + y_offset, 
+    							 next_point.x + x_offset, 
+    							 next_point.y + y_offset);
+    		line.setStyle(pen_color);
+    		TurtleWindow.getPaneRoot().getChildren().add(line);
+    	}
+	}
+
+	private void updateTurtle() {
+    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
+    	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
+    	imageView.setRotate(current_turtle.getHeading());
     }
     
     /**
@@ -217,8 +244,8 @@ public class Display extends Application {
      * Sets up screen windows.
      */
     private void setWindows() {
-    	command_window = new CommandWindow(turtle, root);
-    	turtle_window = new TurtleWindow(turtle, root, turtle_image_object.getImageView());
+    	command_window = new CommandWindow(current_turtle, root);
+    	turtle_window = new TurtleWindow(current_turtle, root, turtle_image_object.getImageView());
     	user_variables_window = new UserVariablesWindow(root);
     	user_history_window = new UserHistoryWindow(root);
     	user_commands_window = new UserCommandsWindow(root);
@@ -254,7 +281,7 @@ public class Display extends Application {
      * Sets up screen comboBoxes.
      */
     private void setComboBoxes() {
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root);
+    	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
     	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
@@ -276,6 +303,7 @@ public class Display extends Application {
     private void setImages() {
     	slogo_image_object = new SLogoImageClass(root);
     	turtle_image_object = new TurtleImageClass(root);
+    	imageView = turtle_image_object.getImageView();
     }
     
     /**
@@ -292,14 +320,29 @@ public class Display extends Application {
     	return screen_height;
     }
 
-    public static void setRunButtonPressed() {
-    	runButtonPressed = true;
+    public static void setRunButtonPressed(boolean buttonPressedState) {
+    	runButtonPressed = buttonPressedState;
     }
     
     public static void setLanguage(String language) {
     	myLanguage = language;
     }
     
+    public static String getPenColor() {
+    	return pen_color;
+    }
+    public static void setPenColor(String color) {
+    	pen_color = color;
+    }
+    
+	public static boolean getPenDown() {
+		return pen_down;
+	}
+	
+	public static void setPenDown(boolean pen_state) {
+		pen_down = pen_state;
+	}
+
     /**
      * Starts the program.
      */
