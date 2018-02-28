@@ -8,36 +8,16 @@ import windows.TurtleWindow;
 import windows.UserCommandsWindow;
 import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
-import windows.Windows;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Properties;
 
-import gui_elements.buttons.ClearButton;
-import gui_elements.buttons.RunButton;
-import gui_elements.buttons.SaveMethodButton;
-import gui_elements.buttons.UserAPIButton;
-import gui_elements.combo_boxes.BackgroundColorComboBox;
+import gui_elements.buttons.Buttons;
 import gui_elements.combo_boxes.ComboBoxes;
-import gui_elements.combo_boxes.LanguageComboBox;
-import gui_elements.combo_boxes.PenColorComboBox;
-import gui_elements.combo_boxes.TurtleImageComboBox;
-import gui_elements.labels.BackgroundColorLabel;
-import gui_elements.labels.CommandWindowLabel;
-import gui_elements.labels.LanguageLabel;
-import gui_elements.labels.PenColorLabel;
-import gui_elements.labels.TurtleDisplayLabel;
-import gui_elements.labels.TurtleImageLabel;
-import gui_elements.labels.UserAPILabel;
-import gui_elements.labels.UserCommandsLabel;
-import gui_elements.labels.UserHistoryLabel;
-import gui_elements.labels.UserVariablesLabel;
-import image_classes.ImageClass;
+import gui_elements.labels.Labels;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -65,7 +45,7 @@ import javafx.stage.Stage;
  */
 public class Display extends Application {
 
-    private final Paint BACKGROUND = Color.BLACK;
+    private final Paint BACKGROUND = Color.WHITE;
     private final String PROPERTY_FILENAME = "data/display.properties";
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
@@ -76,38 +56,20 @@ public class Display extends Application {
     private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
     private String title;
-	private String slogo_image_name = "slogo_image";
-	private String turtle_image_name = "turtle_image";
-	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
+    private String image_name;
+    private int screen_width;
+    private int screen_height;
+    private int image_width;
+    private int image_height;
+    private int image_xloc;
+    private int image_yloc;
     private boolean setIntroLabels = true;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
+	private Image image;
+	private ImageView imageView;
 	private Turtle turtle;
-	private CommandWindow command_window;
-	private TurtleWindow turtle_window;
-	private UserHistoryWindow user_history_window;
-	private UserCommandsWindow user_commands_window;
-	private UserVariablesWindow user_variables_window;
-	private PenColorLabel pen_color_label;
-	private BackgroundColorLabel background_color_label;
-	private TurtleImageLabel turtle_image_label;
-	private LanguageLabel language_label;
-	private TurtleDisplayLabel turtle_display_label;
-	private CommandWindowLabel command_window_label;
-	private UserVariablesLabel user_variables_label;
-	private UserCommandsLabel user_commands_label;
-	private UserHistoryLabel user_history_label;
-	private UserAPILabel user_api_label;
-	private ClearButton clear_button;
-	private RunButton run_button;
-	private UserAPIButton user_api_button;
-	private SaveMethodButton save_method_button;
-	private PenColorComboBox pen_color_combobox;
-	private BackgroundColorComboBox background_color_combobox;
-	private TurtleImageComboBox turtle_image_combobox;
-	private LanguageComboBox language_combobox;
-	private ImageClass slogo_image_object, turtle_image_object;
 	
 	// Additional setup for the display
     private Scene myScene;
@@ -130,8 +92,8 @@ public class Display extends Application {
     	setProperties();
         myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
         setStage();
-    	setImages();
         setGUIComponents();
+    	setImage();
     }
 
     /**
@@ -147,6 +109,11 @@ public class Display extends Application {
     		title = menu_properties.getProperty(TITLE_PROPERTY);
     		screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
     		screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
+    		image_name = menu_properties.getProperty(IMAGE_PROPERTY);
+    		image_width = Integer.parseInt(menu_properties.getProperty(IMAGE_WIDTH_PROPERTY));
+    		image_height = Integer.parseInt(menu_properties.getProperty(IMAGE_HEIGHT_PROPERTY));
+    		image_xloc = Integer.parseInt(menu_properties.getProperty(IMAGE_XLOC_PROPERTY));
+    		image_yloc = Integer.parseInt(menu_properties.getProperty(IMAGE_YLOC_PROPERTY));
      	} catch (IOException ex) {
     		ex.printStackTrace();
     	} finally {
@@ -171,51 +138,40 @@ public class Display extends Application {
     	setComboBoxes();
     }
     
-    /*
-     * Sets up screen windows.
-     */
     private void setWindows() {
-    	command_window = new CommandWindow(turtle, root);
-    	turtle_window = new TurtleWindow(turtle, root, turtle_image_object.getImageView());
-    	user_variables_window = new UserVariablesWindow(root);
-    	user_history_window = new UserHistoryWindow(root);
-    	user_commands_window = new UserCommandsWindow(root);
+    	TurtleWindow tw = new TurtleWindow(turtle, root);
+    	CommandWindow cw = new CommandWindow(root);
+    	UserVariablesWindow uvw = new UserVariablesWindow(root);
+    	UserHistoryWindow uhw = new UserHistoryWindow(root);
+    	UserCommandsWindow ucw = new UserCommandsWindow(root);
     }
-
-    /*
-     * Sets up screen labels.
-     */
+    
     private void setLabels() {
-    	pen_color_label = new PenColorLabel(new Label(), root);
-    	background_color_label = new BackgroundColorLabel(new Label(), root);
-    	turtle_image_label = new TurtleImageLabel(new Label(), root);
-    	language_label = new LanguageLabel(new Label(), root);
-    	turtle_display_label = new TurtleDisplayLabel(new Label(), root);
-    	command_window_label = new CommandWindowLabel(new Label(), root);
-    	user_variables_label = new UserVariablesLabel(new Label(), root);
-    	user_commands_label = new UserCommandsLabel(new Label(), root);
-    	user_history_label = new UserHistoryLabel(new Label(), root);
-    	user_api_label = new UserAPILabel(new Label(), root);
+    	SLogoLabel sll = new SlogoLabel(root);
+    	PenColorLabel pcl = new PenColorLabel(root);
+    	BackgroundColorLabel bcl = new BackgroundColorLabel(root);
+    	TurtleImageLabel til = new TurtleImageLabel(root);
+    	UserAPILabel ual = new UserAPILabel(root);
+    	LanguageLabel ll = new LanguageLabel(root);
+    	TurtleDisplayLabel tdl = new TurtleDisplayLabel(root);
+    	CommandWindowLabel cwl = new CommandWindowLabel(root);
+    	UserVariablesLabel uvl = new UserVariablesLabel(root);
+    	UserCommandsLabel ucl = new UserCommandsLabel(root);
+    	UserHistoryLabel uhl = new UserHistoryLabel(root);
     }
 
-    /*
-     * Sets up screen buttons.
-     */
     private void setButtons() {
-    	clear_button = new ClearButton(new Button(), root);
-    	run_button = new RunButton(new Button(), root);
-    	save_method_button = new SaveMethodButton(new Button(), root);
-    	user_api_button = new UserAPIButton(new Button(), root);
+    	ClearButton cb = new ClearButton(root);
+    	RunButton rb = new RunButton(root);
+    	SaveMethodButton smb = new SaveMethodButton(root);
+    	UserAPIButton uab = new UserAPIButton(root);
     }
 
-    /*
-     * Sets up screen comboBoxes.
-     */
     private void setComboBoxes() {
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root);
-    	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
-    	language_combobox = new LanguageComboBox(new ComboBox(), root);
+    	PenColorComboBox pccb = new PenColorComboBox(root);
+    	BackgroundColorComboBox bccb = new BackgroundColorComboBox(root);
+    	TurtleImageComboBox ticb = new TurtleImageComboBox(root);
+    	LanguageComboBox lcb = new LanguageComboBox(root);
     }
 
     /**
@@ -229,11 +185,16 @@ public class Display extends Application {
     }
         
     /**
-     * Sets the images for the display.
+     * Sets the image for the display.
      */
-    private void setImages() {
-    	slogo_image_object = new ImageClass(slogo_image_name, root);
-    	turtle_image_object = new ImageClass(turtle_image_name, root);
+    private void setImage() {
+        image = new Image(getClass().getClassLoader().getResourceAsStream(image_name));
+        imageView = new ImageView(image);
+        imageView.setX(image_xloc);
+        imageView.setY(image_yloc);
+        imageView.setFitWidth(image_width);
+        imageView.setFitHeight(image_height);
+        root.getChildren().add(imageView);
     }
     
     /**
