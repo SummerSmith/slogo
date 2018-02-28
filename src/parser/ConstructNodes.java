@@ -60,7 +60,7 @@ public class ConstructNodes {
 //			}
 //		}
 		System.out.println(headNodes);
-		executor.executeCommands(headNodes);
+//		executor.executeCommands(headNodes);
 	}
 	
 	protected List<Node> getHeadNodes(){
