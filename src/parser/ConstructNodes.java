@@ -25,6 +25,7 @@ public class ConstructNodes {
 	
 	DetermineNodeType determineNodeType;
 	TraverseNodes traverse;
+	Executor executor;
 	private Map<String, Integer> commandArguments;
 	private final String path = "resources.languages/";
 	private final String file = "resources.nodes/NumArguments";
@@ -40,6 +41,7 @@ public class ConstructNodes {
 		determineNodeType = new DetermineNodeType();
 		nodes = new ArrayList<>();
 		headNodes = new ArrayList<>();
+		executor = new Executor(); 
 		parse();
 	}
 	
@@ -58,6 +60,7 @@ public class ConstructNodes {
 //			}
 //		}
 		System.out.println(headNodes);
+		executor.executeCommands(headNodes);
 	}
 	
 	protected List<Node> getHeadNodes(){
@@ -124,6 +127,7 @@ public class ConstructNodes {
 //		System.out.println(input);
 		for(int i = 0; i<input.size(); i++) {
 			String identity = getSymbol(input.get(i).toLowerCase());
+//			System.out.println("identity: " + identity);
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
@@ -132,6 +136,9 @@ public class ConstructNodes {
 			if(commandArguments.containsKey(temp.getType())) {
 				temp.setNumChildren(commandArguments.get(temp.getType()));
 			}
+//			else if (temp instanceof UserCommandNode) {
+//				
+//			}
 			else {
 				temp.setNumChildren(0);
 			}
