@@ -12,10 +12,10 @@ import nodes.ArgumentNode;
 import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
-import nodes.ListNode;
 import nodes.IfNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
+import nodes.UserCommandNode;
 import nodes.VariableNode;
 import turtle.Turtle;
 import user_data.UserCommands;
@@ -86,12 +86,9 @@ public class DetermineNodeType {
 		else if(content.equalsIgnoreCase("if")) {
 			return new IfNode(content, turtle);
 		}
-		else if(content.equalsIgnoreCase("list")) {
-			return new ListNode(content, turtle);
+		else if(userCommands.getCommandsMap().keySet().contains(content)) {
+			return new UserCommandNode(content, turtle);
 		}
-//		else if(userCommands.getMyCommands().keySet().contains(content)) {
-//			return new UserCommandNode(content, turtle);
-//		}
 		else {
 			return new CommandNode(content, turtle);
 		}

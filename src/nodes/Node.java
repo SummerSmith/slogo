@@ -16,7 +16,6 @@ public abstract class Node {
 		type = name;
 		myTurtle = t;
 		myChildren = new ArrayList<>();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {

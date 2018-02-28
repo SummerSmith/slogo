@@ -12,10 +12,11 @@ public class Home implements Command{
 	public double Execute(Turtle turtle, List<Double> args) {
 		double original_x = turtle.getXLocation();
 		double original_y = turtle.getYLocation();
-		Point center = new Point(0,0);
-		turtle.setLocation(center);
-		turtle.addNextPoint(center);
-		double distance = Math.sqrt( original_x * original_x + original_y * original_y );
-		return distance;
+		turtle.resetLocation();
+		Point new_point = turtle.getLocation();
+		turtle.addNextPoint(new_point);
+		double dis_x = original_x - new_point.x;
+		double dis_y = original_y - new_point.y;
+		return Math.sqrt( dis_x * dis_x + dis_y * dis_y );
 	}
 }
