@@ -14,6 +14,6 @@ public class SetHeading implements Command{
 		double original_heading = turtle.getHeading();
 		double new_heading = args.get(0);
 		turtle.setHeading(new_heading);
-		return Math.abs(new_heading - original_heading);
+		return Math.abs(Math.abs(new_heading - original_heading));
 	}
 }
