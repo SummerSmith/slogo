@@ -2,6 +2,8 @@ package commands;
 
 import java.awt.Point;
 import java.util.List;
+
+import slogo_team12.Display;
 import turtle.Turtle;
 
 public class PenDown implements Command{
@@ -11,7 +13,7 @@ public class PenDown implements Command{
 	
 	@Override
 	public double Execute(Turtle turtle, List<Double> args) {
-		turtle.setPenDown(true);
+		Display.setPenDown(true);
 		return 1;
 	}
 }

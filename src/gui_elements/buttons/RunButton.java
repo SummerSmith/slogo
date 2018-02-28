@@ -20,7 +20,7 @@ public class RunButton extends DefaultButton {
 	@Override
 	public void setButtonAction() {
     	myButton.setOnAction(value -> {
-    		Display.setRunButtonPressed();
+    		Display.setRunButtonPressed(true);
     	});
 	}
 }

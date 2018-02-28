@@ -85,11 +85,15 @@ public class Display extends Application {
     private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
     private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
+    private static String myLanguage = "English";
+    private static String pen_color;
+    private String title;
     private final int FRAMES_PER_SECOND = 2;
     private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
-    private String title;
-    private static String myLanguage = "English";
-	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
+    private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
+    private int time_delay = INITIAL_TIME_DELAY;
+    private static boolean runButtonPressed;
+    private static boolean pen_down;
     private boolean setIntroLabels = true;
     private List<Turtle> turtle_list = new ArrayList<Turtle>();
     private Turtle current_turtle;
@@ -121,9 +125,7 @@ public class Display extends Application {
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
-    private int time_delay = INITIAL_TIME_DELAY;
     private ImageView imageView;
-    private static boolean runButtonPressed = false;
 	
 	// Additional setup for the display
     private Scene myScene;
@@ -150,6 +152,8 @@ public class Display extends Application {
         setStage();
     	setImages();
         setGUIComponents();
+        setRunButtonPressed(false);
+        setPenDown(true);
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -166,7 +170,8 @@ public class Display extends Application {
     		try {
 				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
 				updateTurtle();
-				drawLine(current_turtle.getNextPoints());
+				if(pen_down)
+					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
 			}
@@ -185,7 +190,7 @@ public class Display extends Application {
     							 curr_point.y + y_offset, 
     							 next_point.x + x_offset, 
     							 next_point.y + y_offset);
-    		line.setFill(Color.RED);
+    		line.setStyle(pen_color);
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
@@ -276,7 +281,7 @@ public class Display extends Application {
      * Sets up screen comboBoxes.
      */
     private void setComboBoxes() {
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root);
+    	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
     	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
@@ -315,14 +320,29 @@ public class Display extends Application {
     	return screen_height;
     }
 
-    public static void setRunButtonPressed() {
-    	runButtonPressed = true;
+    public static void setRunButtonPressed(boolean buttonPressedState) {
+    	runButtonPressed = buttonPressedState;
     }
     
     public static void setLanguage(String language) {
     	myLanguage = language;
     }
     
+    public static String getPenColor() {
+    	return pen_color;
+    }
+    public static void setPenColor(String color) {
+    	pen_color = color;
+    }
+    
+	public static boolean getPenDown() {
+		return pen_down;
+	}
+	
+	public static void setPenDown(boolean pen_state) {
+		pen_down = pen_state;
+	}
+
     /**
      * Starts the program.
      */

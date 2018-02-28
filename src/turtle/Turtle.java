@@ -18,14 +18,13 @@ import windows.TurtleWindow;
 public class Turtle extends Parent{	
 	private Point location;
 	private boolean turtleIsShown;
-	private boolean penDown;
 	private double heading;
 	private double isVisible;
 	private final double INITIAL_HEADING = 0;
 	private final double INITIAL_VISIBLE = 1;
 	private final double TURTLE_HEIGHT = 40;
 	private final double TURTLE_WIDTH = 40;
-	private final String TURTLE_IMAGE = "turtle.png";
+//	private final String TURTLE_IMAGE = "images/turtle_image1.png";
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final Point INITIAL_POINT = new Point(0, 0);
@@ -38,10 +37,9 @@ public class Turtle extends Parent{
 	}
 	
 	private void initialize() {
-		addImageView();
+//		addImageView();
 		setLocation(INITIAL_POINT);
 		setTurtleIsShowing(true);
-		setPenDown(true);
 		setVisible(INITIAL_VISIBLE);
 		setHeading(INITIAL_HEADING);
 		createTurtleStructures();
@@ -54,13 +52,13 @@ public class Turtle extends Parent{
 		nextPoints = new ArrayList<Point>();
 	}
 	
-	private void addImageView() {
-		Image image = new Image(getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
-		sprite = new ImageView(image);
-		sprite.setFitHeight(TURTLE_HEIGHT);
-		sprite.setFitWidth(TURTLE_WIDTH);
-		getChildren().add(sprite);
-	}
+//	private void addImageView() {
+//		Image image = new Image(getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
+//		sprite = new ImageView(image);
+//		sprite.setFitHeight(TURTLE_HEIGHT);
+//		sprite.setFitWidth(TURTLE_WIDTH);
+//		getChildren().add(sprite);
+//	}
 	
 	public double getRadian() {
 		return Math.toRadians(heading);
@@ -109,7 +107,7 @@ public class Turtle extends Parent{
 	}
 	
 	public void setHeading(double heading) {
-		sprite.setRotate(heading);
+//		sprite.setRotate(heading);
 		this.heading = heading;
 	}
 	
@@ -120,15 +118,7 @@ public class Turtle extends Parent{
 	public void setTurtleIsShowing(boolean turtleState) {
 		turtleIsShown = turtleState;
 	}
-	
-	public boolean getPenDown() {
-		return penDown;
-	}
-	
-	public void setPenDown(boolean penState) {
-		penDown = penState;
-	}
-	
+		
 	public List<Point> getNextPoints() {
 		return nextPoints;
 	}
