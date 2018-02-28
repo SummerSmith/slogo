@@ -13,6 +13,7 @@ import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
 import windows.Windows;
 
+import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,10 +90,11 @@ public class Display extends Application {
     private static String myLanguage = "English";
 	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
     private boolean setIntroLabels = true;
+    private List<Turtle> turtle_list = new ArrayList<Turtle>();
+    private Turtle current_turtle;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
-	private Turtle turtle;
 	private CommandWindow command_window;
 	private TurtleWindow turtle_window;
 	private UserHistoryWindow user_history_window;
@@ -119,6 +121,7 @@ public class Display extends Application {
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
     private int time_delay = INITIAL_TIME_DELAY;
+    private ImageView imageView;
     private static boolean runButtonPressed = false;
 	
 	// Additional setup for the display
@@ -131,6 +134,9 @@ public class Display extends Application {
     @Override
     public void start(Stage stage) {
     	this.stage = stage;
+    	current_turtle = new Turtle(new Point(0, 0));
+//    	Map<String, Integer> a = new HashMap<String, Integer>();
+    	turtle_list.add(current_turtle);
     	initialize();
     }
 
@@ -154,24 +160,29 @@ public class Display extends Application {
     }
 
     private void step() {
-//    	System.out.println("Hello");
-//    	System.out.println(turtle_image_object.getImageView().getLayoutX());
-//    	System.out.println(turtle_image_object.getImageView().getLayoutY());
-//    	turtle_image_object.getImageView().setLayoutY(- 5);    	
-//    	turtle_image_object.getImageView().setLayoutX(turtle_image_object.getImageView().getLayoutX());
-    	turtle_image_object.getImageView().setLayoutY(turtle_image_object.getImageView().getLayoutY() - 5);
     	if(runButtonPressed) {
     		String text = CommandWindow.getText();
     		List<String> command_strings = ProcessString.processString(text);
     		try {
-				ConstructNodes nodes = new ConstructNodes(turtle, command_strings, myLanguage);
-				
-			} catch (Exception e) {
+				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
+				updateTurtle();
+				drawLine(current_turtle.getNextPoints());
+    		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
 			}
     		CommandWindow.clearWindow();
     		runButtonPressed = false;
     	}
+    }
+    
+    private void drawLine(List<Point> nextPoints) {
+//    	for()
+	}
+
+	private void updateTurtle() {
+    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
+    	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
+    	imageView.setRotate(current_turtle.getHeading());
     }
     
     /**
@@ -217,8 +228,8 @@ public class Display extends Application {
      * Sets up screen windows.
      */
     private void setWindows() {
-    	command_window = new CommandWindow(turtle, root);
-    	turtle_window = new TurtleWindow(turtle, root, turtle_image_object.getImageView());
+    	command_window = new CommandWindow(current_turtle, root);
+    	turtle_window = new TurtleWindow(current_turtle, root, turtle_image_object.getImageView());
     	user_variables_window = new UserVariablesWindow(root);
     	user_history_window = new UserHistoryWindow(root);
     	user_commands_window = new UserCommandsWindow(root);
@@ -276,6 +287,7 @@ public class Display extends Application {
     private void setImages() {
     	slogo_image_object = new SLogoImageClass(root);
     	turtle_image_object = new TurtleImageClass(root);
+    	imageView = turtle_image_object.getImageView();
     }
     
     /**

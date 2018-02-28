@@ -59,7 +59,7 @@ public class ConstructNodes {
 //				System.out.println("child: " + child);
 //			}
 //		}
-		System.out.println(headNodes);
+		System.out.println("headnodes: " + headNodes);
 		executor.executeCommands(headNodes);
 	}
 	
