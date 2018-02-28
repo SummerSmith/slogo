@@ -10,17 +10,19 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import turtle.Turtle;
 
 public class TurtleWindow extends Windows {
 
-	private Group myRoot;
+	private Group myRoot, paneRoot;
 	private ScrollPane scroll_pane = new ScrollPane();
-	private BorderPane border_pane = new BorderPane();
+	private BorderPane pane = new BorderPane();
 	private Turtle myTurtle;
 	private ImageView myImageView;
 	private String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
@@ -52,13 +54,15 @@ public class TurtleWindow extends Windows {
 	  		width = Integer.parseInt(properties.getProperty(WIDTH));
 	  		height = Integer.parseInt(properties.getProperty(HEIGHT));
 	   	} catch (IOException ex) {
-//	   		E
+			System.err.println("Turtle window file input does not exist!");	   		
+	   	} catch (Exception ey) {
+			System.err.println("Turtle window properties could not be retrieved completely.");
 	  	} finally {
 	  		if (input != null) {
 	  			try {
 	  				input.close();
 	  			} catch (IOException e) {
-//	  				E
+	  				System.err.println("Turtle window file input cannot close!");
 	  			}
 	  		}
 	  	}
@@ -66,36 +70,50 @@ public class TurtleWindow extends Windows {
 	
 	@Override
 	protected void createWindow() {
-		border_pane.setLayoutX(x);
-		border_pane.setLayoutY(y);
-		border_pane.setPrefSize(width, height);
-		border_pane.setCenter(myImageView);
-		border_pane.setStyle(PANE_STYLE);
-		myRoot.getChildren().add(border_pane);
+		pane.setLayoutX(x);
+		pane.setLayoutY(y);
+		pane.setPrefSize(width, height);
+		pane.setStyle(PANE_STYLE);
+		myRoot.getChildren().add(pane);
+
+		myImageView.setLayoutX(width / 2 - myImageView.getFitWidth() / 2);
+		myImageView.setLayoutY(height / 2 - myImageView.getFitHeight() / 2);
+
+		paneRoot = new Group();
+		paneRoot.getChildren().add(myImageView);
+		pane.getChildren().add(paneRoot);		
 	}
 
 	@Override
 	protected void setX(int x) {
-		border_pane.setLayoutX(x);
+		pane.setLayoutX(x);
 	}
 
 	@Override
 	protected void setY(int y) {
-		border_pane.setLayoutY(y);
+		pane.setLayoutY(y);
 	}
 
 	@Override
 	protected int getX() {
-		return (int) border_pane.getLayoutX();
+		return (int) pane.getLayoutX();
 	}
 
 	@Override
 	protected int getY() {
-		return (int) border_pane.getLayoutY();
+		return (int) pane.getLayoutY();
 	}
 	
 	@Override
 	public Parent getWindowArea() {
-		return border_pane;
+		return pane;
+	}
+	
+	public static int getPaneWidth() {
+		return width;
+	}
+	
+	public static int getPaneHeight() {
+		return height;
 	}
 }

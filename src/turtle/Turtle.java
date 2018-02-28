@@ -5,18 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import windows.TurtleWindow;
 
 public class Turtle extends Parent{	
 	private Point location;
@@ -28,6 +23,8 @@ public class Turtle extends Parent{
 	private final String TURTLE_IMAGE = "turtle.png";
 	private final double TURTLE_HEIGHT = 40;
 	private final double TURTLE_WIDTH = 40;
+	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
+	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private List<Point> nextPoints;
 	private double isVisible;
 	private ImageView sprite;
@@ -57,7 +54,8 @@ public class Turtle extends Parent{
 	}
 	
 	public void resetLocation() {
-		setLocation(INITIAL_POINT);
+		Point center = new Point(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		setLocation(center);
 	}
 	public Point getLocation() {
 		return location;
@@ -75,7 +73,6 @@ public class Turtle extends Parent{
 	}
 
 	public void setXLocation(double x) {
-		//System.out.println("Enter setXLocation()");
 		double y = location.getY();
 		Point newPoint = new Point();
 		newPoint.setLocation(x,y);

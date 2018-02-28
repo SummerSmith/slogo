@@ -79,13 +79,15 @@ public abstract class DefaultButton {
 	  		text = properties.getProperty(TEXT_STRING);
 	  		
 	   	} catch (IOException ex) {
-//	   		E
+			System.err.println("Button file input does not exist!");
+	   	} catch (Exception ey) {
+			System.err.println("The properties for the button could not be retrieved completely.");
 	  	} finally {
 	  		if (input != null) {
 	  			try {
 	  				input.close();
 	  			} catch (IOException e) {
-//	  				E
+	  				System.err.println("Button file input cannot close!");
 	  			}
 	  		}
 	  	}			
