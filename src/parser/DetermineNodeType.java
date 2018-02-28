@@ -65,6 +65,7 @@ public class DetermineNodeType {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
 //		}
+		System.out.println(content);
 		if(content.equalsIgnoreCase("for")) {
 			return new ForLoopNode(content, turtle);
 		}
@@ -85,9 +86,6 @@ public class DetermineNodeType {
 		}
 		else if(content.equalsIgnoreCase("if")) {
 			return new IfNode(content, turtle);
-		}
-		else if(userCommands.getCommandsMap().keySet().contains(content)) {
-			return new UserCommandNode(content, turtle);
 		}
 		else {
 			return new CommandNode(content, turtle);

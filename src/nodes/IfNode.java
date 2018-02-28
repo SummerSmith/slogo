@@ -12,9 +12,7 @@ public class IfNode extends Node {
 	public double evaluate() {
 		double returnVal = 0;
 		if(myChildren.get(0).evaluate() != 0) {
-			for(Node child : myChildren) {
-				returnVal = child.evaluate(); //repeatNode will contain a GroupNode, but GroupNodes know how to evaluate themselves
-			}
+			returnVal = myChildren.get(1).evaluate(); //repeatNode will contain a GroupNode, but GroupNodes know how to evaluate themselves
 		}
 		return returnVal;
 	}

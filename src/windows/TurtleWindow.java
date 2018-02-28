@@ -20,7 +20,8 @@ import turtle.Turtle;
 
 public class TurtleWindow extends Windows {
 
-	private Group myRoot, paneRoot;
+	private Group myRoot;
+	private static Group paneRoot;
 	private ScrollPane scroll_pane = new ScrollPane();
 	private BorderPane pane = new BorderPane();
 	private Turtle myTurtle;
@@ -126,5 +127,9 @@ public class TurtleWindow extends Windows {
 	
 	public static int getInitialTurtleY() {
 		return initialTurtleY;
+	}
+	
+	public static Group getPaneRoot() {
+		return paneRoot;
 	}
 }

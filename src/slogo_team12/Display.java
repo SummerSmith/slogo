@@ -58,6 +58,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -134,8 +135,7 @@ public class Display extends Application {
     @Override
     public void start(Stage stage) {
     	this.stage = stage;
-    	current_turtle = new Turtle(new Point(0, 0));
-//    	Map<String, Integer> a = new HashMap<String, Integer>();
+    	current_turtle = new Turtle();
     	turtle_list.add(current_turtle);
     	initialize();
     }
@@ -176,7 +176,18 @@ public class Display extends Application {
     }
     
     private void drawLine(List<Point> nextPoints) {
-//    	for()
+    	for(int i = 0; i < nextPoints.size() - 1; i++) {
+    		Point curr_point = nextPoints.get(i);
+    		Point next_point = nextPoints.get(i + 1);
+    		int x_offset = (int) ((int) TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2);
+    		int y_offset = (int) ((int) TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2);
+    		Line line = new Line(curr_point.x + x_offset, 
+    							 curr_point.y + y_offset, 
+    							 next_point.x + x_offset, 
+    							 next_point.y + y_offset);
+    		line.setFill(Color.RED);
+    		TurtleWindow.getPaneRoot().getChildren().add(line);
+    	}
 	}
 
 	private void updateTurtle() {
