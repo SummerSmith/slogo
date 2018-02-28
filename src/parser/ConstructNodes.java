@@ -53,14 +53,14 @@ public class ConstructNodes {
 		traverse = new TraverseNodes(turtle, nodes);
 		traverse.createTree(nodes.get(0));
 		headNodes.addAll(traverse.getTemp());
-//		for(Node curr: headNodes) {
-//			System.out.println("headnode:" + curr);
-//			for(Node child : curr.getChildren()) {
-//				System.out.println("child: " + child);
-//			}
-//		}
+		for(Node curr: headNodes) {
+			System.out.println("headnode:" + curr);
+			for(Node child : curr.getChildren()) {
+				System.out.println("child: " + child);
+			}
+		}
 		System.out.println(headNodes);
-//		executor.executeCommands(headNodes);
+		executor.executeCommands(headNodes);
 	}
 	
 	protected List<Node> getHeadNodes(){

@@ -18,6 +18,6 @@ public class TestNodes {
 		System.out.println(list.get(0));
 		fdNode.addChildren(list, 0);
 		System.out.println(fdNode.evaluate());
-		System.out.println(turtle.getLayoutX(), turtle.getLayoutY());
+//		System.out.println(turtle.getLayoutX(), turtle.getLayoutY());
 	}
 }
