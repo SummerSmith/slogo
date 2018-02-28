@@ -93,7 +93,6 @@ public class DetermineNodeType {
 		else if(userCommands.getCommandsMap().keySet().contains(content)) {
 			return new UserCommandNode(content, turtle);
 		}
-
 		else {
 			return new CommandNode(content, turtle);
 		}
