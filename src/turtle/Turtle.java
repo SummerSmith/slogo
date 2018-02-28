@@ -5,46 +5,81 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javafx.scene.Scene;
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.jmx.MXNodeAlgorithm;
+import com.sun.javafx.jmx.MXNodeAlgorithmContext;
+import com.sun.javafx.sg.prism.NGNode;
 
-public class Turtle {	
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
+
+public class Turtle extends Parent{	
 	private Point location;
 	private double heading;
 	private boolean turtleIsShown;
 	private boolean penDown;
-	private final Point INITIAL_POINT = new Point(0, 0);
 	private final double INITIAL_HEADING = 0;
+	private final double INITIAL_VISIBLE = 1;
+	private final String TURTLE_IMAGE = "turtle.png";
+	private final double TURTLE_HEIGHT = 40;
+	private final double TURTLE_WIDTH = 40;
 	private List<Point> nextPoints;
 	private double isVisible;
+	private ImageView sprite;
+	private Point INITIAL_POINT;
 	
-	public Turtle(double isVisible) {
-		location = INITIAL_POINT;
-		heading = INITIAL_HEADING;
+	public Turtle(Point initial_point){
+		Image image = new Image(getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
+		sprite = new ImageView(image);
+		sprite.setFitHeight(TURTLE_HEIGHT);
+		sprite.setFitWidth(TURTLE_WIDTH);
+		getChildren().add(sprite);
+		INITIAL_POINT = initial_point;
+		resetLocation();
+		setHeading(INITIAL_HEADING);
 		turtleIsShown = true;
 		penDown = true;
-		this.isVisible = isVisible;
+		isVisible = INITIAL_VISIBLE;
 		createLists();
+	}
+	
+	public double getRadian() {
+		return Math.toRadians(heading);
 	}
 	
 	private void createLists() {
 		nextPoints = new ArrayList<Point>();
 	}
 	
+	public void resetLocation() {
+		setLocation(INITIAL_POINT);
+	}
 	public Point getLocation() {
 		return location;
 	}
 	
 	public void setLocation(Point new_location) {
+		sprite.setX(new_location.x - TURTLE_WIDTH / 2);
+		sprite.setY(new_location.y - TURTLE_HEIGHT / 2);
 		location = new_location;
 	}
 
 	public double getXLocation() {
+		//System.out.println("Enter getXLocation()");
 		return location.getX();
 	}
 
 	public void setXLocation(double x) {
+		//System.out.println("Enter setXLocation()");
 		double y = location.getY();
-		location.setLocation(x,y);
+		Point newPoint = new Point();
+		newPoint.setLocation(x,y);
+		setLocation(newPoint);
 	}
 
 	public double getYLocation() {
@@ -53,7 +88,9 @@ public class Turtle {
 	
 	public void setYLocation(double y) {
 		double x = location.getX();
-		location.setLocation(x,y);
+		Point newPoint = new Point();
+		newPoint.setLocation(x,y);
+		setLocation(newPoint);
 	}
 	
 	public double getHeading() {
@@ -61,6 +98,7 @@ public class Turtle {
 	}
 	
 	public void setHeading(double heading) {
+		sprite.setRotate(heading);
 		this.heading = heading;
 	}
 	
@@ -95,6 +133,7 @@ public class Turtle {
 	public void setVisible(double isVisible) {
 		this.isVisible = isVisible;
 	}
+	
 	public double getVisible() {
 		return isVisible;
 	}

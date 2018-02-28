@@ -20,12 +20,18 @@ public abstract class Node {
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {
-		for(int i = 1; i <= this.getNumChildren(); i++) {
-			Node child = nodes.get(index + i);
-			myChildren.add(child);
-			child.addChildren(nodes, index+i);
+		if(this.getNumChildren() > 0) {
+			int sum = 0;
+			for(int i = 1; i <= this.getNumChildren(); i++) {
+				Node child = nodes.get(index + i);
+				myChildren.add(child);
+				int temp = child.addChildren(nodes, index+i);
+				index += temp;
+				sum += temp; 
+			}
+			return this.getNumChildren() + sum;
 		}
-		return this.getNumChildren();
+		return 0;
 	}
 	
 	public abstract double evaluate();

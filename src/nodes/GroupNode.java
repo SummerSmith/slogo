@@ -10,7 +10,6 @@ public class GroupNode extends Node {
 
 	public GroupNode(String name, Turtle t) {
 		super(name, t);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public List<Node> getGroupNodes() {
@@ -19,8 +18,31 @@ public class GroupNode extends Node {
 
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		double returnVal = 0;
+		for(Node n : groupNodes) {
+			returnVal = n.evaluate(); //returnVal will just return value of last command executed
+		}
+		return returnVal;
 	}
 
+//	@Override
+//	public int addChildren(List<Node> nodes, int index) {
+//		int counter = 1;
+//		while(!(nodes.get(index + counter) instanceof GroupNode && nodes.get(index + counter).getType().equalsIgnoreCase("ListEnd"))) {
+//			
+//		}
+//		if(this.getNumChildren() > 0) {
+//			int sum = 0;
+//			for(int i = 1; i <= this.getNumChildren(); i++) {
+//				Node child = nodes.get(index + i);
+//				myChildren.add(child);
+//				int temp = child.addChildren(nodes, index+i);
+//				index += temp;
+//				sum += temp; 
+//			}
+//			return this.getNumChildren() + sum;
+//		}
+//		return 0;
+//	}
+	
 }
