@@ -10,7 +10,6 @@ public class GroupNode extends Node {
 
 	public GroupNode(String name, Turtle t) {
 		super(name, t);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public List<Node> getGroupNodes() {
@@ -19,8 +18,11 @@ public class GroupNode extends Node {
 
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		double returnVal = 0;
+		for(Node n : groupNodes) {
+			returnVal = n.evaluate(); //returnVal will just return value of last command executed
+		}
+		return returnVal;
 	}
 
 //	@Override

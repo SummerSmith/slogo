@@ -10,6 +10,8 @@ public class Tangent implements Command{
 	}
 	
 	public double Execute(Turtle turtle, List<Double> args) {
-		return Math.tan(turtle.getHeading());
+		double old_tan = Math.tan(Math.toRadians(args.get(0)));
+		int tan = (int)(Math.round(old_tan));
+		return old_tan;
 	}
 }
