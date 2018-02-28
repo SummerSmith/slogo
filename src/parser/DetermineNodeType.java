@@ -12,7 +12,6 @@ import nodes.ArgumentNode;
 import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
-import nodes.ListNode;
 import nodes.IfNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
@@ -86,9 +85,6 @@ public class DetermineNodeType {
 		}
 		else if(content.equalsIgnoreCase("if")) {
 			return new IfNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("list")) {
-			return new ListNode(content, turtle);
 		}
 		else if(userCommands.getCommandsMap().keySet().contains(content)) {
 			return new UserCommandNode(content, turtle);
