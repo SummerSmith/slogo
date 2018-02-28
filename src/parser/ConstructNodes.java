@@ -35,6 +35,8 @@ public class ConstructNodes {
 	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception {
 		input = strings;
 		turtle = t;
+		turtle.getNextPoints().clear();
+		turtle.addNextPoint(turtle.getLocation());
 		language = CurrLanguage;
 		mySymbols = new ArrayList<>();
 		commandTranslations = new HashMap<>();
@@ -54,6 +56,7 @@ public class ConstructNodes {
 		traverse = new TraverseNodes(turtle, nodes);
 		traverse.createTree(nodes.get(0));
 		headNodes.addAll(traverse.getTemp());
+
 //		for(Node curr: headNodes) {
 //			System.out.println("headnode:" + curr);
 //			for(Node child : curr.getChildren()) {
@@ -61,6 +64,7 @@ public class ConstructNodes {
 //			}
 //		}
 //		System.out.println(headNodes);
+
 		executor.executeCommands(headNodes);
 	}
 	

@@ -16,7 +16,6 @@ public class CommandNode extends Node {
 	
 	public CommandNode(String name, Turtle t) {
 		super(name, t);
-		
 	}
 
 	@Override

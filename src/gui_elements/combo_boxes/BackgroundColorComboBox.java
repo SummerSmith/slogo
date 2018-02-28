@@ -19,6 +19,7 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	
 	private static final String PROPERTIES_FILENAME = "background_color_combo_box.properties";
 	private final String FULL_COLOR_MAP_FILENAME = "data/color_map.properties";
+	private final String COLOR_HEADING = "-fx-background-color: ";
 	private ComboBox myComboBox;
 	private Pane myPane;
 	private Map<String, String> color_map;
@@ -69,7 +70,7 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	private void chooseBackgroundColor() {
     	myComboBox.setOnAction((Event ev) -> {
     		String color = (String) myComboBox.getSelectionModel().getSelectedItem();
-    		myPane.setStyle(color_map.get(color));
+    		myPane.setStyle(COLOR_HEADING + color_map.get(color));
     	});
 	}
 }
