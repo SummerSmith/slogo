@@ -9,7 +9,7 @@ public class ParserTester {
 
 	public static void main(String args[]) throws Exception {
 //		String toProcess = "+ fd 50 rt 90 fd fd 50";
-		String toProcess = "sum [ fd 50 rt 90 ] rt 90";
+		String toProcess = "if fd 50 [ fd 50 ]";
 		ProcessString process = new ProcessString();
 		ArrayList<String> command = (ArrayList<String>) process.processString(toProcess);
 		System.out.println(command);
