@@ -51,10 +51,10 @@ public class CommandNode extends Node {
 			System.out.println("security violation: ");
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			System.out.println("security violation");
+			System.out.println("illegal argument");
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			System.out.println("security violation");
+			System.out.println("invocation target");
 			e.printStackTrace();
 		}
 		

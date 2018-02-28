@@ -49,9 +49,9 @@ public class CommandTester extends Application{
 	}
 	private void Execute(Turtle turtle) {
 		List<Double> args = new ArrayList<Double>();
-		args.add(0.0);
+		args.add(50.0);
 		args.add(360.0);
-		SetTowards fd = new SetTowards();
+		Forward fd = new Forward();
 		double res = fd.Execute(turtle, args);
 	}
 	

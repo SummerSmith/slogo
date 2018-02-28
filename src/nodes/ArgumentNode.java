@@ -19,5 +19,4 @@ public class ArgumentNode extends Node {
 	public double evaluate() {
 		return argument;
 	}
-	
 }
