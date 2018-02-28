@@ -99,4 +99,8 @@ public class CommandWindow extends Windows {
 	public static void clearWindow() {
 		text_area.clear();
 	}
+	
+	public static String getText() {
+		return text_area.getText();
+	}
 }

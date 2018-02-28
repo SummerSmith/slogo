@@ -2,6 +2,8 @@ package gui_elements.buttons;
 
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import parser.ProcessString;
+import slogo_team12.Display;
 import windows.CommandWindow;
 
 public class RunButton extends DefaultButton {
@@ -18,7 +20,7 @@ public class RunButton extends DefaultButton {
 	@Override
 	public void setButtonAction() {
     	myButton.setOnAction(value -> {
-    		CommandWindow.clearWindow();
+    		Display.setRunButtonPressed();
     	});
 	}
 }
