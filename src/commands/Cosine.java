@@ -3,8 +3,6 @@ package commands;
 import java.awt.Point;
 import java.util.List;
 
-import com.sun.media.jai.codecimpl.util.MathJAI;
-
 import turtle.Turtle;
 
 public class Cosine implements Command{
