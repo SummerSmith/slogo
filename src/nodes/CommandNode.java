@@ -21,17 +21,20 @@ public class CommandNode extends Node {
 
 	@Override
 	public double evaluate() {
-		List<Double> args = new ArrayList<>();
+		List<Double> args = new ArrayList<Double>();
 		double returnVal = -1;
 		for(Node n : myChildren) {
 			args.add(n.evaluate());
 		}
-		
+		System.out.println(args);
 		try {
 			Class<?> clazz = Class.forName("commands." + type);
 			Object o = clazz.newInstance();
-			Method method = o.getClass().getDeclaredMethod("execute", myTurtle.getClass(), args.getClass());
+			System.out.println("Successfully instantiated object!");
+			Method method = o.getClass().getMethod("Execute", myTurtle.getClass(), java.util.List.class);
+			System.out.println("Successfully found method!");
 			returnVal = (Double) method.invoke(o, myTurtle, args);
+			System.out.println("Successfully called method!");
 		} catch (ClassNotFoundException e) {
 			System.out.println("The command was not found. A more formal error will be thrown later");
 			e.printStackTrace();
@@ -45,7 +48,7 @@ public class CommandNode extends Node {
 			System.out.println("The method does not exist");
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			System.out.println("security violation");
+			System.out.println("security violation: ");
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			System.out.println("security violation");

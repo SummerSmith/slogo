@@ -16,6 +16,7 @@ import nodes.ListNode;
 import nodes.IfNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
+import nodes.UserCommandNode;
 import nodes.VariableNode;
 import turtle.Turtle;
 import user_data.UserCommands;
@@ -43,7 +44,8 @@ public class DetermineNodeType {
 	}
 	
 	protected Node getNodeType(String nodeType, String content, Turtle turtle) {
-//		System.out.println(content);
+//		System.out.print("content: " + content);
+//		System.out.println(" nodeType: " + nodeType);
 		if(nodeType.equalsIgnoreCase("Command")) {
 			return makeCommandNode(content, turtle);
 		}
@@ -53,6 +55,9 @@ public class DetermineNodeType {
 		else if(nodeType.equalsIgnoreCase("Variable")) {
 			return new VariableNode(content, turtle);
 		}
+		else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
+			return new GroupNode(content, turtle);
+		}
 		return null;
 	}
 	
@@ -61,11 +66,7 @@ public class DetermineNodeType {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
 //		}
-		
-		if(content.equalsIgnoreCase("group")) {
-			return new GroupNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("for")) {
+		if(content.equalsIgnoreCase("for")) {
 			return new ForLoopNode(content, turtle);
 		}
 		else if (content.equalsIgnoreCase("repeat")) {
@@ -89,7 +90,7 @@ public class DetermineNodeType {
 		else if(content.equalsIgnoreCase("list")) {
 			return new ListNode(content, turtle);
 		}
-		else if(userCommands.getMyCommands().keySet().contains(content)) {
+		else if(userCommands.getCommandsMap().keySet().contains(content)) {
 			return new UserCommandNode(content, turtle);
 		}
 		else {
