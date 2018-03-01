@@ -11,7 +11,9 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 import nodes.Node;
+import slogo_team12.Display;
 import turtle.Turtle;
+import error.Error;
 
 public class ConstructNodes {
 
@@ -32,7 +34,7 @@ public class ConstructNodes {
 	private final String syntaxPath = path + "syntax";
 	
 	
-	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception {
+	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception{
 		input = strings;
 		turtle = t;
 		turtle.getNextPoints().clear();
@@ -47,23 +49,28 @@ public class ConstructNodes {
 		parse();
 	}
 	
-	private void parse() throws Exception {
-		makeCommandArgumentsMap();
-		makeCommandMap(path + language);
-		addPatterns(syntaxPath);
-		createNodeList();
-		traverse = new TraverseNodes(turtle, nodes);
-		traverse.createTree(nodes.get(0));
-		headNodes.addAll(traverse.getTemp());
-
-		for(Node curr : headNodes) {
-			System.out.println("headnode: " + curr);
-			for(Node child : curr.getChildren()) {
-				System.out.println("child: " + child);
+	private void parse() throws Exception{
+		try {
+			makeCommandArgumentsMap();
+			makeCommandMap(path + language);
+			addPatterns(syntaxPath);
+			createNodeList();
+			traverse = new TraverseNodes(turtle, nodes);
+			traverse.createTree(nodes.get(0));
+			headNodes.addAll(traverse.getTemp());
+	
+			for(Node curr : headNodes) {
+				System.out.println("headnode: " + curr);
+				for(Node child : curr.getChildren()) {
+					System.out.println("child: " + child);
+				}
 			}
+			System.out.println("headnodes: " + headNodes);
+			executor.executeCommands(headNodes);
+		}catch(Exception e) {
+			Exception e_0 = new Exception("Wrong Command");
+			Error error = new Error(e_0);
 		}
-		System.out.println("headnodes: " + headNodes);
-		executor.executeCommands(headNodes);
 	}
 	
 	protected List<Node> getHeadNodes(){
