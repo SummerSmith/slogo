@@ -1,4 +1,4 @@
-//package reflection;
+//We just used this to test out and figure out how to use reflection
 
 /**
  *  This example is from _Java Examples in a Nutshell_. (http://www.oreilly.com)

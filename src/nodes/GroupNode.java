@@ -13,7 +13,7 @@ public class GroupNode extends Node {
 	}
 	
 	public List<Node> getGroupNodes() {
-		return groupNodes;
+		return groupNodes; //pretty sure we don't ever need or use this
 	}
 
 	@Override

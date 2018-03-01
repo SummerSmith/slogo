@@ -89,15 +89,16 @@ public class ConstructNodes {
      * Returns language's type associated with the given text if one exists 
      */
     public String getSymbol (String text) {
-        final String ERROR = "NO MATCH";
-        for (Entry<String, Pattern> e : mySymbols) {
-            if (match(text, e.getValue())) {
-                return e.getKey();
-            }
-        }
-        // FIXME: perhaps throw an exception instead
-        return ERROR;
-    }
+	    	final String ERROR = "NO MATCH";
+	    	for (Entry<String, Pattern> e : mySymbols) {
+	    		if (match(text, e.getValue())) {
+	    			return e.getKey();
+	    		}
+	    	}
+	    	// FIXME: perhaps throw an exception instead
+	    	//        return ERROR;
+	    	return text; //this is for user defined commands, because they'll be words that don't match with file
+    }				//error will have to be returned in another area
 
 	
     /**
@@ -148,7 +149,7 @@ public class ConstructNodes {
 			}
 		}
 	}
-	
+	//does this make a new map from arguments to numArgs every time you run a command? :(
 	private void makeCommandArgumentsMap() {
 		commandArguments = new HashMap<>();
 		ResourceBundle resources = ResourceBundle.getBundle(file);

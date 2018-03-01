@@ -54,7 +54,6 @@ public class CommandNode extends Node {
 			e.printStackTrace();
 		}
 		
-		
 		return returnVal;
 	}
 
