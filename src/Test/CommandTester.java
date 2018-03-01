@@ -3,6 +3,8 @@ package Test;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
+import commands.Forward;
 import commands.SetTowards;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

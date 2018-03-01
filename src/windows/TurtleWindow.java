@@ -20,7 +20,8 @@ import turtle.Turtle;
 
 public class TurtleWindow extends Windows {
 
-	private Group myRoot, paneRoot;
+	private Group myRoot;
+	private static Group paneRoot;
 	private ScrollPane scroll_pane = new ScrollPane();
 	private BorderPane pane = new BorderPane();
 	private Turtle myTurtle;
@@ -28,6 +29,7 @@ public class TurtleWindow extends Windows {
 	private String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
 	private String prompt_text;
 	private final String PANE_STYLE = "-fx-background-color: #ffffff";
+	private static int initialTurtleX, initialTurtleY;
 	
 	public TurtleWindow(Turtle turtle, Group root, ImageView imageView) {
 		myTurtle = turtle;
@@ -75,8 +77,10 @@ public class TurtleWindow extends Windows {
 		pane.setPrefSize(width, height);
 		pane.setStyle(PANE_STYLE);
 		myRoot.getChildren().add(pane);
-
-		myImageView.setLayoutX(width / 2 - myImageView.getFitWidth() / 2);
+		
+		initialTurtleX = (int) (width / 2 - myImageView.getFitWidth() / 2);
+		myImageView.setLayoutX(initialTurtleX);
+		initialTurtleY = (int) (height / 2 - myImageView.getFitHeight() / 2);
 		myImageView.setLayoutY(height / 2 - myImageView.getFitHeight() / 2);
 
 		paneRoot = new Group();
@@ -115,5 +119,17 @@ public class TurtleWindow extends Windows {
 	
 	public static int getPaneHeight() {
 		return height;
+	}
+
+	public static int getInitialTurtleX() {
+		return initialTurtleX;
+	}
+	
+	public static int getInitialTurtleY() {
+		return initialTurtleY;
+	}
+	
+	public static Group getPaneRoot() {
+		return paneRoot;
 	}
 }
