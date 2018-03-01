@@ -1,8 +1,10 @@
-package parser;
+package Test;
 
 import point.Point;
 import java.util.ArrayList;
 
+import parser.ConstructNodes;
+import parser.ProcessString;
 import turtle.Turtle;
 
 public class ParserTester {

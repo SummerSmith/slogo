@@ -3,6 +3,7 @@ package parser;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 import nodes.CommandNode;
@@ -20,13 +21,14 @@ import nodes.VariableNode;
 import turtle.Turtle;
 import user_data.UserCommands;
 import user_data.UserController;
+import error.Error;
 
 public class DetermineNodeType {
-	
 	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.nodes/Nodes";
+	private Error error;
 	UserCommands userCommands;
-
+	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
 		userCommands = new UserCommands();
@@ -62,7 +64,7 @@ public class DetermineNodeType {
 		return null;
 	}
 	
-	private Node makeCommandNode(String content, Turtle turtle) {
+	private Node makeCommandNode(String content, Turtle turtle) throws Exception {
 //		if(specialCommandNodes.containsKey(content)) {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
@@ -81,7 +83,7 @@ public class DetermineNodeType {
 			return new IfElseNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("makevariable")) {
-			return new CommandNode(content, turtle);
+			return new VariableNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("to")) {
 			return new ToNode(content, turtle);
@@ -90,7 +92,9 @@ public class DetermineNodeType {
 			return new IfNode(content, turtle);
 		}
 		else {
-			return new CommandNode(content, turtle);
+			Exception e = new Exception("Unknown Command");
+			error = new Error(e);
+			throw e;
 		}
 	}
 
