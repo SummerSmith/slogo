@@ -169,7 +169,7 @@ public class Display extends Application {
         myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
     }
     
-    private void startAnimation() {
+    private void startAnimation(){
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -179,7 +179,7 @@ public class Display extends Application {
         animation.play();
     }
 
-    private void step() {
+    private void step(){
     	if(runButtonPressed) {
     		String text = CommandWindow.getText();
     		List<String> command_strings = ProcessString.processString(text);
@@ -195,7 +195,7 @@ public class Display extends Application {
 			}
     		CommandWindow.clearWindow();
     		runButtonPressed = false;
-    	}
+    }
     }
     
     private void drawLine(List<Point> nextPoints) {

@@ -10,6 +10,7 @@ public class Error{
 	
 	private void determineErrorInfo() {
 		error_info = e.getMessage();
+		System.out.println("error: "+error_info);
 	}
 	
 	public static String getString(){

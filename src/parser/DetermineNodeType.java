@@ -14,7 +14,6 @@ import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
-import nodes.MakeNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
@@ -46,7 +45,7 @@ public class DetermineNodeType {
 	    }
 	}
 	
-	protected Node getNodeType(String nodeType, String content, Turtle turtle) {
+	protected Node getNodeType(String nodeType, String content, Turtle turtle) throws Exception {
 //		System.out.print("content: " + content);
 //		System.out.println(" nodeType: " + nodeType);
 		if(nodeType.equalsIgnoreCase("Command")) {
@@ -65,7 +64,7 @@ public class DetermineNodeType {
 		return null;
 	}
 	
-	private Node makeCommandNode(String content, Turtle turtle) throws Exception {
+	private Node makeCommandNode(String content, Turtle turtle) throws Exception{
 //		if(specialCommandNodes.containsKey(content)) {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
@@ -93,9 +92,10 @@ public class DetermineNodeType {
 			return new IfNode(content, turtle);
 		}
 		else {
+			System.out.println("No such command!");
 			Exception e = new Exception("Unknown Command");
 			error = new Error(e);
-			throw e;
+			throw new Exception(e);
 		}
 	}
 
