@@ -57,12 +57,12 @@ public class ConstructNodes {
 		headNodes.addAll(traverse.getTemp());
 
 		for(Node curr : headNodes) {
-			System.out.println("headnode:" + curr);
+			System.out.println("headnode: " + curr);
 			for(Node child : curr.getChildren()) {
 				System.out.println("child: " + child);
 			}
 		}
-		System.out.println(headNodes);
+		System.out.println("headnodes: " + headNodes);
 		executor.executeCommands(headNodes);
 	}
 	
@@ -127,10 +127,8 @@ public class ConstructNodes {
 	}
 	
 	private void createNodeList() throws Exception {
-//		System.out.println(input);
 		for(int i = 0; i<input.size(); i++) {
 			String identity = getSymbol(input.get(i).toLowerCase());
-//			System.out.println("identity: " + identity);
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
@@ -139,9 +137,6 @@ public class ConstructNodes {
 			if(commandArguments.containsKey(temp.getType())) {
 				temp.setNumChildren(commandArguments.get(temp.getType()));
 			}
-//			else if (temp instanceof UserCommandNode) {
-//				
-//			}
 			else {
 				temp.setNumChildren(0);
 			}
