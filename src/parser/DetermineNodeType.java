@@ -90,7 +90,7 @@ public class DetermineNodeType {
 				return new IfNode(content, turtle);
 			}
 			else {
-				return null;
+				return new CommandNode(content, turtle);
 			}
 		}catch(NullPointerException e) {
 			Exception e_0 = new Exception("Wrong Command");
