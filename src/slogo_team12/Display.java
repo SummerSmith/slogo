@@ -192,6 +192,7 @@ public class Display extends Application {
 					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+				e.printStackTrace();
 			}
     		CommandWindow.clearWindow();
     		runButtonPressed = false;
