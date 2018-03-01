@@ -13,7 +13,8 @@ public class ToNode extends Node {
 	@Override
 	public double evaluate() {
 		try {
-			for(Node n : ((GroupNode) myChildren.get(0)).getGroupNodes()) {
+			String commandName = myChildren.get(0).getType();
+			for(Node n : ((GroupNode) myChildren.get(1)).getChildren()) { //for every variable
 				UserVariables.add(n.getType(), 0); // because vars haven't been assigned values yet 0 is default
 			}
 			UserCommands.add(type, ((GroupNode) myChildren.get(1)).getGroupNodes()); // type is name of command, presumably

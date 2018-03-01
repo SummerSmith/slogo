@@ -19,16 +19,22 @@ public abstract class Node {
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {
-		if(this.getNumChildren() > 0) {
-			int sum = 0;
-			for(int i = 1; i <= this.getNumChildren(); i++) {
-				Node child = nodes.get(index + i);
-				myChildren.add(child);
-				int temp = child.addChildren(nodes, index+i);
-				index += temp;
-				sum += temp; 
+		try {
+			if(this.getNumChildren() > 0) {
+				int sum = 0;
+				for(int i = 1; i <= this.getNumChildren(); i++) {
+					Node child = nodes.get(index + i);
+					myChildren.add(child);
+					int temp = child.addChildren(nodes, index+i);
+					index += temp;
+					sum += temp; 
+				}
+				return this.getNumChildren() + sum;
 			}
-			return this.getNumChildren() + sum;
+		}catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("No enough arguments!");
+			Exception e_0 = new Exception("Not enought arguments");
+			Error error = new Error(e_0);
 		}
 		return 0;
 	}

@@ -3,6 +3,7 @@ package parser;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 import nodes.CommandNode;
@@ -13,19 +14,23 @@ import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
+import nodes.MakeNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
 import nodes.VariableNode;
+import slogo_team12.Display;
 import turtle.Turtle;
 import user_data.UserCommands;
+import user_data.UserController;
+import error.Error;
 
 public class DetermineNodeType {
-	
 	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.nodes/Nodes";
+	private Error error;
 	UserCommands userCommands;
-
+	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
 		userCommands = new UserCommands();
@@ -42,7 +47,7 @@ public class DetermineNodeType {
 	    }
 	}
 	
-	protected Node getNodeType(String nodeType, String content, Turtle turtle) {
+	protected Node getNodeType(String nodeType, String content, Turtle turtle) throws Exception {
 //		System.out.print("content: " + content);
 //		System.out.println(" nodeType: " + nodeType);
 		if(nodeType.equalsIgnoreCase("Command")) {
@@ -52,6 +57,7 @@ public class DetermineNodeType {
 			return new ArgumentNode(content, turtle); 
 		}
 		else if(nodeType.equalsIgnoreCase("Variable")) {
+			System.out.println(content);
 			return new VariableNode(content, turtle);
 		}
 		else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
@@ -60,36 +66,37 @@ public class DetermineNodeType {
 		return null;
 	}
 	
-	private Node makeCommandNode(String content, Turtle turtle) {
-//		if(specialCommandNodes.containsKey(content)) {
-//			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
-//			return (Node) clazz.newInstance();
-//		}
-		System.out.println(content);
-		if(content.equalsIgnoreCase("for")) {
-			return new ForLoopNode(content, turtle);
-		}
-		else if (content.equalsIgnoreCase("repeat")) {
-			return new RepeatNode(content, turtle);
-		}
-		else if (content.equalsIgnoreCase("dotimes")) {
-			return new DoTimesNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("ifelse")) {
-			return new IfElseNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("makevariable")) {
-			return new VariableNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("to")) {
-			return new ToNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("if")) {
-			return new IfNode(content, turtle);
-		}
-		else {
-			return new CommandNode(content, turtle);
+	private Node makeCommandNode(String content, Turtle turtle) throws Exception{
+		try{
+			if(content.equalsIgnoreCase("for")) {
+				return new ForLoopNode(content, turtle);
+			}
+			else if (content.equalsIgnoreCase("repeat")) {
+				return new RepeatNode(content, turtle);
+			}
+			else if (content.equalsIgnoreCase("dotimes")) {
+				return new DoTimesNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("ifelse")) {
+				return new IfElseNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("makevariable")) {
+				return new MakeNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("to")) {
+				return new ToNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("if")) {
+				return new IfNode(content, turtle);
+			}
+			else {
+				return new CommandNode(content, turtle);
+			}
+		}catch(NullPointerException e) {
+			Exception e_0 = new Exception("Wrong Command");
+			Error error = new Error(e_0);
+			Display.setErrorString(Error.getString());
+			return null;
 		}
 	}
-
 }

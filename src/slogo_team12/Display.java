@@ -3,9 +3,14 @@ package slogo_team12;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import nodes.Node;
 import parser.ConstructNodes;
 import parser.ProcessString;
 import turtle.Turtle;
+import user_data.UserCommands;
+import user_data.UserController;
+import user_data.UserHistory;
+import user_data.UserVariables;
 import windows.CommandWindow;
 import windows.TurtleWindow;
 import windows.UserCommandsWindow;
@@ -13,12 +18,13 @@ import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
 import windows.Windows;
 
-import java.awt.Point;
+import point.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -34,6 +40,7 @@ import gui_elements.combo_boxes.PenColorComboBox;
 import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.labels.BackgroundColorLabel;
 import gui_elements.labels.CommandWindowLabel;
+import gui_elements.labels.ErrorLabel;
 import gui_elements.labels.LanguageLabel;
 import gui_elements.labels.PenColorLabel;
 import gui_elements.labels.TurtleDisplayLabel;
@@ -54,11 +61,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -87,6 +97,7 @@ public class Display extends Application {
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
     private static String myLanguage = "English";
     private static String pen_color;
+    private static String errorString = "";
     private String title;
     private final int FRAMES_PER_SECOND = 2;
     private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -102,9 +113,6 @@ public class Display extends Application {
 	private InputStream input;
 	private CommandWindow command_window;
 	private TurtleWindow turtle_window;
-	private UserHistoryWindow user_history_window;
-	private UserCommandsWindow user_commands_window;
-	private UserVariablesWindow user_variables_window;
 	private PenColorLabel pen_color_label;
 	private BackgroundColorLabel background_color_label;
 	private TurtleImageLabel turtle_image_label;
@@ -115,6 +123,7 @@ public class Display extends Application {
 	private UserCommandsLabel user_commands_label;
 	private UserHistoryLabel user_history_label;
 	private UserAPILabel user_api_label;
+	private ErrorLabel error_label;
 	private ClearButton clear_button;
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
@@ -125,11 +134,11 @@ public class Display extends Application {
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
-    private ImageView imageView;
+    private static ImageView imageView;
 	
 	// Additional setup for the display
     private Scene myScene;
-    private Group root;
+    private static Group root;
 
     /**
      * Initializes the stage for the display.
@@ -148,12 +157,22 @@ public class Display extends Application {
     private void initialize() {
     	root = new Group();
     	getProperties();
-        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+    	setScene();
         setStage();
     	setImages();
         setGUIComponents();
         setRunButtonPressed(false);
         setPenDown(true);
+        new UserController(command_window);
+        startAnimation();
+    }
+    
+    private void setScene() {
+        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    }
+    
+    private void startAnimation(){
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -163,43 +182,65 @@ public class Display extends Application {
         animation.play();
     }
 
-    private void step() {
+    private void step(){
     	if(runButtonPressed) {
     		String text = CommandWindow.getText();
     		List<String> command_strings = ProcessString.processString(text);
     		try {
 				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
-				updateTurtle();
+				updateTurtleImage();
+				UserController.updateUserHistoryWindow(text);
+				current_turtle.updateTurtleLineMap();
 				if(pen_down)
 					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+				e.printStackTrace();
 			}
     		CommandWindow.clearWindow();
+    		if(!errorString.equals(null)) {
+    			if(root.getChildren().contains(error_label)) {
+    				root.getChildren().remove(error_label.getLabel());
+    				errorString = null;
+    			}
+    			else {
+        			error_label.getLabel().setText(errorString);
+        			root.getChildren().remove(error_label.getLabel());
+        			root.getChildren().add(error_label.getLabel());    				
+    			}
+    		}
     		runButtonPressed = false;
-    	}
+    }
     }
     
     private void drawLine(List<Point> nextPoints) {
     	for(int i = 0; i < nextPoints.size() - 1; i++) {
     		Point curr_point = nextPoints.get(i);
     		Point next_point = nextPoints.get(i + 1);
-    		int x_offset = (int) ((int) TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2);
-    		int y_offset = (int) ((int) TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2);
-    		Line line = new Line(curr_point.x + x_offset, 
-    							 curr_point.y + y_offset, 
-    							 next_point.x + x_offset, 
-    							 next_point.y + y_offset);
+    		double x_offset = TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2;
+    		double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
+    		Line line = new Line(curr_point.getX() + x_offset, 
+    							 curr_point.getY() + y_offset, 
+    							 next_point.getX() + x_offset, 
+    							 next_point.getY() + y_offset);
+    		System.out.println(next_point.getX() + " " + next_point.getY());
     		line.setStyle(pen_color);
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
 
-	private void updateTurtle() {
+	private void updateTurtleImage() {
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
     	imageView.setRotate(current_turtle.getHeading());
-    }
+    	if(current_turtle.isVisible() && !TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    		TurtleWindow.getPaneRoot().getChildren().set(0, imageView);
+    	}
+    	else if(!current_turtle.isVisible() && TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    		System.out.println("HELLO");
+    		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
+    	}
+    }	
     
     /**
      * Reads in properties from a property file and gets the  
@@ -246,9 +287,6 @@ public class Display extends Application {
     private void setWindows() {
     	command_window = new CommandWindow(current_turtle, root);
     	turtle_window = new TurtleWindow(current_turtle, root, turtle_image_object.getImageView());
-    	user_variables_window = new UserVariablesWindow(root);
-    	user_history_window = new UserHistoryWindow(root);
-    	user_commands_window = new UserCommandsWindow(root);
     }
 
     /*
@@ -265,6 +303,7 @@ public class Display extends Application {
     	user_commands_label = new UserCommandsLabel(new Label(), root);
     	user_history_label = new UserHistoryLabel(new Label(), root);
     	user_api_label = new UserAPILabel(new Label(), root);
+    	error_label = new ErrorLabel(new Label(), root);
     }
 
     /*
@@ -283,7 +322,7 @@ public class Display extends Application {
     private void setComboBoxes() {
     	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
+    	turtle_image_combobox = new TurtleImageComboBox(current_turtle, new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
     }
 
@@ -342,7 +381,25 @@ public class Display extends Application {
 	public static void setPenDown(boolean pen_state) {
 		pen_down = pen_state;
 	}
-
+	
+	public static Group getRoot() {
+		return root;
+	}
+		
+	public static void setImageView(ImageView newImageView) {
+		imageView = newImageView;
+	}
+	
+    private void handleKeyInput (KeyCode code) {
+        if(code == KeyCode.UP) {
+        	
+        }
+    }
+    
+    public static void setErrorString(String string) {
+    	errorString = string;
+    }
+	
     /**
      * Starts the program.
      */

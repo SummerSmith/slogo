@@ -25,15 +25,12 @@ public class CommandNode extends Node {
 		for(Node n : myChildren) {
 			args.add(n.evaluate());
 		}
-		System.out.println(args);
+		System.out.println("Arguments: " + args);
 		try {
 			Class<?> clazz = Class.forName("commands." + type);
 			Object o = clazz.newInstance();
-			System.out.println("Successfully instantiated object!");
 			Method method = o.getClass().getMethod("Execute", myTurtle.getClass(), java.util.List.class);
-			System.out.println("Successfully found method!");
 			returnVal = (Double) method.invoke(o, myTurtle, args);
-			System.out.println("Successfully called method!");
 		} catch (ClassNotFoundException e) {
 			System.out.println("The command was not found. A more formal error will be thrown later");
 			e.printStackTrace();
@@ -56,7 +53,6 @@ public class CommandNode extends Node {
 			System.out.println("invocation target");
 			e.printStackTrace();
 		}
-		
 		
 		return returnVal;
 	}

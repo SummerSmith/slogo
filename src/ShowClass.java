@@ -1,4 +1,4 @@
-//package reflection;
+//We just used this to test out and figure out how to use reflection
 
 /**
  *  This example is from _Java Examples in a Nutshell_. (http://www.oreilly.com)
@@ -12,7 +12,6 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
 
 /**
  * A program that displays a class synopsis for the named class

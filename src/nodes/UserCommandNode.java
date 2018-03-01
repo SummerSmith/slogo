@@ -1,7 +1,6 @@
 package nodes;
 
 import java.util.List;
-
 import turtle.Turtle;
 import user_data.UserCommands;
 

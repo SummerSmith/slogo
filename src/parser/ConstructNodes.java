@@ -11,7 +11,9 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 import nodes.Node;
+import slogo_team12.Display;
 import turtle.Turtle;
+import error.Error;
 
 public class ConstructNodes {
 
@@ -32,7 +34,7 @@ public class ConstructNodes {
 	private final String syntaxPath = path + "syntax";
 	
 	
-	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception {
+	public ConstructNodes(Turtle t, List<String> strings, String CurrLanguage) throws Exception{
 		input = strings;
 		turtle = t;
 		turtle.getNextPoints().clear();
@@ -47,25 +49,27 @@ public class ConstructNodes {
 		parse();
 	}
 	
-	private void parse() throws Exception {
-//		turtle.clearNextPoints();
-		makeCommandArgumentsMap();
-		makeCommandMap(path + language);
-		addPatterns(syntaxPath);
-		createNodeList();
-		traverse = new TraverseNodes(turtle, nodes);
-		traverse.createTree(nodes.get(0));
-		headNodes.addAll(traverse.getTemp());
-
-//		for(Node curr: headNodes) {
-//			System.out.println("headnode:" + curr);
-//			for(Node child : curr.getChildren()) {
-//				System.out.println("child: " + child);
-//			}
-//		}
-//		System.out.println(headNodes);
-
-		executor.executeCommands(headNodes);
+	private void parse() throws Exception{
+		try {
+			makeCommandArgumentsMap();
+			makeCommandMap(path + language);
+			addPatterns(syntaxPath);
+			createNodeList();
+			traverse = new TraverseNodes(turtle, nodes);
+			traverse.createTree(nodes.get(0));
+			headNodes.addAll(traverse.getTemp());
+	
+			for(Node curr : headNodes) {
+				System.out.println("headnode: " + curr);
+				for(Node child : curr.getChildren()) {
+					System.out.println("child: " + child);
+				}
+			}
+			System.out.println("headnodes: " + headNodes);
+			executor.executeCommands(headNodes);
+		}catch(Exception e) {
+			//
+		}
 	}
 	
 	protected List<Node> getHeadNodes(){
@@ -85,15 +89,16 @@ public class ConstructNodes {
      * Returns language's type associated with the given text if one exists 
      */
     public String getSymbol (String text) {
-        final String ERROR = "NO MATCH";
-        for (Entry<String, Pattern> e : mySymbols) {
-            if (match(text, e.getValue())) {
-                return e.getKey();
-            }
-        }
-        // FIXME: perhaps throw an exception instead
-        return ERROR;
-    }
+	    	final String ERROR = "NO MATCH";
+	    	for (Entry<String, Pattern> e : mySymbols) {
+	    		if (match(text, e.getValue())) {
+	    			return e.getKey();
+	    		}
+	    	}
+	    	// FIXME: perhaps throw an exception instead
+	    	//        return ERROR;
+	    	return text; //this is for user defined commands, because they'll be words that don't match with file
+    }				//error will have to be returned in another area
 
 	
     /**
@@ -129,10 +134,8 @@ public class ConstructNodes {
 	}
 	
 	private void createNodeList() throws Exception {
-//		System.out.println(input);
 		for(int i = 0; i<input.size(); i++) {
 			String identity = getSymbol(input.get(i).toLowerCase());
-//			System.out.println("identity: " + identity);
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
@@ -141,15 +144,12 @@ public class ConstructNodes {
 			if(commandArguments.containsKey(temp.getType())) {
 				temp.setNumChildren(commandArguments.get(temp.getType()));
 			}
-//			else if (temp instanceof UserCommandNode) {
-//				
-//			}
 			else {
 				temp.setNumChildren(0);
 			}
 		}
 	}
-	
+	//does this make a new map from arguments to numArgs every time you run a command? :(
 	private void makeCommandArgumentsMap() {
 		commandArguments = new HashMap<>();
 		ResourceBundle resources = ResourceBundle.getBundle(file);
