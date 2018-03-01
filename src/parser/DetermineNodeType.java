@@ -14,6 +14,7 @@ import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
+import nodes.MakeNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
@@ -83,7 +84,7 @@ public class DetermineNodeType {
 			return new IfElseNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("makevariable")) {
-			return new VariableNode(content, turtle);
+			return new MakeNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("to")) {
 			return new ToNode(content, turtle);
