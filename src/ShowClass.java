@@ -13,7 +13,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-
 /**
  * A program that displays a class synopsis for the named class
  * 

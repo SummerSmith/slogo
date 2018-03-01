@@ -1,6 +1,6 @@
 package parser;
 
-import java.awt.Point;
+import point.Point;
 import java.util.ArrayList;
 
 import turtle.Turtle;
