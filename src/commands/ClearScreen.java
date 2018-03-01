@@ -1,6 +1,5 @@
 package commands;
-
-import java.awt.Point;
+import point.Point;
 import java.util.List;
 
 import javafx.scene.image.ImageView;

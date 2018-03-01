@@ -18,7 +18,7 @@ import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
 import windows.Windows;
 
-import java.awt.Point;
+import point.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -194,9 +194,8 @@ public class Display extends Application {
 				if(pen_down)
 					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
-    			e.printStackTrace();
-//				System.err.println("After button was pressed, the nodes were not able to be constructed.");
-//    			Error.getErrorString();
+				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+				e.printStackTrace();
 			}
     		CommandWindow.clearWindow();
     		if(!errorString.equals(null)) {

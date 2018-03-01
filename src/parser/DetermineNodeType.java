@@ -13,6 +13,7 @@ import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
+import nodes.MakeNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
@@ -67,7 +68,7 @@ public class DetermineNodeType {
 //			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
 //			return (Node) clazz.newInstance();
 //		}
-		System.out.println(content);
+		System.out.println("content: " + content);
 		if(content.equalsIgnoreCase("for")) {
 			return new ForLoopNode(content, turtle);
 		}
@@ -81,7 +82,7 @@ public class DetermineNodeType {
 			return new IfElseNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("makevariable")) {
-			return new VariableNode(content, turtle);
+			return new MakeNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("to")) {
 			return new ToNode(content, turtle);
@@ -90,8 +91,9 @@ public class DetermineNodeType {
 			return new IfNode(content, turtle);
 		}
 		else {
-			return new CommandNode(content, turtle);
-		}
+//			return new CommandNode(content, turtle);
+			return new UserCommandNode(content, turtle);
+		}	
 	}
 
 }

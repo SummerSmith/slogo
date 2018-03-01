@@ -1,6 +1,5 @@
 package turtle;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import windows.TurtleWindow;
+import point.Point;
 
 public class Turtle extends Parent{	
 	private Point location;
@@ -85,7 +85,6 @@ public class Turtle extends Parent{
 	}
 
 	public double getXLocation() {
-		//System.out.println("Enter getXLocation()");
 		return location.getX();
 	}
 
@@ -114,6 +113,8 @@ public class Turtle extends Parent{
 	public void setHeading(double heading) {
 //		sprite.setRotate(heading);
 		this.heading = heading;
+//		System.out.println("******heading********");
+//		System.out.println(this.heading);
 	}
 	
 	public boolean turtleIsShowing() {
@@ -149,6 +150,10 @@ public class Turtle extends Parent{
 	}
 	
 	public void updateTurtleLineMap() {
+//		for(Point p : nextPoints) {
+//			System.out.println(p);
+//		}
+		
 		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
 	}
 

@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import slogo_team12.Display;
 import user_api.UserAPI;
+import point.Point;
 
 public class UserAPIButton extends DefaultButton {
 
