@@ -18,7 +18,7 @@ import windows.UserHistoryWindow;
 import windows.UserVariablesWindow;
 import windows.Windows;
 
-import java.awt.Point;
+import point.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,5 +1,6 @@
 package parser;
 
+import point.Point;
 import java.util.ArrayList;
 
 import turtle.Turtle;
