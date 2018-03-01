@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -93,6 +95,10 @@ public class UserHistoryWindow extends Windows {
 	@Override
 	public Parent getWindowArea() {
 		return flow_pane;
+	}
+	
+	public static ObservableList<Node> getButtonList() {
+		return flow_pane.getChildren();
 	}
 	
 	public static void addButton(Button button) {

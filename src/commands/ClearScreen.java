@@ -8,12 +8,13 @@ import slogo_team12.Display;
 import turtle.Turtle;
 import windows.TurtleWindow;
 
-public class ClearScreen {
+public class ClearScreen implements Command {
 
 	public ClearScreen() {
 
 	}
 	
+	@Override
 	public double Execute(Turtle turtle, List<Double> args) {
 		turtle.getTurtleLineMap().clear();
 		turtle.getNextPoints().clear();

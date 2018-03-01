@@ -63,6 +63,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -153,13 +154,22 @@ public class Display extends Application {
     private void initialize() {
     	root = new Group();
     	getProperties();
-        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+    	setScene();
         setStage();
     	setImages();
         setGUIComponents();
         setRunButtonPressed(false);
         setPenDown(true);
-        new UserController();
+        new UserController(command_window);
+        startAnimation();
+    }
+    
+    private void setScene() {
+        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    }
+    
+    private void startAnimation() {
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -176,7 +186,7 @@ public class Display extends Application {
     		try {
 				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
 				updateTurtleImage();
-				UserController.updateUserHistoryWindow((TextArea) command_window.getWindowArea(), text);
+				UserController.updateUserHistoryWindow(text);
 				current_turtle.updateTurtleLineMap();
 				if(pen_down)
 					drawLine(current_turtle.getNextPoints());
@@ -207,6 +217,13 @@ public class Display extends Application {
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
     	imageView.setRotate(current_turtle.getHeading());
+    	if(current_turtle.isVisible() && !TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    		TurtleWindow.getPaneRoot().getChildren().set(0, imageView);
+    	}
+    	else if(!current_turtle.isVisible() && TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    		System.out.println("HELLO");
+    		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
+    	}
     }	
     
     /**
@@ -351,18 +368,16 @@ public class Display extends Application {
 	public static Group getRoot() {
 		return root;
 	}
-	
-	public static void ShowTurtle() {
-	
-	}
-	
-	public static void HideTurtle() {
 		
-	}
-	
 	public static void setImageView(ImageView newImageView) {
 		imageView = newImageView;
 	}
+	
+    private void handleKeyInput (KeyCode code) {
+        if(code == KeyCode.UP) {
+        	
+        }
+    }
 	
     /**
      * Starts the program.
