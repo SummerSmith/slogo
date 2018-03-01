@@ -40,6 +40,7 @@ import gui_elements.combo_boxes.PenColorComboBox;
 import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.labels.BackgroundColorLabel;
 import gui_elements.labels.CommandWindowLabel;
+import gui_elements.labels.ErrorLabel;
 import gui_elements.labels.LanguageLabel;
 import gui_elements.labels.PenColorLabel;
 import gui_elements.labels.TurtleDisplayLabel;
@@ -96,6 +97,7 @@ public class Display extends Application {
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
     private static String myLanguage = "English";
     private static String pen_color;
+    private static String errorString = "";
     private String title;
     private final int FRAMES_PER_SECOND = 2;
     private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -121,6 +123,7 @@ public class Display extends Application {
 	private UserCommandsLabel user_commands_label;
 	private UserHistoryLabel user_history_label;
 	private UserAPILabel user_api_label;
+	private ErrorLabel error_label;
 	private ClearButton clear_button;
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
@@ -191,9 +194,21 @@ public class Display extends Application {
 				if(pen_down)
 					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
-				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+    			e.printStackTrace();
+//				System.err.println("After button was pressed, the nodes were not able to be constructed.");
+//    			Error.getErrorString();
 			}
     		CommandWindow.clearWindow();
+    		if(!errorString.equals(null)) {
+    			if(root.getChildren().contains(error_label)) {
+    				root.getChildren().remove(error_label.getLabel());
+    				errorString = null;
+    			}
+    			else {
+        			error_label.getLabel().setText(errorString);
+        			root.getChildren().add(error_label.getLabel());    				
+    			}
+    		}
     		runButtonPressed = false;
     	}
     }
@@ -202,12 +217,13 @@ public class Display extends Application {
     	for(int i = 0; i < nextPoints.size() - 1; i++) {
     		Point curr_point = nextPoints.get(i);
     		Point next_point = nextPoints.get(i + 1);
-    		int x_offset = (int) ((int) TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2);
-    		int y_offset = (int) ((int) TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2);
-    		Line line = new Line(curr_point.x + x_offset, 
-    							 curr_point.y + y_offset, 
-    							 next_point.x + x_offset, 
-    							 next_point.y + y_offset);
+    		double x_offset = TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2;
+    		double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
+    		Line line = new Line(curr_point.getX() + x_offset, 
+    							 curr_point.getY() + y_offset, 
+    							 next_point.getX() + x_offset, 
+    							 next_point.getY() + y_offset);
+    		System.out.println(next_point.getX() + " " + next_point.getY());
     		line.setStyle(pen_color);
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
@@ -287,6 +303,7 @@ public class Display extends Application {
     	user_commands_label = new UserCommandsLabel(new Label(), root);
     	user_history_label = new UserHistoryLabel(new Label(), root);
     	user_api_label = new UserAPILabel(new Label(), root);
+    	error_label = new ErrorLabel(new Label(), root);
     }
 
     /*
@@ -377,6 +394,10 @@ public class Display extends Application {
         if(code == KeyCode.UP) {
         	
         }
+    }
+    
+    public static void setErrorString(String string) {
+    	errorString = string;
     }
 	
     /**
