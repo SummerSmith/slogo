@@ -3,9 +3,14 @@ package slogo_team12;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import nodes.Node;
 import parser.ConstructNodes;
 import parser.ProcessString;
 import turtle.Turtle;
+import user_data.UserCommands;
+import user_data.UserController;
+import user_data.UserHistory;
+import user_data.UserVariables;
 import windows.CommandWindow;
 import windows.TurtleWindow;
 import windows.UserCommandsWindow;
@@ -19,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -54,11 +60,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -102,9 +110,6 @@ public class Display extends Application {
 	private InputStream input;
 	private CommandWindow command_window;
 	private TurtleWindow turtle_window;
-	private UserHistoryWindow user_history_window;
-	private UserCommandsWindow user_commands_window;
-	private UserVariablesWindow user_variables_window;
 	private PenColorLabel pen_color_label;
 	private BackgroundColorLabel background_color_label;
 	private TurtleImageLabel turtle_image_label;
@@ -125,11 +130,11 @@ public class Display extends Application {
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
-    private ImageView imageView;
+    private static ImageView imageView;
 	
 	// Additional setup for the display
     private Scene myScene;
-    private Group root;
+    private static Group root;
 
     /**
      * Initializes the stage for the display.
@@ -154,6 +159,7 @@ public class Display extends Application {
         setGUIComponents();
         setRunButtonPressed(false);
         setPenDown(true);
+        new UserController();
         KeyFrame frame = new KeyFrame(Duration.millis(INITIAL_TIME_DELAY),
                 e -> step());
         Timeline animation = new Timeline();
@@ -169,7 +175,9 @@ public class Display extends Application {
     		List<String> command_strings = ProcessString.processString(text);
     		try {
 				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
-				updateTurtle();
+				updateTurtleImage();
+				UserController.updateUserHistoryWindow((TextArea) command_window.getWindowArea(), text);
+				current_turtle.updateTurtleLineMap();
 				if(pen_down)
 					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
@@ -195,11 +203,11 @@ public class Display extends Application {
     	}
 	}
 
-	private void updateTurtle() {
+	private void updateTurtleImage() {
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
     	imageView.setRotate(current_turtle.getHeading());
-    }
+    }	
     
     /**
      * Reads in properties from a property file and gets the  
@@ -246,9 +254,6 @@ public class Display extends Application {
     private void setWindows() {
     	command_window = new CommandWindow(current_turtle, root);
     	turtle_window = new TurtleWindow(current_turtle, root, turtle_image_object.getImageView());
-    	user_variables_window = new UserVariablesWindow(root);
-    	user_history_window = new UserHistoryWindow(root);
-    	user_commands_window = new UserCommandsWindow(root);
     }
 
     /*
@@ -283,7 +288,7 @@ public class Display extends Application {
     private void setComboBoxes() {
     	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
+    	turtle_image_combobox = new TurtleImageComboBox(current_turtle, new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
     }
 
@@ -342,7 +347,23 @@ public class Display extends Application {
 	public static void setPenDown(boolean pen_state) {
 		pen_down = pen_state;
 	}
-
+	
+	public static Group getRoot() {
+		return root;
+	}
+	
+	public static void ShowTurtle() {
+	
+	}
+	
+	public static void HideTurtle() {
+		
+	}
+	
+	public static void setImageView(ImageView newImageView) {
+		imageView = newImageView;
+	}
+	
     /**
      * Starts the program.
      */

@@ -71,6 +71,11 @@ public class Turtle extends Parent{
 	public void resetLocation() {
 		setLocation(INITIAL_POINT);
 	}
+	
+	public void resetHeading() {
+		setHeading(0);
+	}
+	
 	public Point getLocation() {
 		return location;
 	}
@@ -137,5 +142,17 @@ public class Turtle extends Parent{
 	
 	public double getVisible() {
 		return isVisible;
+	}
+	
+	public Map getTurtleLineMap() {
+		return turtle_line_map;
+	}
+	
+	public void updateTurtleLineMap() {
+		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
+	}
+
+	public void removeTurtleLineMapEntry() {
+		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
 	}
 }

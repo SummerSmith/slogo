@@ -52,6 +52,7 @@ public class DetermineNodeType {
 			return new ArgumentNode(content, turtle); 
 		}
 		else if(nodeType.equalsIgnoreCase("Variable")) {
+			System.out.println(content);
 			return new VariableNode(content, turtle);
 		}
 		else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {

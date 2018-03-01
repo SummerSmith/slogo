@@ -1,22 +1,25 @@
 package windows;
 
-import java.awt.ScrollPane;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import turtle.Turtle;
 
 public class UserHistoryWindow extends Windows {
 
 	private Group myRoot;
-	private ScrollPane scroll_pane = new ScrollPane();
-	private GridPane grid_pane = new GridPane();
+	private static FlowPane flow_pane = new FlowPane();
+	private static HBox hbox = new HBox();
 	private Turtle myTurtle;
 	private ImageView myImageView;
 	private String full_directory_name = DIRECTORY_STRING + "user_history_window.properties";
@@ -60,35 +63,39 @@ public class UserHistoryWindow extends Windows {
 
 	@Override
 	protected void createWindow() {
-		grid_pane.setLayoutX(x);
-		grid_pane.setLayoutY(y);
-		grid_pane.setPrefSize(width, height);
-		grid_pane.setStyle(PANE_STYLE);
-		myRoot.getChildren().add(grid_pane);
+		flow_pane.setLayoutX(x);
+		flow_pane.setLayoutY(y);
+		flow_pane.setPrefSize(width, height);
+		flow_pane.setStyle(PANE_STYLE);
+		myRoot.getChildren().add(flow_pane);
 	}
 
 	@Override
 	protected void setX(int x) {
-		grid_pane.setLayoutX(x);
+		flow_pane.setLayoutX(x);
 	}
 
 	@Override
 	protected void setY(int y) {
-		grid_pane.setLayoutY(y);
+		flow_pane.setLayoutY(y);
 	}
 
 	@Override
 	protected int getX() {
-		return (int) grid_pane.getLayoutX();
+		return (int) flow_pane.getLayoutX();
 	}
 
 	@Override
 	protected int getY() {
-		return (int) grid_pane.getLayoutY();
+		return (int) flow_pane.getLayoutY();
 	}
 	
 	@Override
 	public Parent getWindowArea() {
-		return grid_pane;
+		return flow_pane;
+	}
+	
+	public static void addButton(Button button) {
+		flow_pane.getChildren().add(button);
 	}
 }
