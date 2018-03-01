@@ -222,7 +222,7 @@ public class Display extends Application {
     							 curr_point.getY() + y_offset, 
     							 next_point.getX() + x_offset, 
     							 next_point.getY() + y_offset);
-    		System.out.println(next_point.getX() + " " + next_point.getY());
+//    		System.out.println(next_point.getX() + " " + next_point.getY());
     		line.setStyle(pen_color);
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
