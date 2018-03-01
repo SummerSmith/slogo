@@ -81,7 +81,7 @@ public class DetermineNodeType {
 			return new IfElseNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("makevariable")) {
-			return new VariableNode(content, turtle);
+			return new CommandNode(content, turtle);
 		}
 		else if(content.equalsIgnoreCase("to")) {
 			return new ToNode(content, turtle);
