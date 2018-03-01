@@ -44,6 +44,7 @@ public class Turtle extends Parent{
 		getChildren().add(sprite);
 		INITIAL_POINT = initial_point;
 		resetLocation();
+		nextPoints.add(location);
 		setHeading(INITIAL_HEADING);
 		turtleIsShown = true;
 		penDown = true;
