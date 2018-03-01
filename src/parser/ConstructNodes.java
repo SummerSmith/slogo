@@ -68,8 +68,7 @@ public class ConstructNodes {
 			System.out.println("headnodes: " + headNodes);
 			executor.executeCommands(headNodes);
 		}catch(Exception e) {
-			Exception e_0 = new Exception("Wrong Command");
-			Error error = new Error(e_0);
+			//
 		}
 	}
 	

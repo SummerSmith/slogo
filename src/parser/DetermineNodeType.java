@@ -14,6 +14,7 @@ import nodes.ForLoopNode;
 import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
+import nodes.MakeNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
@@ -65,38 +66,36 @@ public class DetermineNodeType {
 	}
 	
 	private Node makeCommandNode(String content, Turtle turtle) throws Exception{
-//		if(specialCommandNodes.containsKey(content)) {
-//			Class<?> clazz = Class.forName(specialCommandNodes.get(content));
-//			return (Node) clazz.newInstance();
-//		}
-		System.out.println(content);
-		if(content.equalsIgnoreCase("for")) {
-			return new ForLoopNode(content, turtle);
-		}
-		else if (content.equalsIgnoreCase("repeat")) {
-			return new RepeatNode(content, turtle);
-		}
-		else if (content.equalsIgnoreCase("dotimes")) {
-			return new DoTimesNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("ifelse")) {
-			return new IfElseNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("makevariable")) {
-			return new MakeNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("to")) {
-			return new ToNode(content, turtle);
-		}
-		else if(content.equalsIgnoreCase("if")) {
-			return new IfNode(content, turtle);
-		}
-		else {
-			System.out.println("No such command!");
-			Exception e = new Exception("Unknown Command");
-			error = new Error(e);
-			throw new Exception(e);
+		try{
+			if(content.equalsIgnoreCase("for")) {
+				return new ForLoopNode(content, turtle);
+			}
+			else if (content.equalsIgnoreCase("repeat")) {
+				return new RepeatNode(content, turtle);
+			}
+			else if (content.equalsIgnoreCase("dotimes")) {
+				return new DoTimesNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("ifelse")) {
+				return new IfElseNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("makevariable")) {
+				return new MakeNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("to")) {
+				return new ToNode(content, turtle);
+			}
+			else if(content.equalsIgnoreCase("if")) {
+				return new IfNode(content, turtle);
+			}
+			else {
+				return null;
+			}
+		}catch(NullPointerException e) {
+			Exception e_0 = new Exception("Wrong Command");
+			Error error = new Error(e_0);
+			e.printStackTrace();
+			return null;
 		}
 	}
-
 }
