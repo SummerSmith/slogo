@@ -13,6 +13,7 @@ public class Home implements Command{
 		double original_x = turtle.getXLocation();
 		double original_y = turtle.getYLocation();
 		turtle.resetLocation();
+		turtle.resetHeading();
 		Point new_point = turtle.getLocation();
 		turtle.addNextPoint(new_point);
 		double dis_x = original_x - new_point.x;

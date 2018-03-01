@@ -19,6 +19,7 @@ import nodes.UserCommandNode;
 import nodes.VariableNode;
 import turtle.Turtle;
 import user_data.UserCommands;
+import user_data.UserController;
 
 public class DetermineNodeType {
 	
@@ -52,6 +53,7 @@ public class DetermineNodeType {
 			return new ArgumentNode(content, turtle); 
 		}
 		else if(nodeType.equalsIgnoreCase("Variable")) {
+			System.out.println(content);
 			return new VariableNode(content, turtle);
 		}
 		else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
