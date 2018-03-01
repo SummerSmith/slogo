@@ -205,6 +205,7 @@ public class Display extends Application {
     			}
     			else {
         			error_label.getLabel().setText(errorString);
+        			root.getChildren().remove(error_label.getLabel());
         			root.getChildren().add(error_label.getLabel());    				
     			}
     		}

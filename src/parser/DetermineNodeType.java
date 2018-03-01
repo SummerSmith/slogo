@@ -19,6 +19,7 @@ import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
 import nodes.VariableNode;
+import slogo_team12.Display;
 import turtle.Turtle;
 import user_data.UserCommands;
 import user_data.UserController;
@@ -94,7 +95,7 @@ public class DetermineNodeType {
 		}catch(NullPointerException e) {
 			Exception e_0 = new Exception("Wrong Command");
 			Error error = new Error(e_0);
-			e.printStackTrace();
+			Display.setErrorString(Error.getString());
 			return null;
 		}
 	}
