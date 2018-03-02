@@ -1,6 +1,6 @@
 package Test;
 
-import java.awt.Point;
+import point.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CommandTester extends Application{
 	@Override
 	public void start(Stage stage) {
 		root = new Pane(); 
-		initTurtle(root);
+		//initTurtle(root);
 		initButton(root);
 		Scene scene = new Scene(root,WIDTH,HEIGHT);
 		stage.setScene(scene);

@@ -1,7 +1,10 @@
 package user_data;
 
-import java.util.HashMap; 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import nodes.Node;
 
 public class UserVariables {
 	private static Map<String, Double> myVariables = new HashMap<>();
@@ -23,5 +26,9 @@ public class UserVariables {
 		else {
 			return 0;
 		}
+	}
+	
+	public static Map<String, Double> getVariablesMap(){
+		return myVariables;
 	}
 }

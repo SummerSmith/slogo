@@ -34,5 +34,4 @@ public class UserCommands {
 	public static Map<String, List<Node>> getCommandsMap(){
 		return myCommands;
 	}
-	
 }
