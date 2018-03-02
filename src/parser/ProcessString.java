@@ -18,7 +18,7 @@ public class ProcessString {
 	
 	public static List<String> processString(String commands){
 		List<String> commandList = new ArrayList<>();
-		String[] comLines = commands.split("\\r\\n+");
+		String[] comLines = commands.split("[\\r\\n]+");
 		for(int i = 0; i < comLines.length; i++) {
 			String[] comms = comLines[i].split("\\s+");
 			if(!comms[0].equals("#"))
@@ -30,10 +30,10 @@ public class ProcessString {
 	//TEST
 	public static void main(String args[]) {
 		String s = "This is a test string\nHere is a new line             and some space\n# Here is a comment\n\nHere are two new lines";
-		System.out.println(s);
+		//System.out.println(s);
 
 		List<String> list = processString(s); //static status is temporary?
-		System.out.println(list);
+		//System.out.println(list);
 		
 	}
 }

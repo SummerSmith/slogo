@@ -51,24 +51,35 @@ public class ConstructNodes {
 	
 	private void parse() throws Exception{
 		try {
+			System.out.println("enter parse");
+			//clean errors information at the beginning of execution of each commands
+			Error.clearString();
 			makeCommandArgumentsMap();
 			makeCommandMap(path + language);
 			addPatterns(syntaxPath);
-			createNodeList();
+			int res = createNodeList();
+			//if there is an unknown command, stop execution
+			if(res == -1) {
+				return;
+			}
 			traverse = new TraverseNodes(turtle, nodes);
-			traverse.createTree(nodes.get(0));
+			res = traverse.createTree(nodes.get(0));
+			//if there is a command which does not have enough argument, stop execution
+			if(res == -1) {
+				return;
+			}
 			headNodes.addAll(traverse.getTemp());
 	
 			for(Node curr : headNodes) {
-				System.out.println("headnode: " + curr);
+				//System.out.println("headnode: " + curr);
 				for(Node child : curr.getChildren()) {
-					System.out.println("child: " + child);
+					//System.out.println("child: " + child);
 				}
 			}
-			System.out.println("headnodes: " + headNodes);
+			//System.out.println("headnodes: " + headNodes);
 			executor.executeCommands(headNodes);
 		}catch(Exception e) {
-			//
+			e.printStackTrace();
 		}
 	}
 	
@@ -133,13 +144,16 @@ public class ConstructNodes {
 		return commandTranslations.get(notEnglish);
 	}
 	
-	private void createNodeList() throws Exception {
+	private int createNodeList() throws Exception {
 		for(int i = 0; i<input.size(); i++) {
 			String identity = getSymbol(input.get(i).toLowerCase());
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
 			Node temp = determineNodeType.getNodeType(identity, input.get(i), turtle);
+			if(temp == null) {
+				return -1;
+			}
 			addNode(temp);
 			if(commandArguments.containsKey(temp.getType())) {
 				temp.setNumChildren(commandArguments.get(temp.getType()));
@@ -148,6 +162,7 @@ public class ConstructNodes {
 				temp.setNumChildren(0);
 			}
 		}
+		return 0;
 	}
 	//does this make a new map from arguments to numArgs every time you run a command? :(
 	private void makeCommandArgumentsMap() {
