@@ -50,7 +50,7 @@ public class CommandNode extends Node {
 			System.out.println("illegal argument");
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			System.out.println("invocation target");
+			System.out.println("Invocation Target!");
 			e.printStackTrace();
 		}
 		

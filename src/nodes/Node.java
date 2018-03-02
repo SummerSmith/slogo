@@ -1,8 +1,11 @@
 package nodes;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import error.Error;
+import slogo_team12.Display;
 import turtle.Turtle;
 
 public abstract class Node {
@@ -27,16 +30,17 @@ public abstract class Node {
 					myChildren.add(child);
 					int temp = child.addChildren(nodes, index+i);
 					index += temp;
-					sum += temp; 
+					sum += temp; 	
 				}
 				return this.getNumChildren() + sum;
 			}
-		}catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("No enough arguments!");
+			return 0;
+		}catch(IndexOutOfBoundsException e) {
 			Exception e_0 = new Exception("Not enought arguments");
 			Error error = new Error(e_0);
+			Display.setErrorString(Error.getString());
+			return -1;
 		}
-		return 0;
 	}
 	
 	public abstract double evaluate();

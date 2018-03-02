@@ -30,10 +30,10 @@ public class ProcessString {
 	//TEST
 	public static void main(String args[]) {
 		String s = "This is a test string\nHere is a new line             and some space\n# Here is a comment\n\nHere are two new lines";
-		System.out.println(s);
+		//System.out.println(s);
 
 		List<String> list = processString(s); //static status is temporary?
-		System.out.println(list);
+		//System.out.println(list);
 		
 	}
 }
