@@ -21,11 +21,18 @@ public class TraverseNodes {
 	}
 	
 	int index = 0;
-	protected void createTree(Node curr) {
+	protected int createTree(Node curr) {
 		temp.add(curr);
-		index += curr.addChildren(nodes, index) + 1;
-		if(index < nodes.size()) {
-			createTree(nodes.get(index));
+		int res = curr.addChildren(nodes,index);
+		if(res == -1) {
+			return -1;
+		}
+		else {
+			index += curr.addChildren(nodes, index) + 1;
+			if(index < nodes.size()) {
+				createTree(nodes.get(index));
+			}
+			return 0;
 		}
 	}
 	

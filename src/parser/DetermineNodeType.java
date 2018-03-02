@@ -73,7 +73,7 @@ public class DetermineNodeType {
 		return null;
 	}
 	
-	private Node makeCommandNode(String content, Turtle turtle) throws Exception{
+	private Node makeCommandNode(String content, Turtle turtle){
 		try{
 			if(content.equalsIgnoreCase("for")) {
 				return new ForLoopNode(content, turtle);
@@ -100,9 +100,10 @@ public class DetermineNodeType {
 				return new CommandNode(content, turtle);
 			}
 		}catch(NullPointerException e) {
-			Exception e_0 = new Exception("Wrong Command");
+			System.out.println("Unknown Commands catches!");
+			Exception e_0 = new Exception("Unknown Commands");
 			Error error = new Error(e_0);
-			Display.setErrorString(Error.getString());
+			//e.printStackTrace();
 			return null;
 		}
 	}

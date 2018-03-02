@@ -198,16 +198,20 @@ public class Display extends Application {
 				e.printStackTrace();
 			}
     		CommandWindow.clearWindow();
-    		if(!errorString.equals(null)) {
+    		if(errorString.length() != 0) {
+    			//System.out.println("front end catch errors! " + errorString);
     			if(root.getChildren().contains(error_label)) {
-    				root.getChildren().remove(error_label.getLabel());
-    				errorString = null;
+    				root.getChildren().remove(error_label.getLabel());  
     			}
     			else {
         			error_label.getLabel().setText(errorString);
-        			root.getChildren().remove(error_label.getLabel());
-        			root.getChildren().add(error_label.getLabel());    				
+        			root.getChildren().remove(error_label.getLabel()); 
+        			root.getChildren().add(error_label.getLabel()); 
     			}
+    		}
+    		else {
+    			//System.out.println("front end uncatch errors! ");
+    			root.getChildren().remove(error_label.getLabel()); 
     		}
     		runButtonPressed = false;
     }
