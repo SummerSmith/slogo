@@ -15,6 +15,7 @@ import nodes.GroupNode;
 import nodes.IfElseNode;
 import nodes.IfNode;
 import nodes.MakeNode;
+import nodes.NewUserCommandNode;
 import nodes.RepeatNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
@@ -27,24 +28,22 @@ import error.Error;
 
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.nodes/Nodes";
+	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
 	private Error error;
-	UserCommands userCommands;
 	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
-		userCommands = new UserCommands();
-		makeMap();
 	}
 	
-	private void makeMap() {
+	private boolean commandExists(String content) {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
 		Enumeration<String> iter = resources.getKeys();
-	    while (iter.hasMoreElements()) {
-	            String key = iter.nextElement();
-	            String node = resources.getString(key);
-	            specialCommandNodes.put(key, node);
-	    }
+		while (iter.hasMoreElements()) {
+			if(content.equals(iter.nextElement())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	protected Node getNodeType(String nodeType, String content, Turtle turtle) throws Exception {
@@ -89,8 +88,14 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("if")) {
 				return new IfNode(content, turtle);
 			}
-			else {
+			else if (specialCommandNodes.containsKey(content)){
 				return new CommandNode(content, turtle);
+			}
+			else if (UserCommands.getCommandsMap().containsKey(content)){
+				return new UserCommandNode(content, turtle);
+			}
+			else {
+				return new NewUserCommandNode(content, turtle);
 			}
 		}catch(NullPointerException e) {
 			Exception e_0 = new Exception("Wrong Command");
