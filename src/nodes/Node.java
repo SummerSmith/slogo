@@ -16,6 +16,7 @@ public abstract class Node {
 		type = name;
 		myTurtle = t;
 		myChildren = new ArrayList<>();
+		//numChildren = 0;
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {
