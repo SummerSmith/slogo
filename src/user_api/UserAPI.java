@@ -10,10 +10,13 @@ import java.util.Properties;
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
 import gui_elements.buttons.SaveMethodButton;
+import gui_elements.combo_boxes.UserAPIComboBox;
+import gui_elements.labels.UserAPICommandDisplayLabel;
 import gui_elements.labels.UserAPIHeadingLabel;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -29,6 +32,8 @@ public class UserAPI extends Application {
     private final String WIDTH_PROPERTY = "width";
     private final String HEIGHT_PROPERTY = "height";
     private UserAPIHeadingLabel user_api_heading_label;
+    private UserAPICommandDisplayLabel user_api_command_display_label;
+    private UserAPIComboBox user_api_combo_box;
     private String title;
     private int screen_width, screen_height;
     private Stage stage;
@@ -103,5 +108,7 @@ public class UserAPI extends Application {
     
     private void setGUIComponents() {
     	user_api_heading_label = new UserAPIHeadingLabel(new Label(), root);
+    	user_api_combo_box = new UserAPIComboBox(new ComboBox(), root);
+    	user_api_command_display_label = new UserAPICommandDisplayLabel(new Label(), root);
     }
 }
