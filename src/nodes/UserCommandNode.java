@@ -4,7 +4,7 @@ import java.util.List;
 import turtle.Turtle;
 import user_data.UserCommands;
 
-public class UserCommandNode extends CommandNode {
+public class UserCommandNode extends Node {
 	
 	public UserCommandNode(String name, Turtle t) {
 		super(name, t);
