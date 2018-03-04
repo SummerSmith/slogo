@@ -1,6 +1,9 @@
 package slogo_team12;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nodes.Node;
@@ -31,7 +34,7 @@ import java.util.Properties;
 
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
-import gui_elements.buttons.SaveMethodButton;
+import gui_elements.buttons.EditVariablesButton;
 import gui_elements.buttons.UserAPIButton;
 import gui_elements.combo_boxes.BackgroundColorComboBox;
 import gui_elements.combo_boxes.ComboBoxes;
@@ -56,15 +59,19 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
@@ -104,10 +111,12 @@ public class Display extends Application {
     private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
     private int time_delay = INITIAL_TIME_DELAY;
     private static boolean runButtonPressed;
-    private static boolean pen_down;
     private boolean setIntroLabels = true;
-    private List<Turtle> turtle_list = new ArrayList<Turtle>();
-    private Turtle current_turtle;
+    private static List<Turtle> turtle_list = new ArrayList<Turtle>();
+    private static List<Turtle> current_turtles;
+    private static Map<Turtle, Integer> turtles_to_ids;
+    private static Map<Integer, Turtle> ids_to_turtles;
+    private static Map<Turtle, ImageView> turtle_images;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
@@ -127,14 +136,13 @@ public class Display extends Application {
 	private ClearButton clear_button;
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
-	private SaveMethodButton save_method_button;
+	private EditVariablesButton save_method_button;
 	private PenColorComboBox pen_color_combobox;
 	private BackgroundColorComboBox background_color_combobox;
 	private TurtleImageComboBox turtle_image_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object, turtle_image_object;
     private Timeline animation;
-    private static ImageView imageView;
 	
 	// Additional setup for the display
     private Scene myScene;
@@ -146,8 +154,6 @@ public class Display extends Application {
     @Override
     public void start(Stage stage) {
     	this.stage = stage;
-    	current_turtle = new Turtle();
-    	turtle_list.add(current_turtle);
     	initialize();
     }
 
@@ -156,6 +162,7 @@ public class Display extends Application {
      */
     private void initialize() {
     	root = new Group();
+    	initializeStructures();
     	getProperties();
     	setScene();
         setStage();
@@ -164,7 +171,16 @@ public class Display extends Application {
         setRunButtonPressed(false);
         setPenDown(true);
         new UserController(command_window);
+        createTurtle();
         startAnimation();
+    }
+    
+    private void initializeStructures() {
+        turtle_list = new ArrayList<Turtle>();
+        current_turtles = new ArrayList<Turtle>();
+        turtles_to_ids = new HashMap<Turtle, Integer>();
+        ids_to_turtles = new HashMap<Integer, Turtle>();
+        turtle_images = new HashMap<Turtle, ImageView>();
     }
     
     private void setScene() {
@@ -199,6 +215,15 @@ public class Display extends Application {
 				e.printStackTrace();
 			}
     	}
+    }
+    
+    public static void createTurtle() {
+    	Turtle new_turtle = new Turtle();
+        turtle_list.add(new_turtle);
+        current_turtles.add(new_turtle);
+        turtles_to_ids.put(new_turtle, turtles_to_ids.size());
+        ids_to_turtles.put(ids_to_turtles.size(), new_turtle);
+        turtle_images = new HashMap<Turtle, ImageView>();
     }
     
     private void checkErrorLabel(String text) {
@@ -314,7 +339,7 @@ public class Display extends Application {
     private void setButtons() {
     	clear_button = new ClearButton(new Button(), root);
     	run_button = new RunButton(new Button(), root);
-    	save_method_button = new SaveMethodButton(new Button(), root);
+    	save_method_button = new EditVariablesButton(new Button(), root);
     	user_api_button = new UserAPIButton(new Button(), root);
     }
 
@@ -343,7 +368,7 @@ public class Display extends Application {
      */
     private void setImages() {
     	slogo_image_object = new SLogoImageClass(root);
-    	turtle_image_object = new TurtleImageClass(root);
+    	new TurtleImageClass(root);
     	imageView = turtle_image_object.getImageView();
     }
     
@@ -375,23 +400,11 @@ public class Display extends Application {
     public static void setPenColor(String color) {
     	pen_color = color;
     }
-    
-	public static boolean getPenDown() {
-		return pen_down;
-	}
-	
-	public static void setPenDown(boolean pen_state) {
-		pen_down = pen_state;
-	}
-	
+    	
 	public static Group getRoot() {
 		return root;
 	}
-		
-	public static void setImageView(ImageView newImageView) {
-		imageView = newImageView;
-	}
-	
+			
     private void handleKeyInput (KeyCode code) {
         if(code == KeyCode.UP) {
         	

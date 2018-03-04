@@ -18,18 +18,16 @@ import point.Point;
 public class Turtle extends Parent{	
 	private Point location;
 	private boolean turtleIsShown;
+	private static boolean pen_down;
 	private double heading;
 	private double isVisible;
 	private final double INITIAL_HEADING = 0;
 	private final double INITIAL_VISIBLE = 1;
-	private final double TURTLE_HEIGHT = 40;
-	private final double TURTLE_WIDTH = 40;
-//	private final String TURTLE_IMAGE = "images/turtle_image1.png";
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private List<Point> nextPoints;
-	private ImageView sprite;
+    private static ImageView imageView;
 	private Map<Integer, List<Point>> turtle_line_map;
 	
 	public Turtle(){
@@ -52,12 +50,15 @@ public class Turtle extends Parent{
 		nextPoints = new ArrayList<Point>();
 	}
 	
-//	private void addImageView() {
+//	private void setImageView() {
+//		if(getChildren().contains(imageView)) {
+//			
+//		}
 //		Image image = new Image(getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
-//		sprite = new ImageView(image);
-//		sprite.setFitHeight(TURTLE_HEIGHT);
-//		sprite.setFitWidth(TURTLE_WIDTH);
-//		getChildren().add(sprite);
+//		imageView = new ImageView(image);
+//		imageView.setFitHeight(TURTLE_HEIGHT);
+//		imageView.setFitWidth(TURTLE_WIDTH);
+//		getChildren().add(imageView);
 //	}
 	
 	public double getRadian() {
@@ -111,10 +112,7 @@ public class Turtle extends Parent{
 	}
 	
 	public void setHeading(double heading) {
-//		sprite.setRotate(heading);
 		this.heading = heading;
-//		System.out.println("******heading********");
-//		System.out.println(this.heading);
 	}
 	
 	public boolean turtleIsShowing() {
@@ -145,15 +143,23 @@ public class Turtle extends Parent{
 		return isVisible;
 	}
 	
+	public static boolean getPenDown() {
+		return pen_down;
+	}
+	
+	public static void setPenDown(boolean pen_state) {
+		pen_down = pen_state;
+	}
+	
 	public Map getTurtleLineMap() {
 		return turtle_line_map;
 	}
 	
+	public static void setImageView(ImageView newImageView) {
+		imageView = newImageView;
+	}
+	
 	public void updateTurtleLineMap() {
-//		for(Point p : nextPoints) {
-//			System.out.println(p);
-//		}
-		
 		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
 	}
 

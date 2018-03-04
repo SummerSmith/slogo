@@ -1,4 +1,4 @@
-package user_api;
+package slogo_team12;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Properties;
 
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
-import gui_elements.buttons.SaveMethodButton;
+import gui_elements.buttons.EditVariablesButton;
 import gui_elements.combo_boxes.UserAPIComboBox;
 import gui_elements.labels.UserAPICommandDisplayLabel;
 import gui_elements.labels.UserAPIHeadingLabel;

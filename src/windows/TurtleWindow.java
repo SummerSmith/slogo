@@ -85,7 +85,7 @@ public class TurtleWindow extends Windows {
 
 		paneRoot = new Group();
 		paneRoot.getChildren().add(myImageView);
-		pane.getChildren().add(paneRoot);		
+		pane.getChildren().add(paneRoot);
 	}
 
 	@Override
