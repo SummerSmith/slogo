@@ -1,13 +1,12 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserCommands;
 import user_data.UserVariables;
 
 public class ToNode extends Node {
 
-	public ToNode(String name, Turtle t) {
-		super(name, t);
+	public ToNode(String name) {
+		super(name);
 	}
 
 	@Override

@@ -9,8 +9,8 @@ import user_data.UserVariables;
 
 public class NewUserCommandNode extends Node {
 
-	public NewUserCommandNode(String name, Turtle t) {
-		super(name, t);
+	public NewUserCommandNode(String name) {
+		super(name);
 		numChildren = 2;
 	}
 

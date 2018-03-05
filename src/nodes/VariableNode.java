@@ -1,13 +1,12 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserController;
 import user_data.UserVariables;
 
 public class VariableNode extends Node {
 
-	public VariableNode(String name, Turtle t) {
-		super(name, t);
+	public VariableNode(String name) {
+		super(name);
 	}
 
 	@Override

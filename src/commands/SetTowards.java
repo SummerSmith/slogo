@@ -9,7 +9,7 @@ public class SetTowards implements Command{
 	}
 	
 	@Override
-	public double Execute(Turtle turtle, List<Double> args) {
+	public double Execute(Turtle turtle, List<Double> args){	
 		double x_original = turtle.getXLocation();
 		double y_original = turtle.getYLocation();
 		double x_next = args.get(0);

@@ -1,12 +1,11 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserVariables;
 
 public class DoTimesNode extends Node{
 	
-	public DoTimesNode(String name, Turtle t) {
-		super(name, t);
+	public DoTimesNode(String name) {
+		super(name);
 	}
 
 	@Override

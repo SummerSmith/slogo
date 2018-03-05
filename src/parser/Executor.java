@@ -11,12 +11,17 @@ public class Executor {
 
 	}
 	
-	protected List<Double> executeCommands(List<Node> headNodes) {
-		List<Double> returnValues= new ArrayList<>();
-		for(Node head : headNodes) {
-			returnValues.add(head.evaluate());
+	protected List<Double> executeCommands(List<Node> headNodes){
+		try {
+			List<Double> returnValues= new ArrayList<>();
+			for(Node head : headNodes) {
+				returnValues.add(head.evaluate());
+			}
+			return returnValues;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return returnValues;
 	}
 	
 }

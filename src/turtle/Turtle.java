@@ -31,6 +31,7 @@ public class Turtle extends Parent{
 	private List<Point> nextPoints;
 	private ImageView sprite;
 	private Map<Integer, List<Point>> turtle_line_map;
+	private int ID;
 	
 	public Turtle(){
 		initialize();
@@ -160,5 +161,17 @@ public class Turtle extends Parent{
 
 	public void removeTurtleLineMapEntry() {
 		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
+	}
+	
+	public int getID() {
+		return ID;
+	}
+	
+	public void setID(int id) {
+		ID = id;
+	}
+	
+	public String toString() {
+		return "turtle";
 	}
 }

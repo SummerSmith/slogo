@@ -1,12 +1,11 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserVariables;
 
 public class RepeatNode extends Node {
 
-	public RepeatNode(String name, Turtle t) {
-		super(name, t);
+	public RepeatNode(String name) {
+		super(name);
 	}
 
 	@Override
