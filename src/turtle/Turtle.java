@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,9 +21,9 @@ public class Turtle extends Parent{
 	private boolean turtleIsShown;
 	private static boolean pen_down;
 	private double heading;
-	private double isVisible;
+//	private double isVisible;
 	private final double INITIAL_HEADING = 0;
-	private final double INITIAL_VISIBLE = 1;
+//	private final double INITIAL_VISIBLE = 1;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final Point INITIAL_POINT = new Point(0, 0);
@@ -39,7 +40,7 @@ public class Turtle extends Parent{
 //		addImageView();
 		setLocation(INITIAL_POINT);
 		setTurtleIsShowing(true);
-		setVisible(INITIAL_VISIBLE);
+//		setVisible(INITIAL_VISIBLE);
 		setHeading(INITIAL_HEADING);
 		createTurtleStructures();
 		resetLocation();
@@ -116,7 +117,7 @@ public class Turtle extends Parent{
 		this.heading = heading;
 	}
 	
-	public boolean turtleIsShowing() {
+	public boolean getTurtleIsShowing() {
 		return turtleIsShown;
 	}
 	
@@ -136,13 +137,13 @@ public class Turtle extends Parent{
 		nextPoints.addAll(c);
 	}
 	
-	public void setVisible(double isVisible) {
-		this.isVisible = isVisible;
-	}
+//	public void setVisible(double isVisible) {
+//		this.isVisible = isVisible;
+//	}
 	
-	public double getVisible() {
-		return isVisible;
-	}
+//	public double getVisible() {
+//		return isVisible;
+//	}
 	
 	public static boolean getPenDown() {
 		return pen_down;
@@ -156,6 +157,10 @@ public class Turtle extends Parent{
 		return turtle_line_map;
 	}
 	
+	public static ImageView getImageView() {
+		return imageView;
+	}
+		
 	public static void setImageView(ImageView newImageView) {
 		imageView = newImageView;
 	}

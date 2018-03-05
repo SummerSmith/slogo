@@ -24,17 +24,14 @@ public class TurtleWindow extends Windows {
 	private static Group paneRoot;
 	private ScrollPane scroll_pane = new ScrollPane();
 	private BorderPane pane = new BorderPane();
-	private Turtle myTurtle;
 	private ImageView myImageView;
 	private String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
 	private String prompt_text;
 	private final String PANE_STYLE = "-fx-background-color: #ffffff";
 	private static int initialTurtleX, initialTurtleY;
 	
-	public TurtleWindow(Turtle turtle, Group root, ImageView imageView) {
-		myTurtle = turtle;
+	public TurtleWindow(Group root) {
 		myRoot = root;
-		myImageView = imageView;
 		initialize();
 	}
 	

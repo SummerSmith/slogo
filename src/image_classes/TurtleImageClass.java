@@ -11,12 +11,12 @@ public class TurtleImageClass extends ImageClass {
 	
 	public TurtleImageClass(Group root) {
 		super(DEFAULT_TURTLE_IMAGE_NAME, root);
-		setTurtlePropertiesOnClick();
+//		setTurtlePropertiesOnClick();
 	}
 	
 	public TurtleImageClass(String image_name, Group root) {
 		super(image_name, root);
-		setTurtlePropertiesOnClick();
+//		setTurtlePropertiesOnClick();
 	}
 	
 //	private void setTurtlePropertiesOnClick() {

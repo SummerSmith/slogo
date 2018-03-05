@@ -10,6 +10,7 @@ import nodes.Node;
 import parser.BackEndManager;
 import parser.ConstructNodes;
 import parser.ProcessString;
+import parser.TurtleManager;
 import turtle.Turtle;
 import user_data.UserCommands;
 import user_data.UserController;
@@ -113,11 +114,11 @@ public class Display extends Application {
     private int time_delay = INITIAL_TIME_DELAY;
     private static boolean runButtonPressed;
     private boolean setIntroLabels = true;
-    private static List<Turtle> turtle_list = new ArrayList<Turtle>();
-    private static List<Turtle> current_turtles;
-    private static Map<Turtle, Integer> turtles_to_ids;
-    private static Map<Integer, Turtle> ids_to_turtles;
-    private static Map<Turtle, ImageView> turtle_images;
+//    private static List<Turtle> turtle_list = new ArrayList<Turtle>();
+//    private static List<Turtle> current_turtles;
+//    private static Map<Turtle, Integer> turtles_to_ids;
+//    private static Map<Integer, Turtle> ids_to_turtles;
+//    private static Map<Turtle, ImageView> turtle_images;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
@@ -142,7 +143,7 @@ public class Display extends Application {
 	private BackgroundColorComboBox background_color_combobox;
 	private TurtleImageComboBox turtle_image_combobox;
 	private LanguageComboBox language_combobox;
-	private ImageClass slogo_image_object, turtle_image_object;
+	private ImageClass slogo_image_object;
     private Timeline animation;
 	
 	// Additional setup for the display
@@ -163,26 +164,25 @@ public class Display extends Application {
      */
     private void initialize() {
     	root = new Group();
-    	initializeStructures();
+//    	initializeStructures();
     	getProperties();
     	setScene();
         setStage();
     	setImages();
         setGUIComponents();
         setRunButtonPressed(false);
-        setPenDown(true);
         new UserController(command_window);
-        createTurtle();
+        TurtleManager.addTurtle(new Turtle());
         startAnimation();
     }
     
-    private void initializeStructures() {
-        turtle_list = new ArrayList<Turtle>();
-        current_turtles = new ArrayList<Turtle>();
-        turtles_to_ids = new HashMap<Turtle, Integer>();
-        ids_to_turtles = new HashMap<Integer, Turtle>();
-        turtle_images = new HashMap<Turtle, ImageView>();
-    }
+//    private void initializeStructures() {
+//        turtle_list = new ArrayList<Turtle>();
+//        current_turtles = new ArrayList<Turtle>();
+//        turtles_to_ids = new HashMap<Turtle, Integer>();
+//        ids_to_turtles = new HashMap<Integer, Turtle>();
+//        turtle_images = new HashMap<Turtle, ImageView>();
+//    }
     
     private void setScene() {
         myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
@@ -209,9 +209,13 @@ public class Display extends Application {
     		String text = CommandWindow.getText();
     		try {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
-				updateTurtleImage();
-				current_turtle.updateTurtleLineMap();
-				if(pen_down) drawLine(current_turtle.getNextPoints());
+    			back_end_manager.parse();
+    			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
+    				moveImageView(turtle);
+    				if(turtle.getPenDown()) {
+    					drawLine(turtle);
+    				}
+    			}
 				checkErrorLabel(text);
 	    		CommandWindow.clearWindow();
 	    		runButtonPressed = false;
@@ -222,14 +226,14 @@ public class Display extends Application {
     	}
     }
     
-    public static void createTurtle() {
-    	Turtle new_turtle = new Turtle();
-        turtle_list.add(new_turtle);
-        current_turtles.add(new_turtle);
-        turtles_to_ids.put(new_turtle, turtles_to_ids.size());
-        ids_to_turtles.put(ids_to_turtles.size(), new_turtle);
-        turtle_images = new HashMap<Turtle, ImageView>();
-    }
+//    public static void createTurtle() {
+//    	Turtle new_turtle = new Turtle();
+//        turtle_list.add(new_turtle);
+//        current_turtles.add(new_turtle);
+//        turtles_to_ids.put(new_turtle, turtles_to_ids.size());
+//        ids_to_turtles.put(ids_to_turtles.size(), new_turtle);
+//        turtle_images = new HashMap<Turtle, ImageView>();
+//    }
     
     private void checkErrorLabel(String text) {
 		if(!errorString.equals("")) {
@@ -245,7 +249,9 @@ public class Display extends Application {
 		UserController.updateUserHistoryWindow(text);
     }
     
-    private void drawLine(List<Point> nextPoints) {
+    private void drawLine(Turtle turtle) {
+    	List<Point> nextPoints = turtle.getNextPoints();
+    	ImageView imageView = turtle.getImageView();
     	for(int i = 0; i < nextPoints.size() - 1; i++) {
     		Point curr_point = nextPoints.get(i);
     		Point next_point = nextPoints.get(i + 1);
@@ -260,19 +266,21 @@ public class Display extends Application {
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
-
-	private void updateTurtleImage() {
-    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + current_turtle.getXLocation());				
-    	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + current_turtle.getYLocation());
-    	imageView.setRotate(current_turtle.getHeading());
-    	if(current_turtle.isVisible() && !TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    
+	public void moveImageView(Turtle turtle) {
+		ImageView imageView = turtle.getImageView();
+    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());				
+    	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + turtle.getYLocation());
+    	imageView.setRotate(turtle.getHeading());
+    	Group paneRoot = TurtleWindow.getPaneRoot();
+    	if(turtle.getTurtleIsShowing() && !paneRoot.getChildren().contains(imageView)) {
     		TurtleWindow.getPaneRoot().getChildren().set(0, imageView);
     	}
-    	else if(!current_turtle.isVisible() && TurtleWindow.getPaneRoot().getChildren().contains(imageView)) {
+    	else if(!turtle.getTurtleIsShowing() && paneRoot.getChildren().contains(imageView)) {
     		System.out.println("HELLO");
     		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
     	}
-    }	
+    }
     
     /**
      * Reads in properties from a property file and gets the  
@@ -317,8 +325,8 @@ public class Display extends Application {
      * Sets up screen windows.
      */
     private void setWindows() {
-    	command_window = new CommandWindow(current_turtle, root);
-    	turtle_window = new TurtleWindow(current_turtle, root, turtle_image_object.getImageView());
+    	command_window = new CommandWindow(root);
+    	turtle_window = new TurtleWindow(root);
     }
 
     /*
@@ -354,7 +362,7 @@ public class Display extends Application {
     private void setComboBoxes() {
     	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	turtle_image_combobox = new TurtleImageComboBox(current_turtle, new ComboBox(), root);
+    	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
     }
 
@@ -373,8 +381,6 @@ public class Display extends Application {
      */
     private void setImages() {
     	slogo_image_object = new SLogoImageClass(root);
-    	new TurtleImageClass(root);
-    	imageView = turtle_image_object.getImageView();
     }
     
     /**
