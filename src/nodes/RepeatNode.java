@@ -14,7 +14,7 @@ public class RepeatNode extends Node {
 		int times = (int) myChildren.get(0).evaluate();
 		double returnVal = 0;
 		for(int repcount = 1; repcount <= times; repcount++) {
-			UserVariables.add("repcount", repcount);
+			UserVariables.add(":repcount", repcount);
 			returnVal = myChildren.get(1).evaluate(); //repeatNode will contain a GroupNode, but GroupNodes know how to evaluate themselves
 		}
 		return returnVal;

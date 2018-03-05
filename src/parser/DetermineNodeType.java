@@ -39,7 +39,9 @@ public class DetermineNodeType {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
 		Enumeration<String> iter = resources.getKeys();
 		while (iter.hasMoreElements()) {
-			if(content.equals(iter.nextElement())) {
+			String element = iter.nextElement();
+//			System.out.println(content + " " + element);
+			if(content.equals(element)) {
 				return true;
 			}
 		}
@@ -88,7 +90,7 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("if")) {
 				return new IfNode(content, turtle);
 			}
-			else if (specialCommandNodes.containsKey(content)){
+			else if (commandExists(content)){
 				return new CommandNode(content, turtle);
 			}
 			else if (UserCommands.getCommandsMap().containsKey(content)){

@@ -8,18 +8,22 @@ import nodes.Node;
 
 public class UserCommands {
 	private static Map<String, List<Node>> myCommands;
+	private static Map<String, Integer> myCommandNumArgs;
+
 
 	public UserCommands() {
-		myCommands = new HashMap(); //implementation can be whatever
+		myCommands = new HashMap<String, List<Node>>(); //implementation can be whatever
+		myCommandNumArgs = new HashMap<String,Integer>(); //implementation can be whatever
 	}
 
-	public static void add(String commandName, List<Node> commandNodes) {
+	public static void add(String commandName, List<Node> commandNodes, int numArgs) {
 		if(myCommands.containsKey(commandName)) {
 			myCommands.get(commandName).addAll(commandNodes);
 		}
 		else {
 			myCommands.put(commandName, commandNodes);
-		}	
+		}
+		myCommandNumArgs.put(commandName, numArgs);
 	}
 
 	public static List<Node> getCommand(String commandName){

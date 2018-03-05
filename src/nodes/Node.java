@@ -14,9 +14,9 @@ public abstract class Node {
 
 	public Node(String name, Turtle t) {
 		type = name;
-		myTurtle = t;
 		myChildren = new ArrayList<>();
-		//numChildren = 0;
+		myTurtle = t;
+		numChildren = 0;
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {

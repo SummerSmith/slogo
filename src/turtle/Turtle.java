@@ -152,6 +152,7 @@ public class Turtle extends Parent{
 	public void updateTurtleLineMap() {
 //		for(Point p : nextPoints) {
 //			System.out.println(p);
+//			System.out.println("point");
 //		}
 		
 		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);

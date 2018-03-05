@@ -92,7 +92,7 @@ public class ConstructNodes {
 	    	final String ERROR = "NO MATCH";
 	    	for (Entry<String, Pattern> e : mySymbols) {
 	    		if (match(text, e.getValue())) {
-	    			System.out.println("Key: " + e.getKey());
+//	    			System.out.println("Key: " + e.getKey());
 	    			return e.getKey();
 	    		}
 	    	}
@@ -143,11 +143,14 @@ public class ConstructNodes {
 			Node temp = determineNodeType.getNodeType(identity, input.get(i), turtle);
 			addNode(temp);
 			if(commandArguments.containsKey(temp.getType())) {
+				System.out.println("numchildren before:" + temp.getNumChildren());
 				temp.setNumChildren(commandArguments.get(temp.getType()));
+				System.out.println("numchildren after:" + temp.getNumChildren());
+
 			}
-			else {
-				temp.setNumChildren(0);
-			}
+//			else {
+//				temp.setNumChildren(0);
+//			}
 		}
 	}
 	//does this make a new map from arguments to numArgs every time you run a command? :(
