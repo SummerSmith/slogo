@@ -17,7 +17,7 @@ public class VariableNode extends Node {
 			UserController.updateUserVariablesWindow(type);
 		}
 		double returnVal = UserVariables.get(type);
-		System.out.println("From VariableNode:" + returnVal);
+//		System.out.println("From VariableNode:" + returnVal);
 		return returnVal;
 	}
 

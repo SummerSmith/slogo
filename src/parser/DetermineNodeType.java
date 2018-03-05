@@ -37,11 +37,11 @@ public class DetermineNodeType {
 	
 	private boolean commandExists(String content) {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
-		Enumeration<String> iter = resources.getKeys();
+		Enumeration<String> iter = resources.getKeys(); //is this the only data structure we can use? this loop is inefficient
 		while (iter.hasMoreElements()) {
 			String element = iter.nextElement();
-//			System.out.println(content + " " + element);
 			if(content.equals(element)) {
+				System.out.println(content);
 				return true;
 			}
 		}
@@ -84,7 +84,7 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("makevariable")) {
 				return new MakeNode(content, turtle);
 			}
-			else if(content.equalsIgnoreCase("to")) {
+			else if(content.equalsIgnoreCase("makeuserinstruction")) {
 				return new ToNode(content, turtle);
 			}
 			else if(content.equalsIgnoreCase("if")) {
@@ -94,9 +94,11 @@ public class DetermineNodeType {
 				return new CommandNode(content, turtle);
 			}
 			else if (UserCommands.getCommandsMap().containsKey(content)){
+				System.out.println("Reached UserCommandNode");
 				return new UserCommandNode(content, turtle);
 			}
 			else {
+				System.out.println("Reached NewUserCommandNode");
 				return new NewUserCommandNode(content, turtle);
 			}
 		}catch(NullPointerException e) {

@@ -12,7 +12,8 @@ public class ToNode extends Node {
 
 	@Override
 	public double evaluate() { //should have 1 NewUserCommandNode child
-		
+		double returnVal = myChildren.get(0).evaluate();
+		return returnVal;
 //		try {
 //			String commandName = myChildren.get(0).getType();
 //			int numVariables = 0;

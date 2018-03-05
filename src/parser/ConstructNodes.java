@@ -98,7 +98,7 @@ public class ConstructNodes {
 	    	}
 	    	// FIXME: perhaps throw an exception instead
 	    	//        return ERROR;
-	    	return ERROR;
+	    	return ERROR; //if you click run without any commands it stores it in the user history
     }				
 
 	
@@ -131,7 +131,12 @@ public class ConstructNodes {
 	}
 	
 	private String makeEnglish(String notEnglish) {
-		return commandTranslations.get(notEnglish);
+		if(commandTranslations.containsKey(notEnglish)) {
+			return commandTranslations.get(notEnglish);
+		}
+		else {
+			return notEnglish;
+		}
 	}
 	
 	private void createNodeList() throws Exception {
@@ -140,12 +145,14 @@ public class ConstructNodes {
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
+			System.out.println("nodeType: " + identity);
+			System.out.println("input: " + input.get(i));
 			Node temp = determineNodeType.getNodeType(identity, input.get(i), turtle);
 			addNode(temp);
 			if(commandArguments.containsKey(temp.getType())) {
-				System.out.println("numchildren before:" + temp.getNumChildren());
+//				System.out.println("numchildren before:" + temp.getNumChildren());
 				temp.setNumChildren(commandArguments.get(temp.getType()));
-				System.out.println("numchildren after:" + temp.getNumChildren());
+//				System.out.println("numchildren after:" + temp.getNumChildren());
 
 			}
 //			else {
