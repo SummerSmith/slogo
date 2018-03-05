@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nodes.Node;
+import parser.BackEndManager;
 import parser.ConstructNodes;
 import parser.ProcessString;
 import turtle.Turtle;
@@ -200,6 +201,11 @@ public class Display extends Application {
 
     private void step(){
     	if(runButtonPressed) {
+    		if(root.getChildren().contains(error_label.getLabel())) {
+    			root.getChildren().remove(error_label.getLabel());
+    			setErrorString("");
+    			error_label.getLabel().setText(errorString);
+    		}
     		String text = CommandWindow.getText();
     		List<String> command_strings = ProcessString.processString(text);
     		try {

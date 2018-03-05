@@ -4,8 +4,8 @@ import turtle.Turtle;
 
 public class AskWithNode extends Node {
 
-	public AskWithNode(String name, Turtle t) {
-		super(name, t);
+	public AskWithNode(String name) {
+		super(name);
 		// TODO Auto-generated constructor stub
 	}
 

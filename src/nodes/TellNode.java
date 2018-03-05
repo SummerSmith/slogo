@@ -4,8 +4,8 @@ import turtle.Turtle;
 
 public class TellNode extends Node {
 
-	public TellNode(String name, Turtle t) {
-		super(name, t);
+	public TellNode(String name) {
+		super(name);
 		// TODO Auto-generated constructor stub
 	}
 

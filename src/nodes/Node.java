@@ -3,6 +3,8 @@ package nodes;
 import java.util.ArrayList;
 import java.util.List;
 
+import error.Error;
+import slogo_team12.Display;
 import turtle.Turtle;
 
 public abstract class Node {
@@ -12,9 +14,14 @@ public abstract class Node {
 	protected List<Node> myChildren;
 	protected Turtle myTurtle;
 
-	public Node(String name, Turtle t) {
+	public Node(String name) {
 		type = name;
-		myTurtle = t;
+		myChildren = new ArrayList<>();
+	}
+	
+	public Node(Node curr) {
+		type = curr.getType();
+		myTurtle = curr.getTurtle();
 		myChildren = new ArrayList<>();
 	}
 	
@@ -25,16 +32,18 @@ public abstract class Node {
 				for(int i = 1; i <= this.getNumChildren(); i++) {
 					Node child = nodes.get(index + i);
 					myChildren.add(child);
+					System.out.println("child: " + child);
 					int temp = child.addChildren(nodes, index+i);
 					index += temp;
-					sum += temp; 
+					sum += temp; 	
 				}
 				return this.getNumChildren() + sum;
 			}
-		}catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("Not enough arguments!");
-			Exception e_0 = new Exception("Not enough arguments");
-			Error error = new Error(e_0);
+		} catch(IndexOutOfBoundsException e) {
+			Exception e_0 = new Exception("Not enought arguments");
+			new Error(e_0);
+			Display.setErrorString(Error.getString());
+			return -1;
 		}
 		return 0;
 	}
@@ -59,5 +68,13 @@ public abstract class Node {
 	
 	public String toString() {
 		return type;
+	}
+	
+	private Turtle getTurtle() {
+		return myTurtle;
+	}
+	
+	public void setTurtle(Turtle t) {
+		myTurtle = t;
 	}
  }
