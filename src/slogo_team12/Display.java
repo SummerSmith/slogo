@@ -207,9 +207,8 @@ public class Display extends Application {
     			error_label.getLabel().setText(errorString);
     		}
     		String text = CommandWindow.getText();
-    		List<String> command_strings = ProcessString.processString(text);
     		try {
-				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
+    			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
 				updateTurtleImage();
 				current_turtle.updateTurtleLineMap();
 				if(pen_down) drawLine(current_turtle.getNextPoints());
