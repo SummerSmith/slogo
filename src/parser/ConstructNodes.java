@@ -60,11 +60,14 @@ public class ConstructNodes {
 			headNodes.addAll(traverse.getTemp());
 	
 			for(Node curr : headNodes) {
+				// PRINT STATEMENT!!!!!!!!!!!!
 				System.out.println("headnode: " + curr);
 				for(Node child : curr.getChildren()) {
+					// PRINT STATEMENT!!!!!!!!!!!!
 					System.out.println("child: " + child);
 				}
 			}
+			// PRINT STATEMENT!!!!!!!!!!!!
 			System.out.println("headnodes: " + headNodes);
 			executor.executeCommands(headNodes);
 		}catch(Exception e) {
@@ -145,6 +148,7 @@ public class ConstructNodes {
 			if(identity.equalsIgnoreCase("command")) {
 				input.set(i, makeEnglish(input.get(i)));
 			}
+			// PRINT STATEMENT!!!!!!!!!!!!
 			System.out.println("nodeType: " + identity);
 			System.out.println("input: " + input.get(i));
 			Node temp = determineNodeType.getNodeType(identity, input.get(i), turtle);
