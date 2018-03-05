@@ -1,13 +1,11 @@
 package nodes;
 
-import turtle.Turtle;
-
 public class ArgumentNode extends Node {
 
 	double argument;
 	
-	public ArgumentNode(String name, Turtle t) {
-		super(name, t);
+	public ArgumentNode(String name) {
+		super(name);
 		argument = Double.parseDouble(name);
 	}
 

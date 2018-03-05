@@ -1,12 +1,11 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserVariables;
 
 public class ForLoopNode extends Node {
 
-	public ForLoopNode(String name, Turtle t) {
-		super(name, t);
+	public ForLoopNode(String name) {
+		super(name);
 	}
 
 	@Override

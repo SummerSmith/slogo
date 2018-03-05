@@ -12,11 +12,12 @@ import java.util.List;
  *		get rid of new line characters
  */
 public class ProcessString {
+	
 	public ProcessString() {
 		
 	}
 	
-	public static List<String> processString(String commands){
+	public List<String> processString(String commands){
 		List<String> commandList = new ArrayList<>();
 		String[] comLines = commands.split("[\\r\\n]+");
 		for(int i = 0; i < comLines.length; i++) {
@@ -28,12 +29,12 @@ public class ProcessString {
 	}
 	
 	//TEST
-	public static void main(String args[]) {
-		String s = "This is a test string\nHere is a new line             and some space\n# Here is a comment\n\nHere are two new lines";
-		//System.out.println(s);
-
-		List<String> list = processString(s); //static status is temporary?
-		//System.out.println(list);
-		
-	}
+//	public static void main(String args[]) {
+//		String s = "This is a test string\nHere is a new line             and some space\n# Here is a comment\n\nHere are two new lines";
+//		//System.out.println(s);
+//
+//		List<String> list = processString(s); //static status is temporary?
+//		//System.out.println(list);
+//		
+//	}
 }
