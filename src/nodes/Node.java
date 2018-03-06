@@ -33,15 +33,15 @@ public abstract class Node {
 				for(int i = 1; i <= this.getNumChildren(); i++) {
 					Node child = nodes.get(index + i);
 					myChildren.add(child);
-					System.out.println("child: " + child);
+//					System.out.println("child: " + child);
 					int temp = child.addChildren(nodes, index+i);
 					index += temp;
 					sum += temp; 	
 				}
 				return this.getNumChildren() + sum;
 			}
-		}catch(IndexOutOfBoundsException e) {
-			Exception e_0 = new Exception("Not enought arguments");
+		} catch(IndexOutOfBoundsException e) {
+			Exception e_0 = new Exception("Not enough arguments");
 			new Error(e_0);
 			Display.setErrorString(Error.getString());
 			return -1;

@@ -24,7 +24,7 @@ public class CommandNode extends Node {
 		for(Node n : myChildren) {
 			args.add(n.evaluate());
 		}
-		System.out.println("Arguments: " + args);
+//		System.out.println("Arguments: " + args);
 		try {
 			Class<?> clazz = Class.forName("commands." + type);
 //			System.out.println("Found class");
@@ -54,7 +54,7 @@ public class CommandNode extends Node {
 			System.err.println("illegal argument");
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			System.out.println("Invocation Target!");
+			System.err.println("invocation target");
 			e.printStackTrace();
 		}
 		System.out.println("return:" + returnVal);

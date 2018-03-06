@@ -5,10 +5,9 @@ import parser.TurtleManager;
 
 public class TellNode extends Node{
 
-	public TellNode(String s) {
-		super(s);
+	public TellNode(String name) {
+		super(name);
 	}
-	
 	public TellNode(Node curr) {
 		super(curr);
 	}

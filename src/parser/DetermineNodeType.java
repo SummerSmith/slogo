@@ -28,7 +28,8 @@ import error.Error;
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
-	private Error error;
+	//private Error error;
+
 	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
@@ -48,8 +49,8 @@ public class DetermineNodeType {
 	}
 	
 	protected Node getNodeType(String nodeType, String content) throws Exception{
-//		System.out.print("content: " + content);
-//		System.out.println(" nodeType: " + nodeType);
+		System.out.print("content: " + content);
+		System.out.println(" nodeType: " + nodeType);
 		try{
 			if(nodeType.equalsIgnoreCase("Command")) {
 				return makeCommandNode(content);
@@ -58,7 +59,6 @@ public class DetermineNodeType {
 				return new ArgumentNode(content); 
 			}
 			else if(nodeType.equalsIgnoreCase("Variable")) {
-				System.out.println(content);
 				return new VariableNode(content);
 			}
 			else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
@@ -106,15 +106,13 @@ public class DetermineNodeType {
 				return new CommandNode(content);
 			}
 			else if (UserCommands.getCommandsMap().containsKey(content)){
-				System.out.println("Reached UserCommandNode");
 				return new UserCommandNode(content);
 			}
 			else {
-				System.out.println("Reached NewUserCommandNode");
 				return new NewUserCommandNode(content);
 			}
 		}catch(NullPointerException e) {
-			System.out.println("Unknown Commands catches!");
+			System.err.println("Unknown Commands catches!");
 			Exception e_0 = new Exception("Unknown Commands");
 			new Error(e_0);
 			//e.printStackTrace();

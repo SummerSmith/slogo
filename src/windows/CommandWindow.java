@@ -19,14 +19,13 @@ public class CommandWindow extends Windows {
 
 	private Group myRoot;
 	private static TextArea text_area;
-	private Turtle myTurtle;
 	private String full_directory_name = DIRECTORY_STRING + "command_window.properties";
 	private String prompt_text;
 	private final String PROMPT_TEXT_STRING = "prompt_text";
+	private static int x, y, width, height;
 	
-	public CommandWindow(Turtle turtle, Group root) {
+	public CommandWindow(Group root) {
 		myRoot = root;
-		myTurtle = turtle;
 		initialize();
 	}
 	

@@ -8,6 +8,9 @@ import java.util.Properties;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import slogo_team12.TurtlePropertyScreen;
 
 public class ImageClass {
 

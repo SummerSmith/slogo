@@ -57,7 +57,7 @@ public class ConstructNodes {
 	    	}
 	    	// FIXME: perhaps throw an exception instead
 	    	//        return ERROR;
-	    	return ERROR; //if you click run without any commands it stores it in the user history
+	    	return "";
     }				
 
 	
