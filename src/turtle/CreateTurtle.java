@@ -18,8 +18,6 @@ public class CreateTurtle {
 	private void initialize() {
 		Turtle turtle = new Turtle();
         TurtleManager.addActiveTurtle(turtle);
-        ImageView imageView = new TurtleImageClass(myRoot).getImageView();
-        TurtleWindow.addTurtleToTurtleWIndow(imageView);
-        turtle.setImageView(imageView);
+        new TurtleImageClass(myRoot, turtle).getImageView();
 	}
 }

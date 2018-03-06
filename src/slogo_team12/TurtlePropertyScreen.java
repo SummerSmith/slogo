@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import turtle.Turtle;
 import user_data.UserController;
 import windows.CommandWindow;
 import windows.TurtleWindow;
@@ -39,10 +40,16 @@ public class TurtlePropertyScreen extends Application {
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
+	private Turtle myTurtle;
 	
-	// Additional setup for the user API screen.
+	// Additional setup for the turtle property screen.
     private Scene myScene;
     private static Group root;
+    
+    public TurtlePropertyScreen(Turtle turtle) {
+    	myTurtle = turtle;
+    	System.out.println(turtle.getID());
+    }
 
     /**
      * Initializes the stage for the user API screen.

@@ -36,14 +36,14 @@ public class TurtleImageComboBox extends ComboBoxes {
 	}
 	
 	private void chooseImage() {
-    	myComboBox.setOnAction((Event ev) -> {
-    		String image = (String) myComboBox.getSelectionModel().getSelectedItem();
-    		ObservableList<Node> pane_root_children = TurtleWindow.getPaneRoot().getChildren();
-    		TurtleImageClass turtle_image_object = new TurtleImageClass(image, myRoot);
-//    		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW), turtle_image_object.getImageView());
-    		pane_root_children.set(OLD_IMAGEVIEW, turtle_image_object.getImageView());
-//    		Display.setImageView(turtle_image_object.getImageView());
-    	});
+//    	myComboBox.setOnAction((Event ev) -> {
+//    		String image = (String) myComboBox.getSelectionModel().getSelectedItem();
+//    		ObservableList<Node> pane_root_children = TurtleWindow.getPaneRoot().getChildren();
+//    		TurtleImageClass turtle_image_object = new TurtleImageClass(image, myRoot);
+////    		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW), turtle_image_object.getImageView());
+//    		pane_root_children.set(OLD_IMAGEVIEW, turtle_image_object.getImageView());
+////    		Display.setImageView(turtle_image_object.getImageView());
+//    	});
 	}
 	
 //	private void setNewTurtleProperties(Turtle turtle, ImageView oldImageView, ImageView newImageView) {
