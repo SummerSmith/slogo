@@ -57,7 +57,6 @@ public class DetermineNodeType {
 				return new ArgumentNode(content); 
 			}
 			else if(nodeType.equalsIgnoreCase("Variable")) {
-				System.out.println(content);
 				return new VariableNode(content);
 			}
 			else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
@@ -111,7 +110,7 @@ public class DetermineNodeType {
 				return new NewUserCommandNode(content);
 			}
 		}catch(NullPointerException e) {
-			System.out.println("Unknown Commands catches!");
+			System.err.println("Unknown Commands catches!");
 			Exception e_0 = new Exception("Unknown Commands");
 			new Error(e_0);
 			//e.printStackTrace();

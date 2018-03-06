@@ -32,7 +32,7 @@ public abstract class Node {
 				for(int i = 1; i <= this.getNumChildren(); i++) {
 					Node child = nodes.get(index + i);
 					myChildren.add(child);
-					System.out.println("child: " + child);
+//					System.out.println("child: " + child);
 					int temp = child.addChildren(nodes, index+i);
 					index += temp;
 					sum += temp; 	

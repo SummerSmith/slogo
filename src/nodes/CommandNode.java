@@ -24,7 +24,7 @@ public class CommandNode extends Node {
 		for(Node n : myChildren) {
 			args.add(n.evaluate());
 		}
-		System.out.println("Arguments: " + args);
+//		System.out.println("Arguments: " + args);
 		try {
 			Class<?> clazz = Class.forName("commands." + type);
 			Object o = clazz.newInstance();

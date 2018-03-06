@@ -20,17 +20,18 @@ import point.Point;
 public class Turtle extends Parent{	
 	private Point location;
 	private boolean turtleIsShown;
-	private static boolean pen_down;
+	private boolean pen_down;
 	private double heading;
+	private double pen_thickness;
 //	private double isVisible;
 	private final double INITIAL_HEADING = 0;
 //	private final double INITIAL_VISIBLE = 1;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
-	private static Paint pen_color;
+	private Paint pen_color;
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private List<Point> nextPoints;
-    private static ImageView imageView;
+    private ImageView imageView;
 	private Map<Integer, List<Point>> turtle_line_map;
 	private int ID;
 	
@@ -119,6 +120,14 @@ public class Turtle extends Parent{
 	public void setHeading(double heading) {
 		this.heading = heading;
 	}
+
+	public double getPenThickness() {
+		return pen_thickness;
+	}
+	
+	public void setPenThickness(double pen_thickness) {
+		this.pen_thickness = pen_thickness;
+	}
 	
 	public boolean getTurtleIsShowing() {
 		return turtleIsShown;
@@ -148,11 +157,11 @@ public class Turtle extends Parent{
 //		return isVisible;
 //	}
 	
-	public static boolean getPenDown() {
+	public boolean getPenDown() {
 		return pen_down;
 	}
 	
-	public static void setPenDown(boolean pen_state) {
+	public void setPenDown(boolean pen_state) {
 		pen_down = pen_state;
 	}
 	
@@ -160,11 +169,11 @@ public class Turtle extends Parent{
 		return turtle_line_map;
 	}
 	
-	public static ImageView getImageView() {
+	public ImageView getImageView() {
 		return imageView;
 	}
 		
-	public static void setImageView(ImageView newImageView) {
+	public void setImageView(ImageView newImageView) {
 		imageView = newImageView;
 	}
 	

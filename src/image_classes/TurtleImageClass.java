@@ -11,20 +11,20 @@ public class TurtleImageClass extends ImageClass {
 	
 	public TurtleImageClass(Group root) {
 		super(DEFAULT_TURTLE_IMAGE_NAME, root);
-//		setTurtlePropertiesOnClick();
+		setTurtlePropertiesOnClick();
 	}
 	
 	public TurtleImageClass(String image_name, Group root) {
 		super(image_name, root);
-//		setTurtlePropertiesOnClick();
+		setTurtlePropertiesOnClick();
 	}
 	
-//	private void setTurtlePropertiesOnClick() {
-//    	imageView.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-//            if(e.isPrimaryButtonDown()) {
-//            	TurtlePropertyScreen turtle_property_screen = new TurtlePropertyScreen();
-//        		turtle_property_screen.start(new Stage());
-//            }
-//        });
-//	}
+	private void setTurtlePropertiesOnClick() {
+    	getImageView().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+            if(e.isPrimaryButtonDown()) {
+            	TurtlePropertyScreen turtle_property_screen = new TurtlePropertyScreen();
+        		turtle_property_screen.start(new Stage());
+            }
+        });
+	}
 }
