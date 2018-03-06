@@ -10,8 +10,7 @@ public class Cosine implements Command{
 	}
 	
 	public double Execute(Turtle turtle, List<Double> args) {
-		double old_cos = Math.cos(Math.toRadians(args.get(0)));
-		int cos = (int)(Math.round(old_cos));
-		return (double)cos;
+		double cos = Math.cos(Math.toRadians(args.get(0)));
+		return cos;
 	}
 }

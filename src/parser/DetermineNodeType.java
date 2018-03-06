@@ -93,7 +93,7 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("makevariable")) {
 				return new MakeNode(content);
 			}
-			else if(content.equalsIgnoreCase("to")) {
+			else if(content.equalsIgnoreCase("makeuserinstruction")) {
 				return new ToNode(content);
 			}
 			else if(content.equalsIgnoreCase("if")) {
@@ -103,12 +103,15 @@ public class DetermineNodeType {
 				return new TellNode(content);
 			}
 			else if (commandExists(content)){
+				System.out.println("commandNode");
 				return new CommandNode(content);
 			}
 			else if (UserCommands.getCommandsMap().containsKey(content)){
+				System.out.println("UserCommandNode");
 				return new UserCommandNode(content);
 			}
 			else {
+				System.out.println("NewUserCommandNode");
 				return new NewUserCommandNode(content);
 			}
 		}catch(NullPointerException e) {

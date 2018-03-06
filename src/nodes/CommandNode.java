@@ -26,6 +26,7 @@ public class CommandNode extends Node {
 		}
 //		System.out.println("Arguments: " + args);
 		try {
+			System.out.println("CommandNode evaluates: " + type);
 			Class<?> clazz = Class.forName("commands." + type);
 //			System.out.println("Found class");
 			Object o = clazz.newInstance();
