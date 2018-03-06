@@ -40,7 +40,7 @@ public abstract class Node {
 				return this.getNumChildren() + sum;
 			}
 		} catch(IndexOutOfBoundsException e) {
-			Exception e_0 = new Exception("Not enought arguments");
+			Exception e_0 = new Exception("Not enough arguments");
 			new Error(e_0);
 			Display.setErrorString(Error.getString());
 			return -1;

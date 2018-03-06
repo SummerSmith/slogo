@@ -27,7 +27,7 @@ import error.Error;
 
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.nodes/Nodes";
+	private final String file = "resources.languages/English";
 //	private Error error;
 	UserCommands userCommands;
 	
@@ -47,8 +47,8 @@ public class DetermineNodeType {
 	}
 	
 	protected Node getNodeType(String nodeType, String content) throws Exception{
-//		System.out.print("content: " + content);
-//		System.out.println(" nodeType: " + nodeType);
+		System.out.print("content: " + content);
+		System.out.println(" nodeType: " + nodeType);
 		try{
 			if(nodeType.equalsIgnoreCase("Command")) {
 				return makeCommandNode(content);
@@ -101,7 +101,7 @@ public class DetermineNodeType {
 			else if (content.equalsIgnoreCase("tell")) {
 				return new Tell(content);
 			}
-			else if (specialCommandNodes.containsKey(content)){
+			else if (commandExists(content)){
 				return new CommandNode(content);
 			}
 			else if (UserCommands.getCommandsMap().containsKey(content)){
