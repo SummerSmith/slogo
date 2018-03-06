@@ -10,7 +10,6 @@ public class AskNode extends Node {
 
 	@Override
 	public double evaluate() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

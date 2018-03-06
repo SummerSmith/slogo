@@ -11,7 +11,7 @@ public class NewUserCommandNode extends Node {
 
 	public NewUserCommandNode(String name) {
 		super(name);
-		numChildren = 2;
+		numChildren = 2; //2 groupNodes
 	}
 
 	@Override
