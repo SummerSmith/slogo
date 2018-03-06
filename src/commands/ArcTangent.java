@@ -9,8 +9,7 @@ public class ArcTangent implements Command{
 	}
 	
 	public double Execute(Turtle turtle, List<Double> args) {
-		double old_atan = Math.toDegrees(Math.atan(args.get(0)));
-		int atan = (int)(Math.round(old_atan));
-		return (double)atan;
+		double atan = Math.toDegrees(Math.atan(args.get(0)));
+		return atan;
 	}
 }
