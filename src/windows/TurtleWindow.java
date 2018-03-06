@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import image_classes.TurtleImageClass;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
@@ -22,13 +23,13 @@ public class TurtleWindow extends Windows {
 
 	private Group myRoot;
 	private static Group paneRoot;
-	private ScrollPane scroll_pane = new ScrollPane();
-	private BorderPane pane = new BorderPane();
-	private ImageView myImageView;
-	private String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
-	private String prompt_text;
-	private final String PANE_STYLE = "-fx-background-color: #ffffff";
+	private static ScrollPane scroll_pane = new ScrollPane();
+	private static BorderPane pane = new BorderPane();
+	private static String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
+	private static String prompt_text;
+	private static final String PANE_STYLE = "-fx-background-color: #ffffff";
 	private static int initialTurtleX, initialTurtleY;
+	private static int x, y, width, height;
 	
 	public TurtleWindow(Group root) {
 		myRoot = root;
@@ -75,14 +76,16 @@ public class TurtleWindow extends Windows {
 		pane.setStyle(PANE_STYLE);
 		myRoot.getChildren().add(pane);
 		
-		initialTurtleX = (int) (width / 2 - myImageView.getFitWidth() / 2);
-		myImageView.setLayoutX(initialTurtleX);
-		initialTurtleY = (int) (height / 2 - myImageView.getFitHeight() / 2);
-		myImageView.setLayoutY(height / 2 - myImageView.getFitHeight() / 2);
-
 		paneRoot = new Group();
-		paneRoot.getChildren().add(myImageView);
 		pane.getChildren().add(paneRoot);
+	}
+	
+	public static void addTurtleToTurtleWIndow(ImageView imageView) {
+		initialTurtleX = (int) (width / 2 - imageView.getFitWidth() / 2);
+		imageView.setLayoutX(initialTurtleX);
+		initialTurtleY = (int) (height / 2 - imageView.getFitHeight() / 2);
+		imageView.setLayoutY(initialTurtleY);
+		paneRoot.getChildren().add(imageView);		
 	}
 
 	@Override

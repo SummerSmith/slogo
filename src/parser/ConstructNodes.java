@@ -57,7 +57,7 @@ public class ConstructNodes {
 	    	}
 	    	// FIXME: perhaps throw an exception instead
 	    	//        return ERROR;
-	    	return ERROR;
+	    	return "";
     }				
 
 	

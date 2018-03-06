@@ -11,6 +11,7 @@ import parser.BackEndManager;
 import parser.ConstructNodes;
 import parser.ProcessString;
 import parser.TurtleManager;
+import turtle.CreateTurtle;
 import turtle.Turtle;
 import user_data.UserCommands;
 import user_data.UserController;
@@ -172,7 +173,7 @@ public class Display extends Application {
         setGUIComponents();
         setRunButtonPressed(false);
         new UserController(command_window);
-        TurtleManager.addTurtle(new Turtle());
+        new CreateTurtle(root);
         startAnimation();
     }
     
@@ -211,6 +212,7 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
+    		    	System.out.println("Been here");
     				moveImageView(turtle);
     				if(turtle.getPenDown()) {
     					drawLine(turtle);
@@ -261,15 +263,15 @@ public class Display extends Application {
     							 curr_point.getY() + y_offset, 
     							 next_point.getX() + x_offset, 
     							 next_point.getY() + y_offset);
-    		System.out.println(next_point.getX() + " " + next_point.getY());
     		line.setStyle(pen_color);
     		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
     
 	public void moveImageView(Turtle turtle) {
+		System.out.println(TurtleWindow.getInitialTurtleX() + " " + TurtleWindow.getInitialTurtleY() + " " + turtle.getXLocation() + " " + turtle.getYLocation());
 		ImageView imageView = turtle.getImageView();
-    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());				
+    	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + turtle.getYLocation());
     	imageView.setRotate(turtle.getHeading());
     	Group paneRoot = TurtleWindow.getPaneRoot();
@@ -281,7 +283,7 @@ public class Display extends Application {
     		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
     	}
     }
-    
+	    
     /**
      * Reads in properties from a property file and gets the  
      * screen properties.

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 
 public class EditVariablesButton extends DefaultButton {
 
-	private static final String PROPERTIES_FILENAME = "save_method_button.properties";
+	private static final String PROPERTIES_FILENAME = "edit_variables_button.properties";
 		
 	public EditVariablesButton(Button button, Group root) {
 		super(button, root, PROPERTIES_FILENAME);

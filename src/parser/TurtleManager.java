@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import image_classes.TurtleImageClass;
 import javafx.collections.ObservableList;
 import turtle.Turtle;
 
 public class TurtleManager {
 
-	private static List<Turtle> activeTurtles = new ArrayList<>();
-	private static Map<Integer, Turtle> allTurtlesByID = new HashMap<>();
-	private static Map<Turtle, Integer> allIDsByTurtle = new HashMap<>();
+	private static List<Turtle> allTurtles = new ArrayList<Turtle>();
+	private static List<Turtle> activeTurtles = new ArrayList<Turtle>();
+	private static Map<Integer, Turtle> allTurtlesByID = new HashMap<Integer, Turtle>();
+	private static Map<Turtle, Integer> allIDsByTurtle = new HashMap<Turtle, Integer>();
 	int numTurtles = allTurtlesByID.size();
 	
 	public TurtleManager() {
@@ -21,6 +23,7 @@ public class TurtleManager {
 	public static void addTurtle(Turtle t) {
 		allTurtlesByID.put(allTurtlesByID.size() + 1, t);
 		allIDsByTurtle.put(t, allIDsByTurtle.size() + 1);
+		allTurtles.add(t);
 	}
 	
 	public static void setActiveTurtles(List<Integer> turtleIDs) {
@@ -42,7 +45,7 @@ public class TurtleManager {
 				addTurtle(t);
 				t.setID(allIDsByTurtle.size());
 			}
-			activeTurtles.add(t);	
+			activeTurtles.add(t);
 		}
 	}
 	
@@ -82,6 +85,10 @@ public class TurtleManager {
 	
 	public static List<Turtle> getActiveTurtles() {
 		return activeTurtles;
+	}
+	
+	public static List<Turtle> getAllTurtles() {
+		return allTurtles;
 	}
 	
 	public static Map<Integer, Turtle> getAllTurtlesByID() {

@@ -22,6 +22,7 @@ public class CommandWindow extends Windows {
 	private String full_directory_name = DIRECTORY_STRING + "command_window.properties";
 	private String prompt_text;
 	private final String PROMPT_TEXT_STRING = "prompt_text";
+	private static int x, y, width, height;
 	
 	public CommandWindow(Group root) {
 		myRoot = root;

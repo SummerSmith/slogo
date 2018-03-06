@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import windows.TurtleWindow;
 import point.Point;
@@ -26,6 +27,7 @@ public class Turtle extends Parent{
 //	private final double INITIAL_VISIBLE = 1;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
+	private static Paint pen_color;
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private List<Point> nextPoints;
     private static ImageView imageView;
@@ -42,6 +44,7 @@ public class Turtle extends Parent{
 		setTurtleIsShowing(true);
 //		setVisible(INITIAL_VISIBLE);
 		setHeading(INITIAL_HEADING);
+		setPenDown(true);
 		createTurtleStructures();
 		resetLocation();
 		createLists();
