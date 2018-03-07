@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import gui_elements.labels.UserAPICommandDisplayLabel;
+import gui_elements.labels.user_api_labels.UserAPICommandDisplayLabel;
 import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;

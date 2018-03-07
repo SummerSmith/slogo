@@ -1,5 +1,6 @@
-package gui_elements.labels;
+package gui_elements.labels.user_api_labels;
 
+import gui_elements.labels.DefaultLabel;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 

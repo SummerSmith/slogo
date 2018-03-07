@@ -1,13 +1,14 @@
-package gui_elements.labels;
+package gui_elements.labels.user_api_labels;
 
+import gui_elements.labels.DefaultLabel;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 
-public class UserAPIHeadingLabel extends DefaultLabel {
+public class UserAPIHeaderLabel extends DefaultLabel {
 
 	private static final String PROPERTIES_FILENAME = "user_api_heading_label.properties";	
 
-	public UserAPIHeadingLabel(Label label, Group root) {
+	public UserAPIHeaderLabel(Label label, Group root) {
 		super(label, root, PROPERTIES_FILENAME);
 	}
 }

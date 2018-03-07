@@ -23,12 +23,11 @@ public class Turtle extends Parent{
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-//	private double isVisible;
 	private final double INITIAL_HEADING = 0;
-//	private final double INITIAL_VISIBLE = 1;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
-	private Paint pen_color;
+	private final double DEFAULT_PEN_THICKNESS = 2;
+	private static String pen_color;
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private List<Point> nextPoints;
     private ImageView imageView;
@@ -40,12 +39,11 @@ public class Turtle extends Parent{
 	}
 	
 	private void initialize() {
-//		addImageView();
 		setLocation(INITIAL_POINT);
 		setTurtleIsShowing(true);
-//		setVisible(INITIAL_VISIBLE);
 		setHeading(INITIAL_HEADING);
 		setPenDown(true);
+		setPenThickness(DEFAULT_PEN_THICKNESS);
 		createTurtleStructures();
 		resetLocation();
 		createLists();
@@ -55,18 +53,7 @@ public class Turtle extends Parent{
 		turtle_line_map = new HashMap<Integer, List<Point>>();
 		nextPoints = new ArrayList<Point>();
 	}
-	
-//	private void setImageView() {
-//		if(getChildren().contains(imageView)) {
-//			
-//		}
-//		Image image = new Image(getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
-//		imageView = new ImageView(image);
-//		imageView.setFitHeight(TURTLE_HEIGHT);
-//		imageView.setFitWidth(TURTLE_WIDTH);
-//		getChildren().add(imageView);
-//	}
-	
+		
 	public double getRadian() {
 		return Math.toRadians(heading);
 	}
@@ -120,6 +107,13 @@ public class Turtle extends Parent{
 	public void setHeading(double heading) {
 		this.heading = heading;
 	}
+	
+    public static String getPenColor() {
+    	return pen_color;
+    }
+    public static void setPenColor(String color) {
+    	pen_color = color;
+    }
 
 	public double getPenThickness() {
 		return pen_thickness;
@@ -148,15 +142,7 @@ public class Turtle extends Parent{
 	public void addNextPoints(Collection<Point> c) {
 		nextPoints.addAll(c);
 	}
-	
-//	public void setVisible(double isVisible) {
-//		this.isVisible = isVisible;
-//	}
-	
-//	public double getVisible() {
-//		return isVisible;
-//	}
-	
+		
 	public boolean getPenDown() {
 		return pen_down;
 	}

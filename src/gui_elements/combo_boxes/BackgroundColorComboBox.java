@@ -12,8 +12,10 @@ import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 public class BackgroundColorComboBox extends ComboBoxes {
 	
