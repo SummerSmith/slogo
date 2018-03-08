@@ -9,5 +9,7 @@ public class UserAPILabel extends DefaultLabel {
 
 	public UserAPILabel(Label label, Group root) {
 		super(label, root, PROPERTIES_FILENAME);
+		label.setPrefWidth(250);
 	}
+
 }

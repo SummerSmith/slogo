@@ -10,17 +10,32 @@ import java.util.Properties;
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
 import gui_elements.buttons.SaveMethodButton;
-import gui_elements.combo_boxes.UserAPIComboBox;
-import gui_elements.labels.UserAPICommandDisplayLabel;
-import gui_elements.labels.UserAPIHeadingLabel;
+import gui_elements.buttons.UserAPIButton;
+import gui_elements.combo_boxes.BackgroundColorComboBox;
+import gui_elements.combo_boxes.LanguageComboBox;
+import gui_elements.combo_boxes.PenColorComboBox;
+import gui_elements.combo_boxes.TurtleImageComboBox;
+import gui_elements.labels.BackgroundColorLabel;
+import gui_elements.labels.CommandWindowLabel;
+import gui_elements.labels.ErrorLabel;
+import gui_elements.labels.LanguageLabel;
+import gui_elements.labels.PenColorLabel;
+import gui_elements.labels.TurtleDisplayLabel;
+import gui_elements.labels.TurtleImageLabel;
+import gui_elements.labels.UserAPILabel;
+import gui_elements.labels.UserCommandsLabel;
+import gui_elements.labels.UserHistoryLabel;
+import gui_elements.labels.UserVariablesLabel;
+import image_classes.ImageClass;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import turtle.Turtle;
 import user_data.UserController;
 import windows.CommandWindow;
 import windows.TurtleWindow;
@@ -31,9 +46,6 @@ public class UserAPI extends Application {
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
     private final String HEIGHT_PROPERTY = "height";
-    private UserAPIHeadingLabel user_api_heading_label;
-    private UserAPICommandDisplayLabel user_api_command_display_label;
-    private UserAPIComboBox user_api_combo_box;
     private String title;
     private int screen_width, screen_height;
     private Stage stage;
@@ -61,7 +73,6 @@ public class UserAPI extends Application {
     	getProperties();
     	setScene();
         setStage();
-        setGUIComponents();
     }
     
     private void setScene() {
@@ -104,11 +115,5 @@ public class UserAPI extends Application {
     			}
     		}
     	}
-    }
-    
-    private void setGUIComponents() {
-    	user_api_heading_label = new UserAPIHeadingLabel(new Label(), root);
-    	user_api_combo_box = new UserAPIComboBox(new ComboBox(), root);
-    	user_api_command_display_label = new UserAPICommandDisplayLabel(new Label(), root);
     }
 }

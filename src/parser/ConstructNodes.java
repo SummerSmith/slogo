@@ -53,7 +53,6 @@ public class ConstructNodes {
     public String getSymbol (String text) {
 	    	for (Entry<String, Pattern> e : mySymbols) {
 	    		if (match(text, e.getValue())) {
-	    			System.out.println("Key: " + e.getKey());
 	    			return e.getKey();
 	    		}
 	    	}

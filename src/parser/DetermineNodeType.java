@@ -27,22 +27,24 @@ import error.Error;
 
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
-	private Error error;
+	private final String file = "resources.nodes/Nodes";
+//	private Error error;
+	UserCommands userCommands;
 	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
+		userCommands = new UserCommands();
+		makeMap();
 	}
 	
-	private boolean commandExists(String content) {
+	private void makeMap() {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
 		Enumeration<String> iter = resources.getKeys();
-		while (iter.hasMoreElements()) {
-			if(content.equals(iter.nextElement())) {
-				return true;
-			}
-		}
-		return false;
+	    while (iter.hasMoreElements()) {
+	            String key = iter.nextElement();
+	            String node = resources.getString(key);
+	            specialCommandNodes.put(key, node);
+	    }
 	}
 	
 	protected Node getNodeType(String nodeType, String content) throws Exception{

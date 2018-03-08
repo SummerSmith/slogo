@@ -3,7 +3,7 @@ package nodes;
 import java.util.List;
 import user_data.UserCommands;
 
-public class UserCommandNode extends Node {
+public class UserCommandNode extends CommandNode {
 	
 	public UserCommandNode(String name) {
 		super(name);
