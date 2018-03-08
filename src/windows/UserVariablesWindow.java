@@ -25,6 +25,7 @@ public class UserVariablesWindow extends Windows {
 	private String full_directory_name = DIRECTORY_STRING + "user_variables_window.properties";
 	private String prompt_text;
 	private final String PANE_STYLE = "-fx-background-color: #ffffff";
+	private static int x, y, width, height;
 	
 	public UserVariablesWindow(Group root) {
 		myRoot = root;

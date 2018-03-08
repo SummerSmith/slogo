@@ -16,7 +16,7 @@ public class RunButton extends DefaultButton {
 		myButton = button;
 		setButtonAction();
 	}
-
+		
 	@Override
 	public void setButtonAction() {
     	myButton.setOnAction(value -> {

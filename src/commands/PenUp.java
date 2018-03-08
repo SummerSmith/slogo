@@ -12,7 +12,7 @@ public class PenUp implements Command{
 	
 	@Override
 	public double Execute(Turtle turtle, List<Double> args) {
-		Display.setPenDown(false);
+		turtle.setPenDown(false);
 		return 0;
 	}
 }

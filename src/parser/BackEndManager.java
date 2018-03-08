@@ -79,6 +79,7 @@ public class BackEndManager {
 					traverse.addTurtletoTree(head, t);
 				}
 				executor.executeCommands(headNodes);
+				t.updateTurtleLineMap();
 			}
 		}
 		else {executor.executeCommands(headNodes);}

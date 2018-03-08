@@ -7,14 +7,11 @@ import javafx.scene.Parent;
 
 public abstract class Windows {
 
-	protected final String X_LOC_STRING = "x_loc";
-	protected final String Y_LOC_STRING = "y_loc";
-	protected final String WIDTH = "width";
-	protected final String HEIGHT = "height";
-	protected final String DIRECTORY_STRING = "data/windows_properties/";
-	protected int x, y;
-	protected static int width;
-	protected static int height;
+	protected static final String X_LOC_STRING = "x_loc";
+	protected static final String Y_LOC_STRING = "y_loc";
+	protected static final String WIDTH = "width";
+	protected static final String HEIGHT = "height";
+	protected static final String DIRECTORY_STRING = "data/windows_properties/";
 	protected Properties properties;
 	protected InputStream input;	
 		

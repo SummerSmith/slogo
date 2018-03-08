@@ -17,7 +17,7 @@ import nodes.ListNode;
 import nodes.MakeNode;
 import nodes.NewUserCommandNode;
 import nodes.RepeatNode;
-import nodes.Tell;
+import nodes.TellNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
 import nodes.VariableNode;
@@ -27,29 +27,30 @@ import error.Error;
 
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.nodes/Nodes";
-//	private Error error;
-	UserCommands userCommands;
+	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
+	//private Error error;
+
 	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
-		userCommands = new UserCommands();
-		makeMap();
 	}
 	
-	private void makeMap() {
+	private boolean commandExists(String content) {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
-		Enumeration<String> iter = resources.getKeys();
-	    while (iter.hasMoreElements()) {
-	            String key = iter.nextElement();
-	            String node = resources.getString(key);
-	            specialCommandNodes.put(key, node);
-	    }
+		Enumeration<String> iter = resources.getKeys(); //is this the only data structure we can use? this loop is inefficient
+		while (iter.hasMoreElements()) {
+			String element = iter.nextElement();
+			if(content.equals(element)) {
+				System.out.println("MATCH: "+ content);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	protected Node getNodeType(String nodeType, String content) throws Exception{
-//		System.out.print("content: " + content);
-//		System.out.println(" nodeType: " + nodeType);
+		System.out.print("content: " + content);
+		System.out.println(" nodeType: " + nodeType);
 		try{
 			if(nodeType.equalsIgnoreCase("Command")) {
 				return makeCommandNode(content);
@@ -58,7 +59,6 @@ public class DetermineNodeType {
 				return new ArgumentNode(content); 
 			}
 			else if(nodeType.equalsIgnoreCase("Variable")) {
-				System.out.println(content);
 				return new VariableNode(content);
 			}
 			else if(nodeType.equalsIgnoreCase("ListStart") || nodeType.equalsIgnoreCase("ListEnd")) {
@@ -93,26 +93,30 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("makevariable")) {
 				return new MakeNode(content);
 			}
-			else if(content.equalsIgnoreCase("to")) {
+			else if(content.equalsIgnoreCase("makeuserinstruction")) {
 				return new ToNode(content);
 			}
 			else if(content.equalsIgnoreCase("if")) {
 				return new IfNode(content);
 			}
 			else if (content.equalsIgnoreCase("tell")) {
-				return new Tell(content);
+				return new TellNode(content);
 			}
-			else if (specialCommandNodes.containsKey(content)){
+			else if (commandExists(content)){
+				System.out.println("commandNode");
 				return new CommandNode(content);
 			}
-			else if (UserCommands.getCommandsMap().containsKey(content)){
+//			else if (UserCommands.getCommandsMap().containsKey(content)){
+			else if (UserCommands.getCommand(content) != null){
+				System.out.println("UserCommandNode");
 				return new UserCommandNode(content);
 			}
 			else {
+				System.out.println("NewUserCommandNode");
 				return new NewUserCommandNode(content);
 			}
 		}catch(NullPointerException e) {
-			System.out.println("Unknown Commands catches!");
+			System.err.println("Unknown Commands catches!");
 			Exception e_0 = new Exception("Unknown Commands");
 			new Error(e_0);
 			//e.printStackTrace();

@@ -71,6 +71,7 @@ public abstract class DefaultLabel {
 		input = null;
 		try {
 	  		input = new FileInputStream(full_label_filename);
+	  		System.out.println(full_label_filename);
 	  		properties.load(input);
 
 	  		x = Integer.parseInt(properties.getProperty(X_LOC_STRING));
