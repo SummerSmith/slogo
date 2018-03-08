@@ -29,7 +29,13 @@ public class UserCommands {
 
 	public static GroupNode getCommand(String commandName){
 		if(myCommands.containsKey(commandName)) {
-			return myCommands.get(commandName);
+			if(myCommands.get(commandName) != null) {
+				return myCommands.get(commandName);
+			}
+			else {
+				System.err.println("Command has not been defined");
+				return null;
+			}
 		}
 		else {
 			System.err.println("Command Not Found");
@@ -51,6 +57,7 @@ public class UserCommands {
 			return myCommandNumArgs.get(commandName);
 		}
 		else {
+			System.out.println("Looking for command: " + commandName);
 			System.err.println("Command Not Found");
 			return 0; //this might cause errors; careful
 		}

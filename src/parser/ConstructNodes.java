@@ -86,7 +86,6 @@ public class ConstructNodes {
 		}
 		return nodes;
 	}
-
 	
 	protected void addNode(Node toAdd) {
 		nodes.add(toAdd);

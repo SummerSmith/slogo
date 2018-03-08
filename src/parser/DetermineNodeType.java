@@ -41,7 +41,7 @@ public class DetermineNodeType {
 		while (iter.hasMoreElements()) {
 			String element = iter.nextElement();
 			if(content.equals(element)) {
-				System.out.println(content);
+				System.out.println("MATCH: "+ content);
 				return true;
 			}
 		}
@@ -106,7 +106,8 @@ public class DetermineNodeType {
 				System.out.println("commandNode");
 				return new CommandNode(content);
 			}
-			else if (UserCommands.getCommandsMap().containsKey(content)){
+//			else if (UserCommands.getCommandsMap().containsKey(content)){
+			else if (UserCommands.getCommand(content) != null){
 				System.out.println("UserCommandNode");
 				return new UserCommandNode(content);
 			}

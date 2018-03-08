@@ -12,6 +12,7 @@ public class NewUserCommandNode extends Node {
 	public NewUserCommandNode(String name) {
 		super(name);
 		numChildren = 2; //2 groupNodes
+		//UserCommands.add(name, new GroupNode("["), new L, numArgs);
 	}
 
 	@Override
@@ -26,6 +27,7 @@ public class NewUserCommandNode extends Node {
 				commandVariables.add(n.getType());
 				numVariables++;
 			}
+			System.out.println("NUCN type:" + type);
 			UserCommands.add(type, (GroupNode) myChildren.get(1), commandVariables, numVariables); // type is name of command, presumably
 			return 1;
 		} catch(Exception e) {
