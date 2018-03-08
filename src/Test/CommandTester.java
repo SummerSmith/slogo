@@ -35,7 +35,7 @@ public class CommandTester extends Application{
 	
 	private void initTurtle(Pane root) {
 		Point center = new Point(WIDTH/2,HEIGHT/2);
-		//turtle = new Turtle(center);
+		turtle = new Turtle();
 		root.getChildren().add(turtle);
 	}
 	
