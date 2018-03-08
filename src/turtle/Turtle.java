@@ -110,8 +110,9 @@ public class Turtle extends Parent{
 	}
 	
     public static String getPenColor() {
-    	return pen_color;
+    		return pen_color;
     }
+    
     public static void setPenColor(String color) {
     	pen_color = color;
     }

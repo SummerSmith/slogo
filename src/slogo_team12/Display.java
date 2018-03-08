@@ -437,4 +437,8 @@ public class Display extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+    public static void setBackgroundColor(Paint color) {
+    		myScene.setFill(color);
+    }
 }
