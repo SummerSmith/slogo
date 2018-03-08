@@ -51,13 +51,14 @@ public class ConstructNodes {
 //	    	final String ERROR = "NO MATCH";
 	    	for (Entry<String, Pattern> e : mySymbols) {
 	    		if (match(text, e.getValue())) {
+	    			System.out.println("Key: " + e.getKey());
 	    			return e.getKey();
 	    		}
 	    	}
 	    	// FIXME: perhaps throw an exception instead
 	    	//        return ERROR;
-	    	return text; //this is for user defined commands, because they'll be words that don't match with file
-    }				//error will have to be returned in another area
+	    	return ERROR;
+    }				
 
 	
 	private String makeEnglish(String notEnglish) {
