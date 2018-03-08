@@ -34,7 +34,7 @@ public abstract class DefaultButton {
 	private String full_button_filename;
 
 	/*
-	 * Constructor for DefaultButton, takes in a button, a Group object 
+	 * Primary constructor for DefaultButton, takes in a button, a Group object 
 	 * (root), and a properties filename as parameters.
 	 */
 	public DefaultButton(Button button, Group root, String properties_filename) {
@@ -43,7 +43,7 @@ public abstract class DefaultButton {
 		full_button_filename = DIRECTORY_STRING + properties_filename;
 		initialize();
 	}
-
+	
 	/*
 	 * Calls methods to initialize the button properties.
 	 */
