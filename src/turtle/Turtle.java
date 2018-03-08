@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import parser.TurtleManager;
 import windows.TurtleWindow;
 import point.Point;
 
@@ -33,7 +34,7 @@ public class Turtle extends Parent{
 	private List<Point> nextPoints;
     private ImageView imageView;
 	private Map<Integer, List<Point>> turtle_line_map;
-	private int ID;
+	private double ID;
 	
 	public Turtle(){
 		initialize();
@@ -185,15 +186,19 @@ public class Turtle extends Parent{
 		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
 	}
 	
-	public int getID() {
+	public double getID() {
 		return ID;
 	}
 	
-	public void setID(int id) {
+	public void setID(double id) {
 		ID = id;
 	}
 	
 	public String toString() {
 		return "turtle";
+	}
+	
+	public double getTurtleNum() {
+		return TurtleManager.getAllTurtleNum() * 1.0;
 	}
 }
