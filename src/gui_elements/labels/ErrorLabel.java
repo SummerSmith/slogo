@@ -1,10 +1,5 @@
 package gui_elements.labels;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -13,16 +8,19 @@ import javafx.scene.paint.Paint;
 public class ErrorLabel extends DefaultLabel {
 
 	private static final String PROPERTIES_FILENAME = "error_label.properties";
+	private static final Paint TEXT_COLOR = Color.YELLOW;
+	private static final String BACKGROUND_COLOR = "-fx-background-color: #0000ff";
 	private Label myLabel;
-	private Properties properties;
-	private InputStream input;
 
 	public ErrorLabel(Label label, Group root) {
 		super(label, root, PROPERTIES_FILENAME);
-		myLabel = label;
+		label.setTextFill(TEXT_COLOR);
+		label.setStyle(BACKGROUND_COLOR);
+		label.setPrefSize(200, 20);
 		root.getChildren().remove(label);
+		myLabel = label;
 	}
-
+	
 	public Label getLabel() {
 		return myLabel;
 	}

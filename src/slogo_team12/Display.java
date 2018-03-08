@@ -124,7 +124,7 @@ public class Display extends Application {
 	private UserCommandsLabel user_commands_label;
 	private UserHistoryLabel user_history_label;
 	private UserAPILabel user_api_label;
-	private static ErrorLabel error_label;
+	private ErrorLabel error_label;
 	private ClearButton clear_button;
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
@@ -190,30 +190,32 @@ public class Display extends Application {
     		try {
 				ConstructNodes nodes = new ConstructNodes(current_turtle, command_strings, myLanguage);
 				updateTurtleImage();
+				UserController.updateUserHistoryWindow(text);
 				current_turtle.updateTurtleLineMap();
-				if(pen_down) drawLine(current_turtle.getNextPoints());
-				checkErrorLabel(text);
-	    		CommandWindow.clearWindow();
-	    		runButtonPressed = false;
+				if(pen_down)
+					drawLine(current_turtle.getNextPoints());
     		} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
 				e.printStackTrace();
 			}
-    	}
+    		CommandWindow.clearWindow();
+    		if(errorString.length() != 0) {
+    			//System.out.println("front end catch errors! " + errorString);
+    			if(root.getChildren().contains(error_label)) {
+    				root.getChildren().remove(error_label.getLabel());  
+    			}
+    			else {
+        			error_label.getLabel().setText(errorString);
+        			root.getChildren().remove(error_label.getLabel()); 
+        			root.getChildren().add(error_label.getLabel()); 
+    			}
+    		}
+    		else {
+    			//System.out.println("front end uncatch errors! ");
+    			root.getChildren().remove(error_label.getLabel()); 
+    		}
+    		runButtonPressed = false;
     }
-    
-    private void checkErrorLabel(String text) {
-		if(!errorString.equals("")) {
-   			error_label.getLabel().setText(errorString);
-   			root.getChildren().add(error_label.getLabel());    				
-		}
-		else {
-			updateUserHistoryWindow(text);
-		}
-    }
-    
-    private void updateUserHistoryWindow(String text) {
-		UserController.updateUserHistoryWindow(text);
     }
     
     private void drawLine(List<Point> nextPoints) {
@@ -401,10 +403,6 @@ public class Display extends Application {
     
     public static void setErrorString(String string) {
     	errorString = string;
-    }
-    
-    public static Label getErrorLabel() {
-    	return error_label.getLabel();
     }
 	
     /**

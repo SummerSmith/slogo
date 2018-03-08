@@ -39,10 +39,11 @@ public abstract class Node {
 				}
 				return this.getNumChildren() + sum;
 			}
-		}catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("Not enough arguments!");
-			Exception e_0 = new Exception("Not enough arguments");
-			Error error = new Error(e_0);
+		}catch(IndexOutOfBoundsException e) {
+			Exception e_0 = new Exception("Not enought arguments");
+			new Error(e_0);
+			Display.setErrorString(Error.getString());
+			return -1;
 		}
 		return 0;
 	}
