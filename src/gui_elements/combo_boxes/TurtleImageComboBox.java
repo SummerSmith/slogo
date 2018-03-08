@@ -13,16 +13,19 @@ import windows.TurtleWindow;
 
 public class TurtleImageComboBox extends ComboBoxes {
 
-	private static String properties_filename = "turtle_image_combo_box.properties";
-	private ComboBox myComboBox;
+	private static final String PROPERTIES_FILENAME = "turtle_image_combo_box.properties";
+	private static final String IMAGE1 = "turtle_image1";
+	private static ComboBox myComboBox;
 	private Group myRoot;
-	private final String IMAGE1 = "turtle_image1";
-	private final int OLD_IMAGEVIEW = 0;
+	private Turtle myTurtle;
+	private String image_selection;
+	private final static int OLD_IMAGEVIEW_INDEX = 0;
 	
-	public TurtleImageComboBox(ComboBox comboBox, Group root) {
-		super(comboBox, root, properties_filename);
+	public TurtleImageComboBox(ComboBox comboBox, Group root, Turtle turtle) {
+		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
 		myRoot = root;
+		myTurtle = turtle;
 		initialize();
 	}
 	
@@ -36,19 +39,24 @@ public class TurtleImageComboBox extends ComboBoxes {
 	}
 	
 	private void chooseImage() {
-//    	myComboBox.setOnAction((Event ev) -> {
-//    		String image = (String) myComboBox.getSelectionModel().getSelectedItem();
-//    		ObservableList<Node> pane_root_children = TurtleWindow.getPaneRoot().getChildren();
-//    		TurtleImageClass turtle_image_object = new TurtleImageClass(image, myRoot);
-////    		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW), turtle_image_object.getImageView());
-//    		pane_root_children.set(OLD_IMAGEVIEW, turtle_image_object.getImageView());
-////    		Display.setImageView(turtle_image_object.getImageView());
-//    	});
+    	myComboBox.setOnAction((Event ev) -> {
+    		image_selection = (String) myComboBox.getSelectionModel().getSelectedItem();
+//    		TurtleWindow.getPane().getChildren().set(OLD_IMAGEVIEW, new TurtleImageClass(image, myRoot, myTurtle).getImageView());
+//    		Display.setImageView(turtle_image_object.getImageView());
+    	});
 	}
 	
-//	private void setNewTurtleProperties(Turtle turtle, ImageView oldImageView, ImageView newImageView) {
-//		newImageView.setLayoutX(oldImageView.getLayoutX());
-//		newImageView.setLayoutY(oldImageView.getLayoutY());
-//		newImageView.setRotate(oldImageView.getRotate());
-//	}
+	public void setImage() {
+		ObservableList<Node> pane_root_children = TurtleWindow.getPaneRoot().getChildren();
+		ImageView imageView = new TurtleImageClass(image_selection, myRoot, myTurtle).getImageView();
+		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW_INDEX), imageView);
+		pane_root_children.set(OLD_IMAGEVIEW_INDEX, imageView);
+        myTurtle.setImageView(imageView);
+	}
+	
+	private void setNewTurtleProperties(Turtle turtle, ImageView oldImageView, ImageView newImageView) {
+		newImageView.setLayoutX(oldImageView.getLayoutX());
+		newImageView.setLayoutY(oldImageView.getLayoutY());
+		newImageView.setRotate(oldImageView.getRotate());
+	}
 }

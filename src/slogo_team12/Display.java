@@ -51,10 +51,10 @@ import gui_elements.labels.LanguageLabel;
 import gui_elements.labels.PenColorLabel;
 import gui_elements.labels.TurtleDisplayLabel;
 import gui_elements.labels.TurtleImageLabel;
-import gui_elements.labels.UserAPILabel;
-import gui_elements.labels.UserCommandsLabel;
-import gui_elements.labels.UserHistoryLabel;
-import gui_elements.labels.UserVariablesLabel;
+import gui_elements.labels.user_api_labels.UserAPILabel;
+import gui_elements.labels.user_windows_labels.UserCommandsLabel;
+import gui_elements.labels.user_windows_labels.UserHistoryLabel;
+import gui_elements.labels.user_windows_labels.UserVariablesLabel;
 import image_classes.ImageClass;
 import image_classes.SLogoImageClass;
 import image_classes.TurtleImageClass;
@@ -78,8 +78,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -106,7 +108,6 @@ public class Display extends Application {
     private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
     private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
     private static String myLanguage = "English";
-    private static String pen_color;
     private static String errorString = "";
     private String title;
     private final int FRAMES_PER_SECOND = 2;
@@ -140,15 +141,13 @@ public class Display extends Application {
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
 	private EditVariablesButton save_method_button;
-	private PenColorComboBox pen_color_combobox;
 	private BackgroundColorComboBox background_color_combobox;
-	private TurtleImageComboBox turtle_image_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object;
     private Timeline animation;
 	
 	// Additional setup for the display
-    private Scene myScene;
+    private static Scene myScene;
     private static Group root;
 
     /**
@@ -212,7 +211,6 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
-    		    	System.out.println("Been here");
     				moveImageView(turtle);
     				if(turtle.getPenDown()) {
     					drawLine(turtle);
@@ -263,8 +261,10 @@ public class Display extends Application {
     							 curr_point.getY() + y_offset, 
     							 next_point.getX() + x_offset, 
     							 next_point.getY() + y_offset);
-    		line.setStyle(pen_color);
-    		TurtleWindow.getPaneRoot().getChildren().add(line);
+    		line.setStyle(turtle.getPenColor());
+    		line.setStrokeWidth(turtle.getPenThickness());
+    		TurtleWindow.getPane().getChildren().add(line);
+//    		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
     
@@ -274,12 +274,16 @@ public class Display extends Application {
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + turtle.getYLocation());
     	imageView.setRotate(turtle.getHeading());
+//    	AnchorPane pane = (AnchorPane) TurtleWindow.getPane();
     	Group paneRoot = TurtleWindow.getPaneRoot();
+//    	if(turtle.getTurtleIsShowing() && !pane.getChildren().contains(imageView)) {
     	if(turtle.getTurtleIsShowing() && !paneRoot.getChildren().contains(imageView)) {
+//    		pane.getChildren().set(0, imageView);
     		TurtleWindow.getPaneRoot().getChildren().set(0, imageView);
     	}
+//    	else if(!turtle.getTurtleIsShowing() && pane.getChildren().contains(imageView)) {
     	else if(!turtle.getTurtleIsShowing() && paneRoot.getChildren().contains(imageView)) {
-    		System.out.println("HELLO");
+//    		pane.getChildren().set(0, new ImageView());
     		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
     	}
     }
@@ -362,9 +366,7 @@ public class Display extends Application {
      * Sets up screen comboBoxes.
      */
     private void setComboBoxes() {
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), pen_color, root);
     	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
     }
 
@@ -407,13 +409,6 @@ public class Display extends Application {
     	myLanguage = language;
     }
     
-    public static String getPenColor() {
-    	return pen_color;
-    }
-    public static void setPenColor(String color) {
-    	pen_color = color;
-    }
-    	
 	public static Group getRoot() {
 		return root;
 	}
@@ -430,6 +425,10 @@ public class Display extends Application {
     
     public static Label getErrorLabel() {
     	return error_label.getLabel();
+    }
+    
+    public static Scene getScene() {
+    	return myScene;
     }
 	
     /**
