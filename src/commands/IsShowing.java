@@ -9,6 +9,8 @@ public class IsShowing implements Command{
 	}
 	
 	public double Execute(Turtle turtle, List<Double> args) {
-		return turtle.getVisible();
+		if(turtle.getTurtleIsShowing())
+			return 1;
+		return 0;
 	}
 }

@@ -25,6 +25,7 @@ public class UserCommandsWindow extends Windows {
 	private String full_directory_name = DIRECTORY_STRING + "user_commands_window.properties";
 	private String prompt_text;
 	private final String PANE_STYLE = "-fx-background-color: #ffffff";
+	private static int x, y, width, height;
 	
 	public UserCommandsWindow(Group root) {
 		myRoot = root;

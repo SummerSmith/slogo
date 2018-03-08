@@ -12,8 +12,10 @@ import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 public class BackgroundColorComboBox extends ComboBoxes {
 	
@@ -21,7 +23,7 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	private final String FULL_COLOR_MAP_FILENAME = "data/color_map.properties";
 	private final String COLOR_HEADING = "-fx-background-color: ";
 	private ComboBox myComboBox;
-	private Pane myPane;
+	private BorderPane myPane;
 	private Map<String, String> color_map;
 	private Properties color_properties;
 	private InputStream input;
@@ -30,7 +32,7 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	public BackgroundColorComboBox(ComboBox comboBox, Parent pane, Group root) {
 		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
-		myPane = (Pane) pane;
+		myPane = (BorderPane) pane;
 		initialize();
 	}
 	

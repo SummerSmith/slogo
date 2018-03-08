@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import slogo_team12.Display;
+import turtle.Turtle;
 
 public class PenColorComboBox extends ComboBoxes {
 	
@@ -30,7 +31,7 @@ public class PenColorComboBox extends ComboBoxes {
 	private InputStream input;
 	private int BLACK = 0;
 	
-	public PenColorComboBox(ComboBox comboBox, String pen_color, Group root) {
+	public PenColorComboBox(ComboBox comboBox, Group root) {
 		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
 		this.pen_color = pen_color;
@@ -72,8 +73,11 @@ public class PenColorComboBox extends ComboBoxes {
 	
 	private void choosePenColor() {
     	myComboBox.setOnAction((Event ev) -> {
-    		String color = (String) myComboBox.getSelectionModel().getSelectedItem();
-    		Display.setPenColor(COLOR_HEADING + color_map.get(color));
+    		pen_color = (String) myComboBox.getSelectionModel().getSelectedItem();
     	});
+	}
+	
+	public String getPenColor() {
+		return COLOR_HEADING + color_map.get(pen_color);
 	}
 }

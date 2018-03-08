@@ -1,13 +1,12 @@
 package nodes;
 
-import turtle.Turtle;
 import user_data.UserController;
 import user_data.UserVariables;
 
 public class MakeNode extends Node {
 
-	public MakeNode(String name, Turtle t) {
-		super(name, t);
+	public MakeNode(String name) {
+		super(name);
 		if(name.startsWith(":") && !UserVariables.getVariablesMap().containsKey(name)) {
 			UserController.updateUserVariablesWindow(name);
 		}
