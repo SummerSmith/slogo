@@ -15,8 +15,8 @@ public class GetPenColor implements Command{
 	public double Execute(Turtle turtle, List<Double> args){
 		myResources = ResourceBundle.getBundle(PROPERTY_FILENAME);
 		Enumeration<String> iter = myResources.getKeys();
-		String pen_color = Turtle.getPenColor();
-		System.out
+		String pen_color = turtle.getPenColor();
+		System.out.println(pen_color);
 		double res = 0;
 	    while (iter.hasMoreElements()) {
 	            String index = iter.nextElement();
@@ -26,6 +26,6 @@ public class GetPenColor implements Command{
 	            		break;
 	            }
 	    }
-	    return res == 0 ? (Double)null : res;
+	    return res;
 	}
 }

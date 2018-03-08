@@ -261,7 +261,8 @@ public class Display extends Application {
     							 curr_point.getY() + y_offset, 
     							 next_point.getX() + x_offset, 
     							 next_point.getY() + y_offset);
-    		line.setStyle(turtle.getPenColor());
+
+    		line.setStyle("-fx-stroke: " + turtle.getPenColor()+";");
     		line.setStrokeWidth(turtle.getPenThickness());
     		TurtleWindow.getPane().getChildren().add(line);
 //    		TurtleWindow.getPaneRoot().getChildren().add(line);
