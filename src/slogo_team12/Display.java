@@ -263,8 +263,7 @@ public class Display extends Application {
     							 next_point.getY() + y_offset);
     		line.setStyle(turtle.getPenColor());
     		line.setStrokeWidth(turtle.getPenThickness());
-    		TurtleWindow.getPane().getChildren().add(line);
-//    		TurtleWindow.getPaneRoot().getChildren().add(line);
+    		TurtleWindow.getPaneRoot().getChildren().add(line);
     	}
 	}
     

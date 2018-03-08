@@ -27,9 +27,7 @@ public class TurtleWindow extends Windows {
 	private Group myRoot;
 	private static Group paneRoot;
 	private static ScrollPane scroll_pane = new ScrollPane();
-//	private static AnchorPane pane = new AnchorPane();
 	private static BorderPane pane = new BorderPane();
-//	private static Canvas canvas;
 	private static String full_directory_name = DIRECTORY_STRING + "turtle_window.properties";
 	private static String prompt_text;
 	private static final String PANE_STYLE = "-fx-background-color: #ffffff";
@@ -82,11 +80,7 @@ public class TurtleWindow extends Windows {
 		myRoot.getChildren().add(pane);
 		
 		paneRoot = new Group();
-		pane.getChildren().add(paneRoot);
-//		canvas = new Canvas();
-//		paneRoot.getChildren().add(canvas);
-//		pane.getChildren().add(canvas);
-		
+		pane.getChildren().add(paneRoot);		
 	}
 	
 	public static void addTurtleToTurtleWindow(ImageView imageView) {
@@ -95,7 +89,6 @@ public class TurtleWindow extends Windows {
 		initialTurtleY = (int) (height / 2 - imageView.getFitHeight() / 2);
 		imageView.setLayoutY(initialTurtleY);
 		paneRoot.getChildren().add(imageView);		
-//		pane.getChildren().add(imageView);
 	}
 
 	@Override
