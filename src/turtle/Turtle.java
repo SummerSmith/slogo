@@ -28,7 +28,7 @@ public class Turtle extends Parent{
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final double DEFAULT_PEN_THICKNESS = 2;
-	private static String pen_color;
+	private String pen_color;
 	private final Point INITIAL_POINT = new Point(0, 0);
 	private List<Point> nextPoints;
     private ImageView imageView;
@@ -109,11 +109,10 @@ public class Turtle extends Parent{
 		this.heading = heading;
 	}
 	
-    public static String getPenColor() {
-    		return pen_color;
+    public String getPenColor() {
+    	return pen_color;
     }
-    
-    public static void setPenColor(String color) {
+    public void setPenColor(String color) {
     	pen_color = color;
     }
 

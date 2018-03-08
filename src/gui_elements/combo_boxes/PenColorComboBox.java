@@ -26,16 +26,14 @@ public class PenColorComboBox extends ComboBoxes {
 	private String pen_color;
 	private ComboBox myComboBox;
 	private Pane myPane;
-	private Turtle myTurtle;
 	private Map<String, String> color_map;
 	private Properties color_properties;
 	private InputStream input;
 	private int BLACK = 0;
 	
-	public PenColorComboBox(ComboBox comboBox, Group root, Turtle turtle) {
+	public PenColorComboBox(ComboBox comboBox, Group root) {
 		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
-		myTurtle = turtle;
 		this.pen_color = pen_color;
 		initialize();
 	}
@@ -79,8 +77,7 @@ public class PenColorComboBox extends ComboBoxes {
     	});
 	}
 	
-	public void setPenColor() {
-		myTurtle.setPenColor(COLOR_HEADING + color_map.get(pen_color));
-//		Display.setPenColor(COLOR_HEADING + color_map.get(color));
+	public String getPenColor() {
+		return COLOR_HEADING + color_map.get(pen_color);
 	}
 }

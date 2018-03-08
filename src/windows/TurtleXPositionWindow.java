@@ -102,4 +102,8 @@ public class TurtleXPositionWindow extends Windows {
 	public static String getText() {
 		return text_field.getText();
 	}
+	
+	public static TextField getWindow() {
+		return text_field;
+	}
 }

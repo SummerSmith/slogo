@@ -102,4 +102,8 @@ public class CommandWindow extends Windows {
 	public static String getText() {
 		return text_area.getText();
 	}
+	
+	public static TextArea getWindow() {
+		return text_area;
+	}
 }
