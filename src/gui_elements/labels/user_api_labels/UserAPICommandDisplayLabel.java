@@ -1,7 +1,8 @@
-package gui_elements.labels;
+package gui_elements.labels.user_api_labels;
 
 import com.sun.java_cup.internal.runtime.Scanner;
 
+import gui_elements.labels.DefaultLabel;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.ContentDisplay;

@@ -12,7 +12,6 @@ public class NewUserCommandNode extends Node {
 	public NewUserCommandNode(String name) {
 		super(name);
 		numChildren = 2; //2 groupNodes
-		//UserCommands.add(name, new GroupNode("["), new L, numArgs);
 	}
 
 	@Override
@@ -36,5 +35,4 @@ public class NewUserCommandNode extends Node {
 			return 0;
 		}
 	}
-
 }
