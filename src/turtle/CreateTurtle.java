@@ -9,6 +9,7 @@ import windows.TurtleWindow;
 public class CreateTurtle {
 
 	private Group myRoot;
+	private Turtle myTurtle;
 	
 	public CreateTurtle(Group root) {
 		myRoot = root;
@@ -16,8 +17,12 @@ public class CreateTurtle {
 	}
 	
 	private void initialize() {
-		Turtle turtle = new Turtle();
-        TurtleManager.addActiveTurtle(turtle);
-        new TurtleImageClass(myRoot, turtle).getImageView();
+		myTurtle = new Turtle();
+        TurtleManager.addActiveTurtle(myTurtle);
+        new TurtleImageClass(myRoot, myTurtle).getImageView();
+	}
+	
+	public Turtle getTurtle() {
+		return myTurtle;
 	}
 }

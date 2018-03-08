@@ -9,15 +9,18 @@ import java.util.Properties;
 
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
+import gui_elements.buttons.TurtlePropertiesOkButton;
 import gui_elements.buttons.EditVariablesButton;
 import gui_elements.combo_boxes.PenColorComboBox;
 import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.combo_boxes.UserAPIComboBox;
+import gui_elements.labels.turtle_properties_labels.TurtlePropertiesActiveInactiveLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesActiveLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesHeaderLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesHeadingLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesIDLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesImageLabel;
+import gui_elements.labels.turtle_properties_labels.TurtlePropertiesInactiveLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesPenColorLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesPenDownLabel;
 import gui_elements.labels.turtle_properties_labels.TurtlePropertiesPenThicknessLabel;
@@ -30,9 +33,12 @@ import gui_elements.labels.user_api_labels.UserAPICommandDisplayLabel;
 import gui_elements.labels.user_api_labels.UserAPIHeaderLabel;
 import gui_elements.radio_buttons.PenDownRadioButton;
 import gui_elements.radio_buttons.PenUpRadioButton;
+import gui_elements.radio_buttons.TurtleActiveRadioButton;
+import gui_elements.radio_buttons.TurtleInactiveRadioButton;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -40,6 +46,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import parser.TurtleManager;
 import turtle.Turtle;
 import user_data.UserController;
 import windows.CommandWindow;
@@ -56,11 +63,13 @@ public class TurtlePropertyScreen extends Application {
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
     private final String HEIGHT_PROPERTY = "height";
+    private TurtlePropertiesActiveInactiveLabel turtle_properties_active_inactive_label;
     private TurtlePropertiesActiveLabel turtle_properties_active_label;
     private TurtlePropertiesHeaderLabel turtle_properties_header_label;
     private TurtlePropertiesHeadingLabel turtle_properties_heading_label;
     private TurtlePropertiesIDLabel turtle_properties_id_label;
     private TurtlePropertiesImageLabel turtle_properties_image_label;
+    private TurtlePropertiesInactiveLabel turtle_properties_inactive_label;
     private TurtlePropertiesPenColorLabel turtle_properties_pen_color_label;
     private TurtlePropertiesPenThicknessLabel turtle_properties_pen_thickness_label;
     private TurtlePropertiesPenUpDownLabel turtle_properties_pen_up_down_label;
@@ -69,21 +78,21 @@ public class TurtlePropertyScreen extends Application {
     private TurtlePropertiesYPositionLabel turtle_properties_y_position_label;
     private TurtlePropertiesPenUpLabel turtle_properties_pen_up_label;
     private TurtlePropertiesPenDownLabel turtle_properties_pen_down_label;    
+    private TurtleHeadingWindow turtle_heading_window;
     private TurtleIDWindow turtle_id_window;
+    private TurtleImageComboBox turtle_image_combobox;
+    private TurtlePenThicknessWindow turtle_pen_thickness_window;
     private TurtleXPositionWindow turtle_x_position_window;
     private TurtleYPositionWindow turtle_y_position_window;
-    private TurtleHeadingWindow turtle_heading_window;
-    private TurtlePenThicknessWindow turtle_pen_thickness_window;
-    private TurtleImageComboBox turtle_image_combobox;
     private PenColorComboBox pen_color_combobox;
-    private PenUpRadioButton pen_up_radio_button;
     private PenDownRadioButton pen_down_radio_button;
-
-    //    private UserAPICommandDisplayLabel user_api_command_display_label;
-//    private UserAPIComboBox user_api_combo_box;
+    private PenUpRadioButton pen_up_radio_button;
+    private TurtleActiveRadioButton turtle_active_radio_button;
+    private TurtleInactiveRadioButton turtle_inactive_radio_button;
+    private TurtlePropertiesOkButton turtle_properties_ok_button;
     private String title;
     private int screen_width, screen_height;
-    private Stage stage;
+    private static Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
 	private Turtle myTurtle;
@@ -99,7 +108,7 @@ public class TurtlePropertyScreen extends Application {
     }
 
     /**
-     * Initializes the stage for the user API screen.
+     * Initializes the stage for the turtle property screen.
      */
     @Override
     public void start(Stage stage) {
@@ -123,7 +132,7 @@ public class TurtlePropertyScreen extends Application {
     }
     
     /**
-     * Sets the stage for the user API.
+     * Sets the stage for the turtle property screen.
      */
     private void setStage() {
     	stage.setScene(myScene);
@@ -165,16 +174,17 @@ public class TurtlePropertyScreen extends Application {
     	setWindows();
     	setComboBoxes();
     	setRadioButtons();
-//    	user_api_combo_box = new UserAPIComboBox(new ComboBox(), root);
-//    	user_api_command_display_label = new UserAPICommandDisplayLabel(new Label(), root);
+    	setButtons();
     }
     
     private void setLabels() {
         turtle_properties_active_label = new TurtlePropertiesActiveLabel(new Label(), root);
+    	turtle_properties_active_inactive_label = new TurtlePropertiesActiveInactiveLabel(new Label(), root);
         turtle_properties_header_label = new TurtlePropertiesHeaderLabel(new Label(), root);
         turtle_properties_heading_label = new TurtlePropertiesHeadingLabel(new Label(), root);
         turtle_properties_id_label = new TurtlePropertiesIDLabel(new Label(), root);
         turtle_properties_image_label = new TurtlePropertiesImageLabel(new Label(), root);
+        turtle_properties_inactive_label = new TurtlePropertiesInactiveLabel(new Label(), root);
         turtle_properties_pen_color_label = new TurtlePropertiesPenColorLabel(new Label(), root);
         turtle_properties_pen_thickness_label = new TurtlePropertiesPenThicknessLabel(new Label(), root);
         turtle_properties_pen_up_down_label = new TurtlePropertiesPenUpDownLabel(new Label(), root);
@@ -195,7 +205,7 @@ public class TurtlePropertyScreen extends Application {
     
     private void setComboBoxes() {
     	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root, myTurtle);
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root, myTurtle);
+    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root);
     }
     
     private void setRadioButtons() {
@@ -209,14 +219,32 @@ public class TurtlePropertyScreen extends Application {
         pen_down_radio_button = new PenDownRadioButton(new RadioButton(), root, pen_state_group);
 
         if(myTurtle.getPenDown()) {
-        	pen_down_radio_button.getRadioButton().setSelected(true);
+        	pen_down_radio_button.getPenDownRadioButton().setSelected(true);
         }
         else {
-        	pen_up_radio_button.getRadioButton().setSelected(true);
+        	pen_up_radio_button.getPenUpRadioButton().setSelected(true);
         }
     }
     
     private void setTurtleActiveRadioButton() {
-    	
+    	ToggleGroup pen_state_group = new ToggleGroup();
+        turtle_active_radio_button = new TurtleActiveRadioButton(new RadioButton(), root, pen_state_group);
+        turtle_inactive_radio_button = new TurtleInactiveRadioButton(new RadioButton(), root, pen_state_group);
+
+        if(TurtleManager.getActiveTurtles().contains(myTurtle)) {
+        	turtle_active_radio_button.getActiveRadioButton().setSelected(true);
+        }
+        else {
+        	turtle_inactive_radio_button.getInactiveRadioButton().setSelected(true);
+        }    	
     }
+    
+    private void setButtons() {
+    	turtle_properties_ok_button = new TurtlePropertiesOkButton(new Button(), root, myTurtle, 
+    			turtle_image_combobox, pen_color_combobox, pen_down_radio_button, turtle_active_radio_button);
+    }
+    
+    public static Stage getStage() {
+    	return stage;
+    }    
 }

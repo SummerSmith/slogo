@@ -36,6 +36,7 @@ public class TurtleImageComboBox extends ComboBoxes {
 	
 	private void setDefaultImage() {
 		myComboBox.getSelectionModel().select(IMAGE1);
+		image_selection = IMAGE1;
 	}
 	
 	private void chooseImage() {

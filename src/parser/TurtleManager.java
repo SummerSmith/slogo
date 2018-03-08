@@ -45,7 +45,7 @@ public class TurtleManager {
 				addTurtle(t);
 				t.setID(allIDsByTurtle.size());
 			}
-			activeTurtles.add(t);
+			activeTurtles.add(t);	
 		}
 	}
 	
