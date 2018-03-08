@@ -54,7 +54,7 @@ public class Turtle extends Parent{
 		turtle_line_map = new HashMap<Integer, List<Point>>();
 		nextPoints = new ArrayList<Point>();
 	}
-		
+	
 	public double getRadian() {
 		return Math.toRadians(heading);
 	}

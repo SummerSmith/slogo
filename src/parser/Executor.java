@@ -15,11 +15,14 @@ public class Executor {
 		try {
 			List<Double> returnValues= new ArrayList<>();
 			for(Node head : headNodes) {
-				returnValues.add(head.evaluate());
+				double res = head.evaluate();
+				if(res == -Double.MAX_VALUE) {
+					return new ArrayList<Double>();
+				}
+				returnValues.add(res);
 			}
 			return returnValues;
 		}catch(Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

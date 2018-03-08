@@ -69,7 +69,12 @@ public class BackEndManager {
 				for(Node head : headNodes) {
 					traverse.addTurtletoTree(head, t);
 				}
-				executor.executeCommands(headNodes);
+				List<Double> res = executor.executeCommands(headNodes);
+				//if there are wrong arguments values
+				if(res == null) {
+					System.out.println("there are wrong arguments values, sop execution.");
+					return;
+				}
 				t.updateTurtleLineMap();
 			}
 		}

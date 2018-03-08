@@ -125,7 +125,7 @@ public class Display extends Application {
    	private Properties menu_properties;
 	private InputStream input;
 	private CommandWindow command_window;
-	private TurtleWindow turtle_window;
+	private static TurtleWindow turtle_window;
 	private PenColorLabel pen_color_label;
 	private BackgroundColorLabel background_color_label;
 	private TurtleImageLabel turtle_image_label;
@@ -439,7 +439,7 @@ public class Display extends Application {
         launch(args);
     }
     
-    public static void setBackgroundColor(Paint color) {
-    		myScene.setFill(color);
+    public static void setBackgroundColor(String color) {
+    		turtle_window.setWindowColor(color);
     }
 }
