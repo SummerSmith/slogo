@@ -19,20 +19,17 @@ import javafx.scene.paint.Paint;
  */
 public abstract class DefaultLabel {
 	
+	private final int LABEL_WIDTH = 160;
 	private final String X_LOC_STRING = "x_loc";
 	private final String Y_LOC_STRING = "y_loc";
 	private final String TEXT_STRING = "text";
-	private final String WIDTH_STRING = "width";
-	private final String HEIGHT_STRING = "height";
-	private final String STYLE_STRING = "style";
 	private final String DIRECTORY_STRING = "data/label_properties/";
+	private final Paint TEXT_COLOR = Color.YELLOW;
 	private Label myLabel;
 	private Group myRoot;
 	private Properties properties;
 	private InputStream input;
 	private double x, y;
-	private int width, height;
-	private String style;
 	private String text;
 	private String full_label_filename;
 
@@ -51,10 +48,19 @@ public abstract class DefaultLabel {
 	 * Calls methods to initialize the label properties.
 	 */
 	private void initialize() {
+		setDefaults();
 		getProperties();
 		initializeText();
-		setLabelValues();
+		setLocation();
 		addLabelToScene();
+	}
+
+	/*
+	 * Sets the default properties of the label.
+	 */
+	private void setDefaults() {
+		myLabel.setTextFill(TEXT_COLOR);
+		myLabel.setPrefWidth(LABEL_WIDTH);
 	}
 
 	/*
@@ -70,9 +76,6 @@ public abstract class DefaultLabel {
 
 	  		x = Integer.parseInt(properties.getProperty(X_LOC_STRING));
 	  		y = Integer.parseInt(properties.getProperty(Y_LOC_STRING));
-	  		width = Integer.parseInt(properties.getProperty(WIDTH_STRING));
-	  		height = Integer.parseInt(properties.getProperty(HEIGHT_STRING));
-	  		style = properties.getProperty(STYLE_STRING);
 	  		text = properties.getProperty(TEXT_STRING);
 	   	} catch (IOException ex) {
 //	   		E
@@ -95,13 +98,11 @@ public abstract class DefaultLabel {
 	}
 
 	/*
-	 * Sets specific label's values.
+	 * Sets specific label's location.
 	 */
-	private void setLabelValues() {
+	private void setLocation() {
 		myLabel.setLayoutX(x);
 		myLabel.setLayoutY(y);
-		myLabel.setStyle(style);
-		myLabel.setPrefSize(width, height);
 	}
 	
 	/*
