@@ -119,7 +119,6 @@ public class DetermineNodeType {
 			System.err.println("Unknown Commands catches!");
 			Exception e_0 = new Exception("Unknown Commands");
 			new Error(e_0);
-			//e.printStackTrace();
 			return null;
 		}
 	}

@@ -47,4 +47,3 @@ public class TellNode extends Node{
 		return value;
 	}
 }
-

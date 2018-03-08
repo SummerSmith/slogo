@@ -58,9 +58,10 @@ public class ConstructNodes {
 	    			return e.getKey();
 	    		}
 	    	}
-	    	// FIXME: perhaps throw an exception instead
-	    	//        return ERROR;
-	    	return "";
+			System.err.println("Unknown Symbol!");
+			Exception e_0 = new Exception("Unknown Commands");
+			new Error(e_0);
+			return null;
     }				
 	
 	private String makeEnglish(String notEnglish) {
