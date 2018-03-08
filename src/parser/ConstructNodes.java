@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
+
+import error.Error;
+
 import java.util.ArrayList;
 
 import nodes.Node;
@@ -48,16 +51,15 @@ public class ConstructNodes {
      * Returns language's type associated with the given text if one exists 
      */
     public String getSymbol (String text) {
-//	    	final String ERROR = "NO MATCH";
 	    	for (Entry<String, Pattern> e : mySymbols) {
 	    		if (match(text, e.getValue())) {
 	    			return e.getKey();
 	    		}
 	    	}
-	    	// FIXME: perhaps throw an exception instead
-	    	//        return ERROR;
-	    	return text; //this is for user defined commands, because they'll be words that don't match with file
-    }				//error will have to be returned in another area
+	    	Exception e_0 = new Exception("Unknown input");
+		new Error(e_0);
+	    	return null; 
+    }
 
 	
 	private String makeEnglish(String notEnglish) {
