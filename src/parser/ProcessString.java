@@ -19,7 +19,7 @@ public class ProcessString {
 	
 	public List<String> processString(String commands){
 		List<String> commandList = new ArrayList<>();
-		String[] comLines = commands.split("\\n+");
+		String[] comLines = commands.trim().split("\\n+");
 		for(int i = 0; i < comLines.length; i++) {
 			System.out.println("line: 	" + comLines[i]);
 			if(!comLines[i].startsWith("#")) {
