@@ -105,7 +105,7 @@ public abstract class ComboBoxes {
 	}
 
 	/*
-	 * Sets specific combo-box's location.
+	 * Sets specific label's location.
 	 */
 	private void setLocation() {
 		myComboBox.setLayoutX(x);

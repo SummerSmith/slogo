@@ -31,25 +31,25 @@ public class CommandNode extends Node {
 			Method method = o.getClass().getMethod("Execute", myTurtle.getClass(), java.util.List.class);
 			returnVal = (Double) method.invoke(o, myTurtle, args);
 		} catch (ClassNotFoundException e) {
-			System.err.println("The command was not found. A more formal error will be thrown later");
+			System.out.println("The command was not found. A more formal error will be thrown later");
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			System.err.println("The class could not be instantiated. A more formal error will be thrown later");
+			System.out.println("The class could not be instantiated. A more formal error will be thrown later");
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			System.err.println("The constructor or method is not accessible");
+			System.out.println("The constructor or method is not accessible");
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
-			System.err.println("The method does not exist");
+			System.out.println("The method does not exist");
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			System.err.println("security violation: ");
+			System.out.println("security violation: ");
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			System.err.println("illegal argument");
+			System.out.println("illegal argument");
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			System.err.println("invocation target");
+			System.out.println("Invocation Target!");
 			e.printStackTrace();
 		}
 		
