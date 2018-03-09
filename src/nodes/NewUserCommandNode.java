@@ -5,6 +5,7 @@ import java.util.List;
 
 import turtle.Turtle;
 import user_data.UserCommands;
+import user_data.UserController;
 import user_data.UserVariables;
 
 public class NewUserCommandNode extends Node {
@@ -27,7 +28,8 @@ public class NewUserCommandNode extends Node {
 				numVariables++;
 			}
 			System.out.println("NUCN type:" + type);
-			UserCommands.add(type, (GroupNode) myChildren.get(1), commandVariables, numVariables); // type is name of command, presumably
+			UserCommands.add(commandName, (GroupNode) myChildren.get(1), commandVariables, numVariables); // type is name of command, presumably
+			UserController.updateUserCommandsWindow(commandName);
 			return 1;
 		} catch(Exception e) {
 			e.printStackTrace();

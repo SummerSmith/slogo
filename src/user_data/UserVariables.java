@@ -7,7 +7,7 @@ import java.util.Map;
 import nodes.Node;
 
 public class UserVariables {
-	private static Map<String, Double> myVariables = new HashMap<>();
+	private static Map<String, Double> myVariables;
 	
 	public UserVariables() {
 		myVariables = new HashMap<>(); //implementation can be whatever
