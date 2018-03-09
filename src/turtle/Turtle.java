@@ -1,5 +1,6 @@
 package turtle;
 
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import parser.TurtleManager;
 import windows.TurtleWindow;
 import point.Point;
+import slogo_team12.Display;
 
 public class Turtle extends Parent{	
 	private Point location;
@@ -34,20 +36,33 @@ public class Turtle extends Parent{
     private ImageView imageView;
 	private Map<Integer, List<Point>> turtle_line_map;
 	private double ID;
+	private double window_height;
+	private double window_width;
+	private LocationHandler locationHandler;
 	
 	public Turtle(){
 		initialize();
 	}
 	
 	private void initialize() {
-		setLocation(INITIAL_POINT);
+		setWindowSize();
+		locationHandler = new LocationHandler(this, window_height, window_width);
 		setTurtleIsShowing(true);
 		setHeading(INITIAL_HEADING);
-		setPenDown(true);
-		setPenThickness(DEFAULT_PEN_THICKNESS);
+		initializePen();
 		createTurtleStructures();
-		resetLocation();
 		createLists();
+		resetLocation();
+	}
+	
+	private void initializePen() {
+		setPenDown(true);
+		setPenColor("black");
+		setPenThickness(DEFAULT_PEN_THICKNESS);
+	}
+	private void setWindowSize() {
+		window_height = Display.getTurtleWindow().getPaneHeight();
+		window_width = Display.getTurtleWindow().getPaneWidth();
 	}
 	
 	private void createTurtleStructures() {
@@ -76,9 +91,13 @@ public class Turtle extends Parent{
 	}
 	
 	public void setLocation(Point new_location) {
-		location = new_location;
+		List<Point> path = locationHandler.handle(new_location);
+		location = path.get(path.size() - 1);
+		for(Point p : path) {
+			addNextPoint(p);
+		}
 	}
-
+	
 	public double getXLocation() {
 		return location.getX();
 	}
@@ -110,10 +129,11 @@ public class Turtle extends Parent{
 	}
 	
     public String getPenColor() {
-    	return pen_color;
+    		return pen_color;
     }
+    
     public void setPenColor(String color) {
-    	pen_color = color;
+    		pen_color = color;
     }
 
 	public double getPenThickness() {

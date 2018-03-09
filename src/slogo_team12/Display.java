@@ -198,6 +198,7 @@ public class Display extends Application {
         this.animation = animation;
         animation.play();
     }
+    
 
     private void step(){
     	if(runButtonPressed) {
@@ -255,6 +256,9 @@ public class Display extends Application {
     	for(int i = 0; i < nextPoints.size() - 1; i++) {
     		Point curr_point = nextPoints.get(i);
     		Point next_point = nextPoints.get(i + 1);
+    		if(curr_point == null || next_point == null) {
+    			continue;
+    		}
     		double x_offset = TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2;
     		double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
     		Line line = new Line(curr_point.getX() + x_offset, 
@@ -439,7 +443,7 @@ public class Display extends Application {
         launch(args);
     }
     
-    public static void setBackgroundColor(String color) {
-    		turtle_window.setWindowColor(color);
+    public static TurtleWindow getTurtleWindow() {
+    		return turtle_window;
     }
 }

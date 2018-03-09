@@ -17,7 +17,6 @@ public class SetPosition implements Command{
 		Point next_point = new Point();
 		next_point.setLocation(next_x,  next_y);
 		turtle.setLocation(next_point);
-		turtle.addNextPoint(next_point);
 		return Math.sqrt(Math.abs(original_x - next_x) * Math.abs(original_x - next_x)
 						+ Math.abs(original_y - next_y) * Math.abs(original_y - next_y));
 	}
