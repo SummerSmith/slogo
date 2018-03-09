@@ -11,18 +11,7 @@ public class ParserTester {
 
 	public static void main(String args[]) throws Exception {
 //		String toProcess = "+ fd 50 rt 90 fd fd 50";
-//		String toProcess = "repeat fd 5 [ fd 5 ]";
-//		String toProcess = "repeat 18 [\n" + 
-//				"  forward 50\n" + 
-//				"  right 150\n" + 
-//				"  forward 60                       \n" + 
-//				"  right 100\n" + 
-//				"  forward 30\n" + 
-//				"  right 90\n" + 
-//				"]";
-//		String toProcess = "fd ( sum 10 20 30 40 )";
-//		String toProcess = "fd 50"; 
-		String toProcess = "tell [ 1 2 3 ]";
+//		String toProcess = "tell [ 1 2 3 ]";
 		List<Integer> turts = new ArrayList<>();
 		turts.add(1);
 //		turts.add(2);

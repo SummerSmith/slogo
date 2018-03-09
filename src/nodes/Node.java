@@ -23,6 +23,7 @@ public abstract class Node {
 		type = curr.getType();
 		myTurtle = curr.getTurtle();
 		myChildren = new ArrayList<>();
+		numChildren = 0;
 	}
 	
 	public int addChildren(List<Node> nodes, int index) {

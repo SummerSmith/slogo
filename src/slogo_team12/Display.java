@@ -140,8 +140,8 @@ public class Display extends Application {
 	private BackgroundColorComboBox background_color_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object;
-    private Timeline animation;
-	
+	private Timeline animation;
+
 	// Additional setup for the display
     private static Scene myScene;
     private static Group root;
@@ -204,9 +204,24 @@ public class Display extends Application {
     				}
     			}
 				checkErrorLabel(text);
-	    		CommandWindow.clearWindow();
-	    		runButtonPressed = false;
-    		} catch (Exception e) {
+				CommandWindow.clearWindow();
+				if(errorString.length() != 0) {
+					//System.out.println("front end catch errors! " + errorString);
+					if(root.getChildren().contains(error_label)) {
+						root.getChildren().remove(error_label.getLabel());  
+					}
+					else {
+						error_label.getLabel().setText(errorString);
+						root.getChildren().remove(error_label.getLabel()); 
+						root.getChildren().add(error_label.getLabel()); 
+					}
+				}
+				else {
+					//System.out.println("front end uncatch errors! ");
+					root.getChildren().remove(error_label.getLabel()); 
+				}
+				runButtonPressed = false;
+			} catch (Exception e) {
 				System.err.println("After button was pressed, the nodes were not able to be constructed.");
 				e.printStackTrace();
 			}
@@ -215,37 +230,36 @@ public class Display extends Application {
         
     private void checkErrorLabel(String text) {
 		if(!errorString.equals("")) {
-   			error_label.getLabel().setText(errorString);
-   			root.getChildren().add(error_label.getLabel());    				
+			error_label.getLabel().setText(errorString);
+			root.getChildren().add(error_label.getLabel());    				
 		}
 		else {
 			updateUserHistoryWindow(text);
 		}
-    }
-    
-    private void updateUserHistoryWindow(String text) {
+	}
+
+	private void updateUserHistoryWindow(String text) {
 		UserController.updateUserHistoryWindow(text);
     }
     
-    private void drawLine(Turtle turtle) {
-    	List<Point> nextPoints = turtle.getNextPoints();
-    	ImageView imageView = turtle.getImageView();
-    	for(int i = 0; i < nextPoints.size() - 1; i++) {
-    		Point curr_point = nextPoints.get(i);
-    		Point next_point = nextPoints.get(i + 1);
-    		double x_offset = TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2;
-    		double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
-    		Line line = new Line(curr_point.getX() + x_offset, 
-    							 curr_point.getY() + y_offset, 
-    							 next_point.getX() + x_offset, 
-    							 next_point.getY() + y_offset);
-
-    		line.setStyle("-fx-stroke: " + turtle.getPenColor()+";");
-    		line.setStrokeWidth(turtle.getPenThickness());
-    		TurtleWindow.getPaneRoot().getChildren().add(line);
-    	}
+	private void drawLine(Turtle turtle) {
+		List<Point> nextPoints = turtle.getNextPoints();
+		ImageView imageView = turtle.getImageView();
+		for(int i = 0; i < nextPoints.size() - 1; i++) {
+			Point curr_point = nextPoints.get(i);
+			Point next_point = nextPoints.get(i + 1);
+			double x_offset = TurtleWindow.getInitialTurtleX() + imageView.getFitWidth() / 2;
+			double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
+			Line line = new Line(curr_point.getX() + x_offset, 
+					curr_point.getY() + y_offset, 
+					next_point.getX() + x_offset, 
+					next_point.getY() + y_offset);
+			line.setStyle(turtle.getPenColor());
+			line.setStrokeWidth(turtle.getPenThickness());
+			TurtleWindow.getPaneRoot().getChildren().add(line);
+		}
 	}
-    
+
 	public void moveImageView(Turtle turtle) {
 		System.out.println(TurtleWindow.getInitialTurtleX() + " " + TurtleWindow.getInitialTurtleY() + " " + turtle.getXLocation() + " " + turtle.getYLocation());
 		ImageView imageView = turtle.getImageView();

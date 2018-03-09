@@ -48,10 +48,10 @@ public class ConstructNodes {
      * Returns language's type associated with the given text if one exists 
      */
     public String getSymbol (String text) {
-//	    	final String ERROR = "NO MATCH";
+	    	final String ERROR = "NO MATCH";
 	    	for (Entry<String, Pattern> e : mySymbols) {
 	    		if (match(text, e.getValue())) {
-	    			System.out.println("Key: " + e.getKey());
+//	    			System.out.println("Key: " + e.getKey());
 	    			return e.getKey();
 	    		}
 	    	}
@@ -62,7 +62,12 @@ public class ConstructNodes {
 
 	
 	private String makeEnglish(String notEnglish) {
-		return commandTranslations.get(notEnglish);
+		if(commandTranslations.containsKey(notEnglish)) {
+			return commandTranslations.get(notEnglish);
+		}
+		else {
+			return notEnglish;
+		}
 	}
 	
 	protected List<Node> createNodeList() throws Exception {
@@ -74,12 +79,13 @@ public class ConstructNodes {
 			Node temp = determineNodeType.getNodeType(identity, input.get(i));
 			addNode(temp);
 			if(commandArguments.containsKey(temp.getType())) {
+//				System.out.println("numchildren before:" + temp.getNumChildren());
 				temp.setNumChildren(commandArguments.get(temp.getType()));
+//				System.out.println("numchildren after:" + temp.getNumChildren());
 			}
 		}
 		return nodes;
 	}
-
 	
 	protected void addNode(Node toAdd) {
 		nodes.add(toAdd);

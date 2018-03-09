@@ -1,6 +1,5 @@
 package nodes;
 
-import turtle.Turtle;
 import java.util.List;
 
 public class ListNode extends Node{
