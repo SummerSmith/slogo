@@ -83,7 +83,7 @@ public class TurtlePropertyScreen extends Application {
     
     public TurtlePropertyScreen(Turtle turtle) {
     	myTurtle = turtle;
-    	turtleID = turtle.getID();
+    	turtleID = (int)turtle.getID();
     }
 
     /**

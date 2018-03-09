@@ -13,22 +13,22 @@ public class TurtleManager {
 
 	private static List<Turtle> allTurtles = new ArrayList<Turtle>();
 	private static List<Turtle> activeTurtles = new ArrayList<Turtle>();
-	private static Map<Integer, Turtle> allTurtlesByID = new HashMap<Integer, Turtle>();
-	private static Map<Turtle, Integer> allIDsByTurtle = new HashMap<Turtle, Integer>();
+	private static Map<Double, Turtle> allTurtlesByID = new HashMap<Double, Turtle>();
+	private static Map<Turtle, Double> allIDsByTurtle = new HashMap<Turtle, Double>();
 	int numTurtles = allTurtlesByID.size();
 	
 	public TurtleManager() {
 	}
 	
 	public static void addTurtle(Turtle t) {
-		allTurtlesByID.put(allTurtlesByID.size() + 1, t);
-		allIDsByTurtle.put(t, allIDsByTurtle.size() + 1);
+		allTurtlesByID.put((allTurtlesByID.size() + 1) * 1.0, t);
+		allIDsByTurtle.put(t, (allIDsByTurtle.size() + 1) * 1.0 );
 		allTurtles.add(t);
 	}
 	
-	public static void setActiveTurtles(List<Integer> turtleIDs) {
+	public static void setActiveTurtles(List<Double> turtleIDs) {
 		activeTurtles.clear();
-		for(int i : turtleIDs) {
+		for(double i : turtleIDs) {
 			if(!allTurtlesByID.containsKey(i)) {
 				Turtle temp = new Turtle();
 				addTurtle(temp);
@@ -50,7 +50,7 @@ public class TurtleManager {
 	}
 	
 	public static void addActiveTurtle(String id) {
-		int ID = Integer.parseInt(id);
+		double ID = Integer.parseInt(id) * 1.0;
 		if(!allTurtlesByID.containsKey(ID)) {
 			Turtle temp = new Turtle();
 			addTurtle(temp);
@@ -68,8 +68,9 @@ public class TurtleManager {
 	}
 	
 	public static void removeActiveTurtle(String id) {
-		if(allTurtlesByID.containsKey(id) && activeTurtles.contains(allTurtlesByID.get(id))) {
-			activeTurtles.remove(allTurtlesByID.get(id));
+		double ID = Integer.parseInt(id) * 1.0;
+		if(allTurtlesByID.containsKey(ID) && activeTurtles.contains(allTurtlesByID.get(ID))) {
+			activeTurtles.remove(allTurtlesByID.get(ID));
 		}
 	}
 	
@@ -91,11 +92,15 @@ public class TurtleManager {
 		return allTurtles;
 	}
 	
-	public static Map<Integer, Turtle> getAllTurtlesByID() {
+	public static int getAllTurtleNum() {
+		return allTurtles.size();
+	}
+	
+	public static Map<Double, Turtle> getAllTurtlesByID() {
 		return allTurtlesByID;
 	}
 	
-	public static Map<Turtle, Integer> getAllIDsByTurtle() {
+	public static Map<Turtle, Double> getAllIDsByTurtle() {
 		return allIDsByTurtle;
 	}	
 }

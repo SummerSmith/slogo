@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import parser.TurtleManager;
 import windows.TurtleWindow;
 import point.Point;
 import slogo_team12.TurtlePropertyScreen;
@@ -61,7 +62,7 @@ public class Turtle extends Parent{
 		turtle_line_map = new HashMap<Integer, List<Point>>();
 		nextPoints = new ArrayList<Point>();
 	}
-		
+	
 	public double getRadian() {
 		return Math.toRadians(heading);
 	}
@@ -209,5 +210,9 @@ public class Turtle extends Parent{
 		
 	public String toString() {
 		return "turtle";
+	}
+	
+	public double getTurtleNum() {
+		return TurtleManager.getAllTurtleNum() * 1.0;
 	}
 }
