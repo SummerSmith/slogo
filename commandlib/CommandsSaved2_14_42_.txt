@@ -1,2 +1,2 @@
 English
-fd 50
+to line [ :length ] [ fd :length ]

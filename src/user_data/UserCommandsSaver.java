@@ -43,7 +43,6 @@ public class UserCommandsSaver {
 				fileText.append(in.nextLine());
 			}
 			String text = fileText.toString();
-			UserCommandsWindow.addButton(new Button(text));
 			BackEndManager backManager = new BackEndManager(text, language);
 			backManager.parse();
 		} catch (FileNotFoundException e1) {
