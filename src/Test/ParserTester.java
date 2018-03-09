@@ -21,11 +21,12 @@ public class ParserTester {
 //				"  right 90\n" + 
 //				"]";
 //		String toProcess = "fd ( sum 10 20 30 40 )";
-		String toProcess = "fd fd 50"; 
+		String toProcess = "( fd 10 20 30 40 )";
+//		String toProcess = "fd fd 50"; 
 //		String toProcess = "tell [ 1 2 3 ]";
 		List<Integer> turts = new ArrayList<>();
 		turts.add(1);
-		turts.add(2);
+//		turts.add(2);
 		TurtleManager.setActiveTurtles(turts);
 //		TurtleManager.addTurtle(new Turtle());
 		System.out.println(TurtleManager.getActiveTurtles());
