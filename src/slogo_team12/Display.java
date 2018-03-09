@@ -1,38 +1,21 @@
 package slogo_team12;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import nodes.Node;
 import parser.BackEndManager;
-import parser.ConstructNodes;
-import parser.ProcessString;
 import parser.TurtleManager;
 import turtle.CreateTurtle;
 import turtle.Turtle;
-import user_data.UserCommands;
 import user_data.UserController;
-import user_data.UserHistory;
-import user_data.UserVariables;
 import windows.CommandWindow;
 import windows.TurtleWindow;
-import windows.UserCommandsWindow;
-import windows.UserHistoryWindow;
-import windows.UserVariablesWindow;
-import windows.Windows;
 
 import point.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import gui_elements.buttons.ClearButton;
@@ -40,10 +23,7 @@ import gui_elements.buttons.RunButton;
 import gui_elements.buttons.EditVariablesButton;
 import gui_elements.buttons.UserAPIButton;
 import gui_elements.combo_boxes.BackgroundColorComboBox;
-import gui_elements.combo_boxes.ComboBoxes;
 import gui_elements.combo_boxes.LanguageComboBox;
-import gui_elements.combo_boxes.PenColorComboBox;
-import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.labels.BackgroundColorLabel;
 import gui_elements.labels.CommandWindowLabel;
 import gui_elements.labels.ErrorLabel;
@@ -55,34 +35,19 @@ import gui_elements.labels.user_api_labels.UserAPILabel;
 import gui_elements.labels.user_windows_labels.UserCommandsLabel;
 import gui_elements.labels.user_windows_labels.UserHistoryLabel;
 import gui_elements.labels.user_windows_labels.UserVariablesLabel;
-import image_classes.ImageClass;
 import image_classes.SLogoImageClass;
-import image_classes.TurtleImageClass;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  * This class displays the main GUI for "SLogo." Here, the user can enter commands into the 
@@ -102,20 +67,21 @@ public class Display {
 	private final String TITLE_PROPERTY = "title";
 	private final String WIDTH_PROPERTY = "width";
 	private final String HEIGHT_PROPERTY = "height";
-	private final String IMAGE_PROPERTY = "image";
-	private final String IMAGE_WIDTH_PROPERTY = "imgWidth";
-	private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
-	private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
-	private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
+//	private final String IMAGE_PROPERTY = "image";
+//	private final String IMAGE_WIDTH_PROPERTY = "imgWidth";
+//	private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
+//	private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
+//	private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
 	private static String myLanguage = "English";
 	private static String errorString = "";
 	private String title;
 	private final int FRAMES_PER_SECOND = 2;
 	private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
-	private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
-	private int time_delay = INITIAL_TIME_DELAY;
+	private int screen_width, screen_height; 
+//	private int image_width, image_height, image_xloc, image_yloc;
+//	private int time_delay = INITIAL_TIME_DELAY;
 	private static boolean runButtonPressed;
-	private boolean setIntroLabels = true;
+//	private boolean setIntroLabels = true;
 	//    private static List<Turtle> turtle_list = new ArrayList<Turtle>();
 	//    private static List<Turtle> current_turtles;
 	//    private static Map<Turtle, Integer> turtles_to_ids;
@@ -126,27 +92,28 @@ public class Display {
 	private InputStream input;
 	private CommandWindow command_window;
 	private TurtleWindow turtle_window;
-	private PenColorLabel pen_color_label;
-	private BackgroundColorLabel background_color_label;
-	private TurtleImageLabel turtle_image_label;
-	private LanguageLabel language_label;
-	private TurtleDisplayLabel turtle_display_label;
-	private CommandWindowLabel command_window_label;
-	private UserVariablesLabel user_variables_label;
-	private UserCommandsLabel user_commands_label;
-	private UserHistoryLabel user_history_label;
-	private UserAPILabel user_api_label;
+//	private PenColorLabel pen_color_label;
+//	private BackgroundColorLabel background_color_label;
+//	private TurtleImageLabel turtle_image_label;
+//	private LanguageLabel language_label;
+//	private TurtleDisplayLabel turtle_display_label;
+//	private CommandWindowLabel command_window_label;
+//	private UserVariablesLabel user_variables_label;
+//	private UserCommandsLabel user_commands_label;
+//	private UserHistoryLabel user_history_label;
+//	private UserAPILabel user_api_label;
 	private static ErrorLabel error_label;
-	private ClearButton clear_button;
-	private RunButton run_button;
-	private UserAPIButton user_api_button;
-	private EditVariablesButton save_method_button;
-	private BackgroundColorComboBox background_color_combobox;
-	private LanguageComboBox language_combobox;
-	private ImageClass slogo_image_object;
+//	private ClearButton clear_button;
+//	private RunButton run_button;
+//	private UserAPIButton user_api_button;
+//	private EditVariablesButton save_method_button;
+//	private BackgroundColorComboBox background_color_combobox;
+//	private LanguageComboBox language_combobox;
+//	private ImageClass slogo_image_object;
 	private Timeline animation;
 
 	// Additional setup for the display
+
 	private static Scene myScene;
 	private static Group root;
 
@@ -347,16 +314,26 @@ public class Display {
 	 * Sets up screen labels.
 	 */
 	private void setLabels() {
-		pen_color_label = new PenColorLabel(new Label(), root);
-		background_color_label = new BackgroundColorLabel(new Label(), root);
-		turtle_image_label = new TurtleImageLabel(new Label(), root);
-		language_label = new LanguageLabel(new Label(), root);
-		turtle_display_label = new TurtleDisplayLabel(new Label(), root);
-		command_window_label = new CommandWindowLabel(new Label(), root);
-		user_variables_label = new UserVariablesLabel(new Label(), root);
-		user_commands_label = new UserCommandsLabel(new Label(), root);
-		user_history_label = new UserHistoryLabel(new Label(), root);
-		user_api_label = new UserAPILabel(new Label(), root);
+//		pen_color_label = new PenColorLabel(new Label(), root);
+//		background_color_label = new BackgroundColorLabel(new Label(), root);
+//		turtle_image_label = new TurtleImageLabel(new Label(), root);
+//		language_label = new LanguageLabel(new Label(), root);
+//		turtle_display_label = new TurtleDisplayLabel(new Label(), root);
+//		command_window_label = new CommandWindowLabel(new Label(), root);
+//		user_variables_label = new UserVariablesLabel(new Label(), root);
+//		user_commands_label = new UserCommandsLabel(new Label(), root);
+//		user_history_label = new UserHistoryLabel(new Label(), root);
+//		user_api_label = new UserAPILabel(new Label(), root);
+		new PenColorLabel(new Label(), root);
+		new BackgroundColorLabel(new Label(), root);
+		new TurtleImageLabel(new Label(), root);
+		new LanguageLabel(new Label(), root);
+		new TurtleDisplayLabel(new Label(), root);
+		new CommandWindowLabel(new Label(), root);
+		new UserVariablesLabel(new Label(), root);
+		new UserCommandsLabel(new Label(), root);
+		new UserHistoryLabel(new Label(), root);
+		new UserAPILabel(new Label(), root);
 		error_label = new ErrorLabel(new Label(), root);
 	}
 
@@ -364,18 +341,24 @@ public class Display {
 	 * Sets up screen buttons.
 	 */
 	private void setButtons() {
-		clear_button = new ClearButton(new Button(), root);
-		run_button = new RunButton(new Button(), root);
-		save_method_button = new EditVariablesButton(new Button(), root);
-		user_api_button = new UserAPIButton(new Button(), root);
+//		clear_button = new ClearButton(new Button(), root);
+//		run_button = new RunButton(new Button(), root);
+//		save_method_button = new EditVariablesButton(new Button(), root);
+//		user_api_button = new UserAPIButton(new Button(), root);
+		new ClearButton(new Button(), root);
+		new RunButton(new Button(), root);
+		new EditVariablesButton(new Button(), root);
+		new UserAPIButton(new Button(), root);
 	}
 
 	/*
 	 * Sets up screen comboBoxes.
 	 */
 	private void setComboBoxes() {
-		background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-		language_combobox = new LanguageComboBox(new ComboBox(), root);
+//		background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
+//		language_combobox = new LanguageComboBox(new ComboBox(), root);
+		new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
+		new LanguageComboBox(new ComboBox(), root);
 	}
 
 	/**
@@ -392,7 +375,8 @@ public class Display {
 	 * Sets the images for the display.
 	 */
 	private void setImages() {
-		slogo_image_object = new SLogoImageClass(root);
+//		slogo_image_object = new SLogoImageClass(root);
+		new SLogoImageClass(root);
 	}
 
 	/**

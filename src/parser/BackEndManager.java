@@ -10,6 +10,8 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import error.Error;
+import nodes.ArgumentNode;
 import nodes.Node;
 import turtle.Turtle;
 
@@ -62,6 +64,13 @@ public class BackEndManager {
 //				System.out.println("child: " + child);
 //			}
 //		}
+		for(Node on : headNodes) {
+			if (on instanceof ArgumentNode) {
+		    	Exception e_0 = new Exception("Too ");
+				new Error(e_0);
+				break;
+			}
+		}
 		if(!unparsed.startsWith("tell")) {
 			for(Turtle t : myTurtles) {
 				t.getNextPoints().clear();

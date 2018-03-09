@@ -3,6 +3,7 @@ package parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import error.Error;
 import nodes.Node;
 
 public class Executor {
@@ -19,7 +20,9 @@ public class Executor {
 			}
 			return returnValues;
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.err.println("Error in executor!");
+			Exception e_0 = new Exception("Unknown Commands");
+			new Error(e_0);
 			return null;
 		}
 	}

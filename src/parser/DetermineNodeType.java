@@ -1,8 +1,6 @@
 package parser;
 
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import nodes.CommandNode;
@@ -26,13 +24,11 @@ import user_data.UserCommands;
 import error.Error;
 
 public class DetermineNodeType {
-	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
 	//private Error error;
 
 	
 	public DetermineNodeType() {
-		specialCommandNodes = new HashMap<>();
 	}
 	
 	private boolean commandExists(String content) {
@@ -119,7 +115,6 @@ public class DetermineNodeType {
 			System.err.println("Unknown Commands catches!");
 			Exception e_0 = new Exception("Unknown Commands");
 			new Error(e_0);
-			//e.printStackTrace();
 			return null;
 		}
 	}

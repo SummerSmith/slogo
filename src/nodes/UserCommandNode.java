@@ -4,7 +4,7 @@ import java.util.List;
 import user_data.UserCommands;
 import user_data.UserVariables;
 
-public class UserCommandNode extends Node {
+public class UserCommandNode extends CommandNode {
 	
 	public UserCommandNode(String name) {
 		super(name);

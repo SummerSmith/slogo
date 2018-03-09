@@ -7,23 +7,17 @@ import java.util.Properties;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import turtle.Turtle;
 
 public class UserVariablesWindow extends Windows {
 
 	private Group myRoot;
 	private static FlowPane flow_pane = new FlowPane();
-	private static HBox hbox = new HBox();
-	private Turtle myTurtle;
-	private ImageView myImageView;
+//	private static HBox hbox = new HBox();
+//	private Turtle myTurtle;
+//	private ImageView myImageView;
 	private String full_directory_name = DIRECTORY_STRING + "user_variables_window.properties";
-	private String prompt_text;
+//	private String prompt_text;
 	private final String PANE_STYLE = "-fx-background-color: #ffffff";
 	private static int x, y, width, height;
 	
