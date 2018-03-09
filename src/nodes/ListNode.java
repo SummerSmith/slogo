@@ -31,11 +31,11 @@ public class ListNode extends Node{
 	@Override
 	public double evaluate() {
 		double returnVal = 0;
-		System.out.println("myChildren: " + myChildren);
+//		System.out.println("myChildren: " + myChildren);
 		for(Node n : myChildren) {
-			System.out.println("evaluating: " + n + " children: " + n.getChildren());
+//			System.out.println("evaluating: " + n + " children: " + n.getChildren());
 			returnVal += n.evaluate(); //returnVal will just return value of last command executed
-			System.out.println("returnval: " + returnVal);
+//			System.out.println("returnval: " + returnVal);
 		}
 		return returnVal;
 	}
