@@ -47,6 +47,8 @@ public class TurtleImageComboBox extends ComboBoxes {
 	
 	public void setImage() {
 		ObservableList<Node> pane_root_children = TurtleWindow.getPaneRoot().getChildren();
+		if(image_selection == null)
+			return;
 		ImageView imageView = new TurtleImageClass(image_selection, myRoot, myTurtle).getImageView();
 		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW_INDEX), imageView);
 		pane_root_children.set(OLD_IMAGEVIEW_INDEX, imageView);

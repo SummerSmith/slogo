@@ -88,6 +88,8 @@ public class PenColorComboBox extends ComboBoxes {
 	}
 	
 	public String getPenColor() {
+		if(pen_color == null)
+			return myTurtle.getPenColor();
 		return COLOR_HEADING + color_map_by_name.get(pen_color);
 	}
 }

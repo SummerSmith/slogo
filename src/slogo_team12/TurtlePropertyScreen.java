@@ -63,27 +63,7 @@ public class TurtlePropertyScreen extends Application {
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
     private final String HEIGHT_PROPERTY = "height";
-    private TurtlePropertiesActiveInactiveLabel turtle_properties_active_inactive_label;
-    private TurtlePropertiesActiveLabel turtle_properties_active_label;
-    private TurtlePropertiesHeaderLabel turtle_properties_header_label;
-    private TurtlePropertiesHeadingLabel turtle_properties_heading_label;
-    private TurtlePropertiesIDLabel turtle_properties_id_label;
-    private TurtlePropertiesImageLabel turtle_properties_image_label;
-    private TurtlePropertiesInactiveLabel turtle_properties_inactive_label;
-    private TurtlePropertiesPenColorLabel turtle_properties_pen_color_label;
-    private TurtlePropertiesPenThicknessLabel turtle_properties_pen_thickness_label;
-    private TurtlePropertiesPenUpDownLabel turtle_properties_pen_up_down_label;
-    private TurtlePropertiesPositionLabel turtle_properties_position_label;
-    private TurtlePropertiesXPositionLabel turtle_properties_x_position_label;
-    private TurtlePropertiesYPositionLabel turtle_properties_y_position_label;
-    private TurtlePropertiesPenUpLabel turtle_properties_pen_up_label;
-    private TurtlePropertiesPenDownLabel turtle_properties_pen_down_label;    
-    private TurtleHeadingWindow turtle_heading_window;
-    private TurtleIDWindow turtle_id_window;
     private TurtleImageComboBox turtle_image_combobox;
-    private TurtlePenThicknessWindow turtle_pen_thickness_window;
-    private TurtleXPositionWindow turtle_x_position_window;
-    private TurtleYPositionWindow turtle_y_position_window;
     private PenColorComboBox pen_color_combobox;
     private PenDownRadioButton pen_down_radio_button;
     private PenUpRadioButton pen_up_radio_button;
@@ -178,29 +158,29 @@ public class TurtlePropertyScreen extends Application {
     }
     
     private void setLabels() {
-        turtle_properties_active_label = new TurtlePropertiesActiveLabel(new Label(), root);
-    	turtle_properties_active_inactive_label = new TurtlePropertiesActiveInactiveLabel(new Label(), root);
-        turtle_properties_header_label = new TurtlePropertiesHeaderLabel(new Label(), root);
-        turtle_properties_heading_label = new TurtlePropertiesHeadingLabel(new Label(), root);
-        turtle_properties_id_label = new TurtlePropertiesIDLabel(new Label(), root);
-        turtle_properties_image_label = new TurtlePropertiesImageLabel(new Label(), root);
-        turtle_properties_inactive_label = new TurtlePropertiesInactiveLabel(new Label(), root);
-        turtle_properties_pen_color_label = new TurtlePropertiesPenColorLabel(new Label(), root);
-        turtle_properties_pen_thickness_label = new TurtlePropertiesPenThicknessLabel(new Label(), root);
-        turtle_properties_pen_up_down_label = new TurtlePropertiesPenUpDownLabel(new Label(), root);
-        turtle_properties_position_label = new TurtlePropertiesPositionLabel(new Label(), root);
-        turtle_properties_x_position_label = new TurtlePropertiesXPositionLabel(new Label(), root);
-        turtle_properties_y_position_label = new TurtlePropertiesYPositionLabel(new Label(), root);
-        turtle_properties_pen_up_label = new TurtlePropertiesPenUpLabel(new Label(), root);
-        turtle_properties_pen_down_label = new TurtlePropertiesPenDownLabel(new Label(), root);
+        new TurtlePropertiesActiveLabel(new Label(), root);
+    	new TurtlePropertiesActiveInactiveLabel(new Label(), root);
+        new TurtlePropertiesHeaderLabel(new Label(), root);
+        new TurtlePropertiesHeadingLabel(new Label(), root);
+        new TurtlePropertiesIDLabel(new Label(), root);
+        new TurtlePropertiesImageLabel(new Label(), root);
+        new TurtlePropertiesInactiveLabel(new Label(), root);
+        new TurtlePropertiesPenColorLabel(new Label(), root);
+        new TurtlePropertiesPenThicknessLabel(new Label(), root);
+        new TurtlePropertiesPenUpDownLabel(new Label(), root);
+        new TurtlePropertiesPositionLabel(new Label(), root);
+        new TurtlePropertiesXPositionLabel(new Label(), root);
+        new TurtlePropertiesYPositionLabel(new Label(), root);
+        new TurtlePropertiesPenUpLabel(new Label(), root);
+        new TurtlePropertiesPenDownLabel(new Label(), root);
     }
     
     private void setWindows() {
-        turtle_id_window = new TurtleIDWindow(root, myTurtle);
-        turtle_x_position_window = new TurtleXPositionWindow(root, myTurtle);
-        turtle_y_position_window = new TurtleYPositionWindow(root, myTurtle);
-        turtle_heading_window = new TurtleHeadingWindow(root, myTurtle);
-        turtle_pen_thickness_window = new TurtlePenThicknessWindow(root, myTurtle);
+        new TurtleIDWindow(root, myTurtle);
+        new TurtleXPositionWindow(root, myTurtle);
+        new TurtleYPositionWindow(root, myTurtle);
+        new TurtleHeadingWindow(root, myTurtle);
+        new TurtlePenThicknessWindow(root, myTurtle);
     }
     
     private void setComboBoxes() {
