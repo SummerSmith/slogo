@@ -29,7 +29,8 @@ public class Turtle extends Parent{
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-	private int ID, turtle_window_imageview_index;
+	private int turtle_window_imageview_index;
+	private double ID;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final double INITIAL_HEADING = 0;
@@ -41,7 +42,6 @@ public class Turtle extends Parent{
     private ImageView imageView;
     private TurtlePropertyScreen turtle_property_screen;
 	private Map<Integer, List<Point>> turtle_line_map;
-	private double ID;
 	private double window_height;
 	private double window_width;
 	private LocationHandler locationHandler;
@@ -209,11 +209,11 @@ public class Turtle extends Parent{
 		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
 	}
 	
-	public int getID() {
+	public double getID() {
 		return ID;
 	}
 	
-	public void setID(int id) {
+	public void setID(double id) {
 		ID = id;
 	}
 	
