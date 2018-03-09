@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -205,7 +206,7 @@ public class Turtle extends Parent{
 	public void setTurtlePropertyScreen(TurtlePropertyScreen turtle_property_screen) {
 		this.turtle_property_screen = turtle_property_screen;
 	}
-	
+		
 	public String toString() {
 		return "turtle";
 	}

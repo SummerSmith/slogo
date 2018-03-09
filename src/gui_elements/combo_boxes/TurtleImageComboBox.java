@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import slogo_team12.Display;
 import turtle.Turtle;
 import windows.TurtleWindow;

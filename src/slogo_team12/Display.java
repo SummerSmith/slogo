@@ -70,6 +70,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -116,11 +117,6 @@ public class Display extends Application {
     private int time_delay = INITIAL_TIME_DELAY;
     private static boolean runButtonPressed;
     private boolean setIntroLabels = true;
-//    private static List<Turtle> turtle_list = new ArrayList<Turtle>();
-//    private static List<Turtle> current_turtles;
-//    private static Map<Turtle, Integer> turtles_to_ids;
-//    private static Map<Integer, Turtle> ids_to_turtles;
-//    private static Map<Turtle, ImageView> turtle_images;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
@@ -140,7 +136,7 @@ public class Display extends Application {
 	private ClearButton clear_button;
 	private RunButton run_button;
 	private UserAPIButton user_api_button;
-	private EditVariablesButton save_method_button;
+	private EditVariablesButton edit_variables_button;
 	private BackgroundColorComboBox background_color_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object;
@@ -175,18 +171,9 @@ public class Display extends Application {
         new CreateTurtle(root);
         startAnimation();
     }
-    
-//    private void initializeStructures() {
-//        turtle_list = new ArrayList<Turtle>();
-//        current_turtles = new ArrayList<Turtle>();
-//        turtles_to_ids = new HashMap<Turtle, Integer>();
-//        ids_to_turtles = new HashMap<Integer, Turtle>();
-//        turtle_images = new HashMap<Turtle, ImageView>();
-//    }
-    
+        
     private void setScene() {
         myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
-        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
     }
     
     private void startAnimation(){
@@ -211,7 +198,6 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
-    				System.out.println("..........................Active turtle: " + turtle.getID());
     				moveImageView(turtle);
     				if(turtle.getPenDown()) {
     					drawLine(turtle);
@@ -226,16 +212,7 @@ public class Display extends Application {
 			}
     	}
     }
-    
-//    public static void createTurtle() {
-//    	Turtle new_turtle = new Turtle();
-//        turtle_list.add(new_turtle);
-//        current_turtles.add(new_turtle);
-//        turtles_to_ids.put(new_turtle, turtles_to_ids.size());
-//        ids_to_turtles.put(ids_to_turtles.size(), new_turtle);
-//        turtle_images = new HashMap<Turtle, ImageView>();
-//    }
-    
+        
     private void checkErrorLabel(String text) {
 		if(!errorString.equals("")) {
    			error_label.getLabel().setText(errorString);
@@ -274,16 +251,12 @@ public class Display extends Application {
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + turtle.getYLocation());
     	imageView.setRotate(turtle.getHeading());
-//    	AnchorPane pane = (AnchorPane) TurtleWindow.getPane();
+    	
     	Group paneRoot = TurtleWindow.getPaneRoot();
-//    	if(turtle.getTurtleIsShowing() && !pane.getChildren().contains(imageView)) {
     	if(turtle.getTurtleIsShowing() && !paneRoot.getChildren().contains(imageView)) {
-//    		pane.getChildren().set(0, imageView);
     		TurtleWindow.getPaneRoot().getChildren().set(0, imageView);
     	}
-//    	else if(!turtle.getTurtleIsShowing() && pane.getChildren().contains(imageView)) {
     	else if(!turtle.getTurtleIsShowing() && paneRoot.getChildren().contains(imageView)) {
-//    		pane.getChildren().set(0, new ImageView());
     		TurtleWindow.getPaneRoot().getChildren().set(0, new ImageView());
     	}
     }
@@ -352,13 +325,13 @@ public class Display extends Application {
     	error_label = new ErrorLabel(new Label(), root);
     }
 
-    /*
+  /*
      * Sets up screen buttons.
      */
     private void setButtons() {
     	clear_button = new ClearButton(new Button(), root);
     	run_button = new RunButton(new Button(), root);
-    	save_method_button = new EditVariablesButton(new Button(), root);
+    	edit_variables_button = new EditVariablesButton(new Button(), root);
     	user_api_button = new UserAPIButton(new Button(), root);
     }
 
@@ -412,13 +385,7 @@ public class Display extends Application {
 	public static Group getRoot() {
 		return root;
 	}
-			
-    private void handleKeyInput (KeyCode code) {
-        if(code == KeyCode.UP) {
-        	
-        }
-    }
-    
+			    
     public static void setErrorString(String string) {
     	errorString = string;
     }

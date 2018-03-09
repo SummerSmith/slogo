@@ -2,8 +2,10 @@ package image_classes;
 
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import slogo_team12.Display;
 import slogo_team12.TurtlePropertyScreen;
 import turtle.Turtle;
 import windows.TurtleWindow;
@@ -38,9 +40,9 @@ public class TurtleImageClass extends ImageClass {
 	private void setTurtlePropertiesOnClick() {
 //    	GetDragFeature get_drag_feature = new GetDragFeature(myTurtle, myImageView);
 		turtle_property_screen = new TurtlePropertyScreen(myTurtle);
-		getImageView().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+		myImageView.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
     		if(e.isPrimaryButtonDown()) {
-            	if(e.getClickCount() == 2) {
+    			if(e.getClickCount() == 2) {
             		turtle_property_screen.start(new Stage());
             	}
             }
