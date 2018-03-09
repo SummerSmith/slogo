@@ -12,13 +12,13 @@ public class Point extends Point2D {
      * The X coordinate of this <code>Point</code>.
      * If no X coordinate is set it will default to 0.
      */
-    public double x;
+    private double x;
 
     /**
      * The Y coordinate of this <code>Point</code>.
      * If no Y coordinate is set it will default to 0.
      */
-    public double y;
+    private double y;
 
     /**
      * Constructs and initializes a point at the origin

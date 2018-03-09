@@ -14,8 +14,9 @@ public class Home implements Command{
 		turtle.resetLocation();
 		turtle.resetHeading();
 		Point new_point = turtle.getLocation();
-		double dis_x = original_x - new_point.x;
-		double dis_y = original_y - new_point.y;
+		turtle.addNextPoint(new_point);
+		double dis_x = original_x - new_point.getX();
+		double dis_y = original_y - new_point.getY();
 		return Math.sqrt( dis_x * dis_x + dis_y * dis_y );
 	}
 }

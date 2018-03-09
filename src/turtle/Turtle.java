@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
@@ -19,21 +20,26 @@ import parser.TurtleManager;
 import windows.TurtleWindow;
 import point.Point;
 import slogo_team12.Display;
+import slogo_team12.TurtlePropertyScreen;
 
 public class Turtle extends Parent{	
 	private Point location;
+	private final Point INITIAL_POINT = new Point(0, 0);
 	private boolean turtleIsShown;
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-	private final double INITIAL_HEADING = 0;
+	private int ID, turtle_window_imageview_index;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
+	private final double INITIAL_HEADING = 0;
 	private final double DEFAULT_PEN_THICKNESS = 2;
-	private String pen_color;
-	private final Point INITIAL_POINT = new Point(0, 0);
+	private final String DEFAULT_COLOR = "-fx-stroke: #000000";
+	private final String DEFAULT_IMAGE = "turtle_image1";
+	private String pen_color, image_name;
 	private List<Point> nextPoints;
     private ImageView imageView;
+    private TurtlePropertyScreen turtle_property_screen;
 	private Map<Integer, List<Point>> turtle_line_map;
 	private double ID;
 	private double window_height;
@@ -50,7 +56,9 @@ public class Turtle extends Parent{
 		setTurtleIsShowing(true);
 		setHeading(INITIAL_HEADING);
 		initializePen();
-		createTurtleStructures();
+		setImageName(DEFAULT_IMAGE);
+		turtle_window_imageview_index = TurtleWindow.getPaneRoot().getChildren().size();
+        createTurtleStructures();
 		createLists();
 		resetLocation();
 	}
@@ -63,6 +71,7 @@ public class Turtle extends Parent{
 	private void setWindowSize() {
 		window_height = Display.getTurtleWindow().getPaneHeight();
 		window_width = Display.getTurtleWindow().getPaneWidth();
+
 	}
 	
 	private void createTurtleStructures() {
@@ -184,6 +193,14 @@ public class Turtle extends Parent{
 		imageView = newImageView;
 	}
 	
+	public String getImageName() {
+		return image_name;
+	}
+
+	public void setImageName(String image_name) {
+		this.image_name = image_name;
+	}
+	
 	public void updateTurtleLineMap() {
 		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
 	}
@@ -192,14 +209,26 @@ public class Turtle extends Parent{
 		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
 	}
 	
-	public double getID() {
+	public int getID() {
 		return ID;
 	}
 	
-	public void setID(double id) {
+	public void setID(int id) {
 		ID = id;
 	}
 	
+	public int getTurtleWindowImageViewIndex() {
+		return turtle_window_imageview_index;
+	}
+	
+	public void setTurtleWindowImageViewIndex(int turtle_window_imageview_index) {
+		this.turtle_window_imageview_index = turtle_window_imageview_index;
+	}
+
+	public void setTurtlePropertyScreen(TurtlePropertyScreen turtle_property_screen) {
+		this.turtle_property_screen = turtle_property_screen;
+	}
+		
 	public String toString() {
 		return "turtle";
 	}

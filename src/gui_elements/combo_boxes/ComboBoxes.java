@@ -32,7 +32,7 @@ public abstract class ComboBoxes {
 	private Group myRoot;
 	private Properties properties;
 	private InputStream input;
-	private int x, y, width, height, number_of_elements;
+	private int x, y, width, height, number_of_elements = 0;
 	private String text;
 	private String full_combo_box_filename;
 
@@ -71,7 +71,9 @@ public abstract class ComboBoxes {
 	  		y = Integer.parseInt(properties.getProperty(Y_LOC_STRING));
 	  		width = Integer.parseInt(properties.getProperty(WIDTH_STRING));
 	  		height = Integer.parseInt(properties.getProperty(HEIGHT_STRING));
-	  		number_of_elements = Integer.parseInt(properties.getProperty(NUM_ELEMENTS_STRING));
+	  		if(properties.containsKey(NUM_ELEMENTS_STRING)) {
+	  			number_of_elements = Integer.parseInt(properties.getProperty(NUM_ELEMENTS_STRING));
+	  		}
 	   	} catch (IOException ex) {
 //		   		E
 	  	} finally {
@@ -90,6 +92,9 @@ public abstract class ComboBoxes {
 	 */
 	private void addComboBoxStrings() {
 		try {
+			if(number_of_elements == 0) {
+				return;
+			}
 	  		for(int element_number = 1; element_number <= number_of_elements; element_number++) {
 	  			myComboBox.getItems().add(properties.getProperty(ELEMENT_WORD + element_number));
 	  		}

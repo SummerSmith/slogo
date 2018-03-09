@@ -17,7 +17,7 @@ import nodes.ListNode;
 import nodes.MakeNode;
 import nodes.NewUserCommandNode;
 import nodes.RepeatNode;
-import nodes.Tell;
+import nodes.TellNode;
 import nodes.ToNode;
 import nodes.UserCommandNode;
 import nodes.VariableNode;
@@ -27,9 +27,9 @@ import error.Error;
 
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
-	private final String file = "resources.languages/English";
-//	private Error error;
-	UserCommands userCommands;
+	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them
+	//private Error error;
+
 	
 	public DetermineNodeType() {
 		specialCommandNodes = new HashMap<>();
@@ -37,9 +37,11 @@ public class DetermineNodeType {
 	
 	private boolean commandExists(String content) {
 		ResourceBundle resources = ResourceBundle.getBundle(file);
-		Enumeration<String> iter = resources.getKeys();
+		Enumeration<String> iter = resources.getKeys(); //is this the only data structure we can use? this loop is inefficient
 		while (iter.hasMoreElements()) {
-			if(content.equals(iter.nextElement())) {
+			String element = iter.nextElement();
+			if(content.equals(element)) {
+				System.out.println("MATCH: "+ content);
 				return true;
 			}
 		}
@@ -91,22 +93,26 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("makevariable")) {
 				return new MakeNode(content);
 			}
-			else if(content.equalsIgnoreCase("to")) {
+			else if(content.equalsIgnoreCase("makeuserinstruction")) {
 				return new ToNode(content);
 			}
 			else if(content.equalsIgnoreCase("if")) {
 				return new IfNode(content);
 			}
 			else if (content.equalsIgnoreCase("tell")) {
-				return new Tell(content);
+				return new TellNode(content);
 			}
 			else if (commandExists(content)){
+				System.out.println("commandNode");
 				return new CommandNode(content);
 			}
-			else if (UserCommands.getCommandsMap().containsKey(content)){
+//			else if (UserCommands.getCommandsMap().containsKey(content)){
+			else if (UserCommands.getCommand(content) != null){
+				System.out.println("UserCommandNode");
 				return new UserCommandNode(content);
 			}
 			else {
+				System.out.println("NewUserCommandNode");
 				return new NewUserCommandNode(content);
 			}
 		}catch(NullPointerException e) {

@@ -23,7 +23,8 @@ public class ClearScreen implements Command {
 		ImageView old_image_view = (ImageView) TurtleWindow.getPaneRoot().getChildren().get(0);
 		TurtleWindow.getPaneRoot().getChildren().clear();
 		TurtleWindow.getPaneRoot().getChildren().add(old_image_view);		
-		return Math.sqrt(Math.pow(old_location.x, 2) + Math.pow(old_location.y, 2));
+
+		return Math.sqrt(Math.pow(old_location.getX(), 2) + Math.pow(old_location.getY(), 2));
 	}
 
 }

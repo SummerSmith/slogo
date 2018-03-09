@@ -97,6 +97,8 @@ public class UserVariablesWindow extends Windows {
 	}
 	
 	public static void addButton(Button button) {
-		flow_pane.getChildren().add(button);
+		if(!flow_pane.getChildren().contains(button)) {
+			flow_pane.getChildren().add(button);
+		}
 	}
 }

@@ -13,16 +13,16 @@ public class TurtleManager {
 
 	private static List<Turtle> allTurtles = new ArrayList<Turtle>();
 	private static List<Turtle> activeTurtles = new ArrayList<Turtle>();
-	private static Map<Double, Turtle> allTurtlesByID = new HashMap<Double, Turtle>();
-	private static Map<Turtle, Double> allIDsByTurtle = new HashMap<Turtle, Double>();
+	private static Map<Integer, Turtle> allTurtlesByID = new HashMap<Integer, Turtle>();
+	private static Map<Turtle, Integer> allIDsByTurtle = new HashMap<Turtle, Integer>();
 	int numTurtles = allTurtlesByID.size();
 	
 	public TurtleManager() {
 	}
 	
 	public static void addTurtle(Turtle t) {
-		allTurtlesByID.put((allTurtlesByID.size() + 1) * 1.0, t);
-		allIDsByTurtle.put(t, (allIDsByTurtle.size() + 1) * 1.0 );
+		allTurtlesByID.put(allTurtlesByID.size() + 1, t);
+		allIDsByTurtle.put(t, allIDsByTurtle.size() + 1);
 		allTurtles.add(t);
 	}
 	
@@ -45,7 +45,7 @@ public class TurtleManager {
 				addTurtle(t);
 				t.setID(allIDsByTurtle.size());
 			}
-			activeTurtles.add(t);
+			activeTurtles.add(t);	
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class TurtleManager {
 			addTurtle(temp);
 			temp.setID(allTurtlesByID.size());
 		}
-		activeTurtles.add(allTurtlesByID.get(allTurtlesByID.size()));	
+		activeTurtles.add(allTurtlesByID.get(ID));	
 	}
 	
 	public static void addActiveTurtle(Turtle turtle) {
@@ -96,11 +96,11 @@ public class TurtleManager {
 		return allTurtles.size();
 	}
 	
-	public static Map<Double, Turtle> getAllTurtlesByID() {
+	public static Map<Integer, Turtle> getAllTurtlesByID() {
 		return allTurtlesByID;
 	}
 	
-	public static Map<Turtle, Double> getAllIDsByTurtle() {
+	public static Map<Turtle, Integer> getAllIDsByTurtle() {
 		return allIDsByTurtle;
 	}	
 }
