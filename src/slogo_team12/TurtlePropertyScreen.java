@@ -205,7 +205,7 @@ public class TurtlePropertyScreen extends Application {
     
     private void setComboBoxes() {
     	turtle_image_combobox = new TurtleImageComboBox(new ComboBox(), root, myTurtle);
-    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root);
+    	pen_color_combobox = new PenColorComboBox(new ComboBox(), root, myTurtle);
     }
     
     private void setRadioButtons() {

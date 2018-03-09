@@ -13,6 +13,7 @@ public class TurtleImageClass extends ImageClass {
 	private static final String DEFAULT_TURTLE_IMAGE_NAME = "turtle_image1";
 	private Turtle myTurtle;
 	private ImageView myImageView;
+	private TurtlePropertyScreen turtle_property_screen;
 	
 	public TurtleImageClass(Group root, Turtle turtle) {
 		super(DEFAULT_TURTLE_IMAGE_NAME, root);
@@ -36,17 +37,17 @@ public class TurtleImageClass extends ImageClass {
 	
 	private void setTurtlePropertiesOnClick() {
 //    	GetDragFeature get_drag_feature = new GetDragFeature(myTurtle, myImageView);
+		turtle_property_screen = new TurtlePropertyScreen(myTurtle);
 		getImageView().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
     		if(e.isPrimaryButtonDown()) {
             	if(e.getClickCount() == 2) {
-            		TurtlePropertyScreen turtle_property_screen = new TurtlePropertyScreen(myTurtle);
             		turtle_property_screen.start(new Stage());
             	}
             }
         });
 	}
 	
-	public void changeImageView() {
-		
+	public TurtlePropertyScreen getTurtlePropertyScreen() {
+		return turtle_property_screen;
 	}
 }

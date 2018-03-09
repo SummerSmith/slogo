@@ -14,7 +14,6 @@ import windows.TurtleWindow;
 public class TurtleImageComboBox extends ComboBoxes {
 
 	private static final String PROPERTIES_FILENAME = "turtle_image_combo_box.properties";
-	private static final String IMAGE1 = "turtle_image1";
 	private static ComboBox myComboBox;
 	private Group myRoot;
 	private Turtle myTurtle;
@@ -35,15 +34,14 @@ public class TurtleImageComboBox extends ComboBoxes {
 	}
 	
 	private void setDefaultImage() {
-		myComboBox.getSelectionModel().select(IMAGE1);
-		image_selection = IMAGE1;
+		ObservableList<String> combo_box_items = myComboBox.getItems();
+		String image_name = myTurtle.getImageName();
+		myComboBox.getSelectionModel().select(combo_box_items.indexOf(image_name));
 	}
 	
 	private void chooseImage() {
     	myComboBox.setOnAction((Event ev) -> {
     		image_selection = (String) myComboBox.getSelectionModel().getSelectedItem();
-//    		TurtleWindow.getPane().getChildren().set(OLD_IMAGEVIEW, new TurtleImageClass(image, myRoot, myTurtle).getImageView());
-//    		Display.setImageView(turtle_image_object.getImageView());
     	});
 	}
 	
@@ -53,6 +51,7 @@ public class TurtleImageComboBox extends ComboBoxes {
 		setNewTurtleProperties(myTurtle, (ImageView) pane_root_children.get(OLD_IMAGEVIEW_INDEX), imageView);
 		pane_root_children.set(OLD_IMAGEVIEW_INDEX, imageView);
         myTurtle.setImageView(imageView);
+        myTurtle.setImageName(image_selection);
 	}
 	
 	private void setNewTurtleProperties(Turtle turtle, ImageView oldImageView, ImageView newImageView) {

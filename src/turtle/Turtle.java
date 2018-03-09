@@ -16,23 +16,27 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import windows.TurtleWindow;
 import point.Point;
+import slogo_team12.TurtlePropertyScreen;
 
 public class Turtle extends Parent{	
 	private Point location;
+	private final Point INITIAL_POINT = new Point(0, 0);
 	private boolean turtleIsShown;
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-	private final double INITIAL_HEADING = 0;
+	private int ID;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
+	private final double INITIAL_HEADING = 0;
 	private final double DEFAULT_PEN_THICKNESS = 2;
-	private String pen_color;
-	private final Point INITIAL_POINT = new Point(0, 0);
+	private final String DEFAULT_COLOR = "-fx-stroke: #000000";
+	private final String DEFAULT_IMAGE = "turtle_image1";
+	private String pen_color, image_name;
 	private List<Point> nextPoints;
     private ImageView imageView;
+    private TurtlePropertyScreen turtle_property_screen;
 	private Map<Integer, List<Point>> turtle_line_map;
-	private int ID;
 	
 	public Turtle(){
 		initialize();
@@ -44,6 +48,8 @@ public class Turtle extends Parent{
 		setHeading(INITIAL_HEADING);
 		setPenDown(true);
 		setPenThickness(DEFAULT_PEN_THICKNESS);
+		setPenColor(DEFAULT_COLOR);
+		setImageName(DEFAULT_IMAGE);
 		createTurtleStructures();
 		resetLocation();
 		createLists();
@@ -163,6 +169,14 @@ public class Turtle extends Parent{
 		imageView = newImageView;
 	}
 	
+	public String getImageName() {
+		return image_name;
+	}
+
+	public void setImageName(String image_name) {
+		this.image_name = image_name;
+	}
+	
 	public void updateTurtleLineMap() {
 		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
 	}
@@ -177,6 +191,10 @@ public class Turtle extends Parent{
 	
 	public void setID(int id) {
 		ID = id;
+	}
+	
+	public void setTurtlePropertyScreen(TurtlePropertyScreen turtle_property_screen) {
+		this.turtle_property_screen = turtle_property_screen;
 	}
 	
 	public String toString() {
