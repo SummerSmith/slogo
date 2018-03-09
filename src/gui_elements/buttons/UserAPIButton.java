@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import slogo_team12.Display;
-import slogo_team12.UserAPI;
+import slogo_team12.UserAPIScreen;
 import point.Point;
 
 public class UserAPIButton extends DefaultButton {
@@ -21,8 +21,8 @@ public class UserAPIButton extends DefaultButton {
 	@Override
 	public void setButtonAction() {
     	myButton.setOnAction(value -> {
-    		UserAPI user_api = new UserAPI();
-    		user_api.start(new Stage());
+    		UserAPIScreen user_api_screen = new UserAPIScreen();
+    		user_api_screen.start(new Stage());
     	});
 	}
 }

@@ -19,7 +19,7 @@ public class CreateTurtle {
 	private void initialize() {
 		myTurtle = new Turtle();
         TurtleManager.addActiveTurtle(myTurtle);
-        new TurtleImageClass(myRoot, myTurtle).getImageView();
+        TurtleImageClass turtle_image_class = new TurtleImageClass(myRoot, myTurtle);
 	}
 	
 	public Turtle getTurtle() {

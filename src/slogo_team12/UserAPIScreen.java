@@ -25,7 +25,7 @@ import user_data.UserController;
 import windows.CommandWindow;
 import windows.TurtleWindow;
 
-public class UserAPI extends Application {
+public class UserAPIScreen extends Application {
 	private final Paint BACKGROUND = Color.BLACK;
     private final String PROPERTY_FILENAME = "data/user_api.properties";
     private final String TITLE_PROPERTY = "title";
