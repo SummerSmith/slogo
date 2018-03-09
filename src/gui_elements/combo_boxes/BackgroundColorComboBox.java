@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import windows.TurtleWindow;
 
 public class BackgroundColorComboBox extends ComboBoxes {
 	
@@ -29,10 +30,10 @@ public class BackgroundColorComboBox extends ComboBoxes {
 	private InputStream input;
 	private int WHITE = 0;
 	
-	public BackgroundColorComboBox(ComboBox comboBox, Parent pane, Group root) {
+	public BackgroundColorComboBox(ComboBox comboBox, Group root) {
 		super(comboBox, root, PROPERTIES_FILENAME);
 		myComboBox = comboBox;
-		myPane = (BorderPane) pane;
+		myPane = (BorderPane) TurtleWindow.getPane();
 		initialize();
 	}
 	

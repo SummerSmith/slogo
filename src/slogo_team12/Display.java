@@ -43,14 +43,14 @@ import gui_elements.combo_boxes.BackgroundColorComboBox;
 import gui_elements.combo_boxes.ComboBoxes;
 import gui_elements.combo_boxes.LanguageComboBox;
 import gui_elements.combo_boxes.PenColorComboBox;
+import gui_elements.combo_boxes.SavedCommandFilesComboBox;
 import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.labels.BackgroundColorLabel;
 import gui_elements.labels.CommandWindowLabel;
 import gui_elements.labels.ErrorLabel;
 import gui_elements.labels.LanguageLabel;
-import gui_elements.labels.PenColorLabel;
+import gui_elements.labels.SavedCommandFilesLabel;
 import gui_elements.labels.TurtleDisplayLabel;
-import gui_elements.labels.TurtleImageLabel;
 import gui_elements.labels.user_api_labels.UserAPILabel;
 import gui_elements.labels.user_windows_labels.UserCommandsLabel;
 import gui_elements.labels.user_windows_labels.UserHistoryLabel;
@@ -122,9 +122,8 @@ public class Display extends Application {
 	private InputStream input;
 	private CommandWindow command_window;
 	private static TurtleWindow turtle_window;
-	private PenColorLabel pen_color_label;
+	private SavedCommandFilesLabel pen_color_label;
 	private BackgroundColorLabel background_color_label;
-	private TurtleImageLabel turtle_image_label;
 	private LanguageLabel language_label;
 	private TurtleDisplayLabel turtle_display_label;
 	private CommandWindowLabel command_window_label;
@@ -138,6 +137,7 @@ public class Display extends Application {
 	private UserAPIButton user_api_button;
 	private EditVariablesButton edit_variables_button;
 	private BackgroundColorComboBox background_color_combobox;
+	private SavedCommandFilesComboBox saved_command_files_combobox;
 	private LanguageComboBox language_combobox;
 	private ImageClass slogo_image_object;
 	private Timeline animation;
@@ -327,9 +327,8 @@ public class Display extends Application {
      * Sets up screen labels.
      */
     private void setLabels() {
-    	pen_color_label = new PenColorLabel(new Label(), root);
+    	pen_color_label = new SavedCommandFilesLabel(new Label(), root);
     	background_color_label = new BackgroundColorLabel(new Label(), root);
-    	turtle_image_label = new TurtleImageLabel(new Label(), root);
     	language_label = new LanguageLabel(new Label(), root);
     	turtle_display_label = new TurtleDisplayLabel(new Label(), root);
     	command_window_label = new CommandWindowLabel(new Label(), root);
@@ -354,8 +353,9 @@ public class Display extends Application {
      * Sets up screen comboBoxes.
      */
     private void setComboBoxes() {
-    	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
+    	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), root);
     	language_combobox = new LanguageComboBox(new ComboBox(), root);
+    	saved_command_files_combobox = new SavedCommandFilesComboBox(new ComboBox(), root);
     }
 
     /**
