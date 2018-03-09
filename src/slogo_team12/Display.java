@@ -95,7 +95,7 @@ import javafx.stage.Stage;
  * 
  * @author Aditya Sridhar
  */
-public class Display extends Application {
+public class Display {
 
 	private final Paint BACKGROUND = Color.BLACK;
 	private final String PROPERTY_FILENAME = "data/display.properties";
@@ -150,24 +150,17 @@ public class Display extends Application {
 	private static Scene myScene;
 	private static Group root;
 
-	/**
-	 * Initializes the stage for the display.
-	 */
-	@Override
-	public void start(Stage stage) {
-		this.stage = stage;
-		initialize();
-	}
+
 
 	/**
 	 * Sets the scene and initializes the screen properties.
 	 */
-	private void initialize() {
+	public void initialize(Stage stage) {
 		root = new Group();
 		//    	initializeStructures();
 		getProperties();
 		setScene();
-		setStage();
+		setStage(stage);
 		setImages();
 		setGUIComponents();
 		setRunButtonPressed(false);
@@ -207,6 +200,7 @@ public class Display extends Application {
 				error_label.getLabel().setText(errorString);
 			}
 			String text = CommandWindow.getText();
+			if(text.equals("")) return;
 			try {
 				BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
 				back_end_manager.parse();
@@ -387,7 +381,7 @@ public class Display extends Application {
 	/**
 	 * Sets the stage for the display.
 	 */
-	private void setStage() {
+	private void setStage(Stage stage) {
 		stage.setScene(myScene);
 		stage.setTitle(title);
 		stage.show();
@@ -445,10 +439,5 @@ public class Display extends Application {
 		return myScene;
 	}
 
-	/**
-	 * Starts the program.
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+
 }

@@ -51,7 +51,6 @@ public class TurtleWindow extends Windows {
 		try {
 	  		input = new FileInputStream(full_directory_name);
 	  		properties.load(input);
-
 	  		x = Integer.parseInt(properties.getProperty(X_LOC_STRING));
 	  		y = Integer.parseInt(properties.getProperty(Y_LOC_STRING));
 	  		width = Integer.parseInt(properties.getProperty(WIDTH));

@@ -27,88 +27,88 @@ import windows.TurtleWindow;
 
 public class UserAPI extends Application {
 	private final Paint BACKGROUND = Color.BLACK;
-    private final String PROPERTY_FILENAME = "data/user_api.properties";
-    private final String TITLE_PROPERTY = "title";
-    private final String WIDTH_PROPERTY = "width";
-    private final String HEIGHT_PROPERTY = "height";
-    private UserAPIHeaderLabel user_api_heading_label;
-    private UserAPICommandDisplayLabel user_api_command_display_label;
-    private UserAPIComboBox user_api_combo_box;
-    private String title;
-    private int screen_width, screen_height;
-    private Stage stage;
-   	private Properties menu_properties;
+	private final String PROPERTY_FILENAME = "data/user_api.properties";
+	private final String TITLE_PROPERTY = "title";
+	private final String WIDTH_PROPERTY = "width";
+	private final String HEIGHT_PROPERTY = "height";
+	private UserAPIHeaderLabel user_api_heading_label;
+	private UserAPICommandDisplayLabel user_api_command_display_label;
+	private UserAPIComboBox user_api_combo_box;
+	private String title;
+	private int screen_width, screen_height;
+	private Stage stage;
+	private Properties menu_properties;
 	private InputStream input;
-	
+
 	// Additional setup for the user API screen.
-    private Scene myScene;
-    private static Group root;
+	private Scene myScene;
+	private static Group root;
 
-    /**
-     * Initializes the stage for the user API screen.
-     */
-    @Override
-    public void start(Stage stage) {
-    	this.stage = stage;
-    	initialize();
-    }
+	/**
+	 * Initializes the stage for the user API screen.
+	 */
+	@Override
+	public void start(Stage stage) {
+		this.stage = stage;
+		initialize();
+	}
 
-    /**
-     * Sets the scene and initializes the screen properties.
-     */
-    private void initialize() {
-    	root = new Group();
-    	getProperties();
-    	setScene();
-        setStage();
-        setGUIComponents();
-    }
-    
-    private void setScene() {
-        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
-    }
-    
-    /**
-     * Sets the stage for the user API.
-     */
-    private void setStage() {
-    	stage.setScene(myScene);
-    	stage.setTitle(title);
-    	stage.show();
-    	stage.setResizable(false);
-    }
-    
-    /**
-     * Reads in properties from a property file and gets the  
-     * screen properties.
-     */
-    private void getProperties() {
-    	menu_properties = new Properties();
-    	input = null;
-     	try {
-    		input = new FileInputStream(PROPERTY_FILENAME);
-    		menu_properties.load(input);
-    		title = menu_properties.getProperty(TITLE_PROPERTY);
-    		screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
-    		screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
-     	} catch (IOException ex) {
-    		System.err.println("Display file input does not exist!");
-     	} catch (Exception ey) {     		
+	/**
+	 * Sets the scene and initializes the screen properties.
+	 */
+	private void initialize() {
+		root = new Group();
+		getProperties();
+		setScene();
+		setStage();
+		setGUIComponents();
+	}
+
+	private void setScene() {
+		myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+	}
+
+	/**
+	 * Sets the stage for the user API.
+	 */
+	private void setStage() {
+		stage.setScene(myScene);
+		stage.setTitle(title);
+		stage.show();
+		stage.setResizable(false);
+	}
+
+	/**
+	 * Reads in properties from a property file and gets the  
+	 * screen properties.
+	 */
+	private void getProperties() {
+		menu_properties = new Properties();
+		input = null;
+		try {
+			input = new FileInputStream(PROPERTY_FILENAME);
+			menu_properties.load(input);
+			title = menu_properties.getProperty(TITLE_PROPERTY);
+			screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
+			screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
+		} catch (IOException ex) {
+			System.err.println("Display file input does not exist!");
+		} catch (Exception ey) {     		
 			System.err.println("The properties for the display could not be retrieved completely.");
-    	} finally {
-    		if (input != null) {
-    			try {
-    				input.close();
-    			} catch (IOException e) {
-    				System.err.println("Display file input cannot close!");
-    			}
-    		}
-    	}
-    }
-    
-    private void setGUIComponents() {
-    	user_api_heading_label = new UserAPIHeaderLabel(new Label(), root);
-    	user_api_combo_box = new UserAPIComboBox(new ComboBox(), root);
-    	user_api_command_display_label = new UserAPICommandDisplayLabel(new Label(), root);
-    }
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					System.err.println("Display file input cannot close!");
+				}
+			}
+		}
+	}
+
+	private void setGUIComponents() {
+		user_api_heading_label = new UserAPIHeaderLabel(new Label(), root);
+		user_api_combo_box = new UserAPIComboBox(new ComboBox(), root);
+		user_api_command_display_label = new UserAPICommandDisplayLabel(new Label(), root);
+	}
 }

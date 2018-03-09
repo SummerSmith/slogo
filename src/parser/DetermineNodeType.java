@@ -93,9 +93,9 @@ public class DetermineNodeType {
 			else if(content.equalsIgnoreCase("makevariable")) {
 				return new MakeNode(content);
 			}
-			else if(content.equalsIgnoreCase("makeuserinstruction")) {
-				return new ToNode(content);
-			}
+//			else if(content.equalsIgnoreCase("makeuserinstruction")) {
+//				return new ToNode(content);
+//			}
 			else if(content.equalsIgnoreCase("if")) {
 				return new IfNode(content);
 			}

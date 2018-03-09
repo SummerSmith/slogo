@@ -31,7 +31,7 @@ public class CommandNode extends Node {
 //			System.out.println("Found class");
 			Object o = clazz.newInstance();
 //			System.out.println("Made instance");
-			Method method = o.getClass().getMethod("Execute", myTurtle.getClass(), java.util.List.class);
+			Method method = o.getClass().getMethod("Execute", myTurtle.getClass(), List.class);
 //			System.out.println("Found method");
 			returnVal = (Double) method.invoke(o, myTurtle, args);
 //			System.out.println("Invoked method");

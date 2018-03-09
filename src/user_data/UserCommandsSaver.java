@@ -14,6 +14,7 @@ import parser.BackEndManager;
 public class UserCommandsSaver {
 
 	private static final String FILEPATH = "./commandlib/";
+	private static final String FILE_EXTENSION = ".logo";
 	public UserCommandsSaver() {
 
 	}
@@ -23,7 +24,7 @@ public class UserCommandsSaver {
 		FilenameFilter fileFilter = new FilenameFilter() {	
 			@Override
 			public boolean accept(File dir, String filename) {
-				return filename.endsWith(".txt");
+				return filename.endsWith(FILE_EXTENSION);
 			}
 		};
 		
@@ -42,6 +43,7 @@ public class UserCommandsSaver {
 			String text = fileText.toString();
 			BackEndManager backManager = new BackEndManager(text, language);
 			backManager.parse();
+			in.close();
 		} catch (FileNotFoundException e1) {
 			System.err.println("File not found");
 			e1.printStackTrace();
@@ -57,7 +59,7 @@ public class UserCommandsSaver {
 		String s2 = gcalendar.get(Calendar.MINUTE) + "_";
 		String s3 = gcalendar.get(Calendar.SECOND) + "_";
 		String time = s1 + s2 + s3;
-		String filename = "Saved" + time + ".txt";
+		String filename = "Saved" + time + FILE_EXTENSION;
 		try {
 			FileWriter fw = new FileWriter(new File(FILEPATH + filename));
 			fw.write(language + "\n");
@@ -70,7 +72,7 @@ public class UserCommandsSaver {
 	}
 	
 	public void main(String[] args) { //for testing
-		String words = "hi there I am an egg \nplease don't eat me"; //don't judge me if you were an egg you'd feel the same way
+		String words = "here is a test command\nit's not actually a command\njust some nice words";
 		saveCommands(words, "English");
 	}
 }
