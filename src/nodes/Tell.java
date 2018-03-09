@@ -33,7 +33,7 @@ public class Tell extends Node{
 				ArrayList<Turtle> allTurtles = (ArrayList<Turtle>) TurtleManager.getAllTurtles();
 				HashMap<Integer, Turtle> allTurtlesByID = (HashMap<Integer, Turtle>) TurtleManager.getAllTurtlesByID();
 				value = Double.parseDouble(curr.getType());
-				System.out.println(allTurtles.size());
+				System.out.println(value);
 				if(allTurtles.contains(allTurtlesByID.get((int) value))) {
 					TurtleManager.addActiveTurtle(curr.getType());
 					System.out.println("Existing turtle");

@@ -25,7 +25,7 @@ public class Turtle extends Parent{
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-	private int ID;
+	private int ID, turtle_window_imageview_index;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final double INITIAL_HEADING = 0;
@@ -53,6 +53,7 @@ public class Turtle extends Parent{
 		createTurtleStructures();
 		resetLocation();
 		createLists();
+		turtle_window_imageview_index = TurtleWindow.getPaneRoot().getChildren().size();
 	}
 	
 	private void createTurtleStructures() {
@@ -193,6 +194,14 @@ public class Turtle extends Parent{
 		ID = id;
 	}
 	
+	public int getTurtleWindowImageViewIndex() {
+		return turtle_window_imageview_index;
+	}
+	
+	public void setTurtleWindowImageViewIndex(int turtle_window_imageview_index) {
+		this.turtle_window_imageview_index = turtle_window_imageview_index;
+	}
+
 	public void setTurtlePropertyScreen(TurtlePropertyScreen turtle_property_screen) {
 		this.turtle_property_screen = turtle_property_screen;
 	}

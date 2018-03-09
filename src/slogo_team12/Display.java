@@ -211,6 +211,7 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
+    				System.out.println("..........................Active turtle: " + turtle.getID());
     				moveImageView(turtle);
     				if(turtle.getPenDown()) {
     					drawLine(turtle);
