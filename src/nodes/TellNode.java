@@ -9,6 +9,12 @@ import slogo_team12.Display;
 import turtle.CreateTurtle;
 import turtle.Turtle;
 
+/**
+ * This class implements the tell command
+ * 
+ * @author Summer 
+ */
+
 public class TellNode extends Node{
 
 	public TellNode(String s) {
@@ -19,6 +25,9 @@ public class TellNode extends Node{
 		super(curr);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		double value = 0;

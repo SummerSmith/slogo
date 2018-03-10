@@ -2,6 +2,12 @@ package nodes;
 
 import java.util.List;
 
+/**
+ * This class implements the multi-parameter commands
+ * 
+ * @author Summer 
+ */
+
 public class ListNode extends Node{
 
 	public ListNode(String name) {
@@ -27,7 +33,9 @@ public class ListNode extends Node{
 	}
 
 	
-	
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		double returnVal = 0;
@@ -39,4 +47,5 @@ public class ListNode extends Node{
 		}
 		return returnVal;
 	}
+
 }

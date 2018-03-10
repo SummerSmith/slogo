@@ -105,20 +105,21 @@ public class Display extends Application {
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
     private final String HEIGHT_PROPERTY = "height";
-    private final String IMAGE_PROPERTY = "image";
-    private final String IMAGE_WIDTH_PROPERTY = "imgWidth";
-    private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
-    private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
-    private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
+//    private final String IMAGE_PROPERTY = "image";
+//    private final String IMAGE_WIDTH_PROPERTY = "imgWidth";
+//    private final String IMAGE_HEIGHT_PROPERTY = "imgHeight";
+//    private final String IMAGE_XLOC_PROPERTY = "imgXLoc";
+//    private final String IMAGE_YLOC_PROPERTY = "imgYLoc";
     private static String myLanguage = "English";
     private static String errorString = "";
     private String title;
     private final int FRAMES_PER_SECOND = 2;
     private final int INITIAL_TIME_DELAY = 1000 / FRAMES_PER_SECOND;
-    private int screen_width, screen_height, image_width, image_height, image_xloc, image_yloc;
-    private int time_delay = INITIAL_TIME_DELAY;
+    private int screen_width, screen_height;
+//    private int image_width, image_height, image_xloc, image_yloc;
+//    private int time_delay = INITIAL_TIME_DELAY;
     private static boolean runButtonPressed;
-    private boolean setIntroLabels = true;
+//    private boolean setIntroLabels = true;
     private Stage stage;
    	private Properties menu_properties;
 	private InputStream input;
@@ -409,7 +410,7 @@ public class Display extends Application {
      * Sets the images for the display.
      */
     private void setImages() {
-    	slogo_image_object = new SLogoImageClass(root);
+    	new SLogoImageClass(root);
     }
     
     /**

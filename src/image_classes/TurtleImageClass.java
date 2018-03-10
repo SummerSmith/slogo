@@ -43,6 +43,7 @@ public class TurtleImageClass extends ImageClass {
 	}
 	
 	private void setTurtlePropertiesOnClick() {
+
 //    	GetDragFeature get_drag_feature = new GetDragFeature(myTurtle, myImageView);
 		turtle_property_screen = new TurtlePropertyScreen(myTurtle);
 		myImageView.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {

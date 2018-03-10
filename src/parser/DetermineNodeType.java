@@ -25,6 +25,13 @@ import slogo_team12.Display;
 import user_data.UserCommands;
 import error.Error;
 
+
+/**
+ * This class takes a string and determines what type of node it is
+ * 
+ * @author Summer 
+ */
+
 public class DetermineNodeType {
 	private Map<String, String> specialCommandNodes;
 	private final String file = "resources.languages/English"; //doesn't need to be English, could be any of them

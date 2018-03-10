@@ -11,6 +11,9 @@ public class UserCommandNode extends Node {
 		numChildren = UserCommands.getCommandNumArgs(type);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		List<String> myVars = UserCommands.getCommandVars(type);

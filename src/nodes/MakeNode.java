@@ -12,6 +12,9 @@ public class MakeNode extends Node {
 		}
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		if(!UserVariables.getVariablesMap().containsKey(myChildren.get(0).getType())) {

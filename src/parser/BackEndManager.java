@@ -13,6 +13,14 @@ import java.util.regex.Pattern;
 import nodes.Node;
 import turtle.Turtle;
 
+
+/**
+ * This class calls the other backend classes. 
+ * It starts the original string the user types and ends with a tree of nodes
+ * 
+ * @author Summer 
+ */
+
 public class BackEndManager {
 	
 	private String unparsed;
@@ -36,6 +44,7 @@ public class BackEndManager {
 	Executor executor;
 	ProcessString process;
 	
+
 	public BackEndManager(String commands, String language) {
 		myTurtles = new ArrayList<>();
 		toTraverse = new ArrayList<>();
@@ -49,6 +58,9 @@ public class BackEndManager {
 		addPatterns(syntaxPath);
 	}
 
+	/**
+	 * Controls the backend. Starts with a string and ends with a tree of nodes
+	 */
 	public void parse() throws Exception {
 		strings = process.processString(unparsed);
 		construct = new ConstructNodes(strings, mySymbols, commandArguments, commandTranslations);
@@ -69,12 +81,8 @@ public class BackEndManager {
 				for(Node head : headNodes) {
 					traverse.addTurtletoTree(head, t);
 				}
-				List<Double> res = executor.executeCommands(headNodes);
-				//if there are wrong arguments values
-				if(res == null) {
-					System.out.println("there are wrong arguments values, sop execution.");
-					return;
-				}
+				executor.executeCommands(headNodes);
+				t.updateTurtleLineMap();
 			}
 		}
 		else {executor.executeCommands(headNodes);}

@@ -7,6 +7,11 @@ import error.Error;
 import slogo_team12.Display;
 import turtle.Turtle;
 
+/**
+ * This class implements the general features of a node
+ * 
+ * @author Summer and Maddie
+ */
 public abstract class Node {
 
 	protected String type;
@@ -26,6 +31,13 @@ public abstract class Node {
 		numChildren = 0;
 	}
 	
+	/**
+	 * This method adds children to the node. 
+	 * It is public because it is used in traverse nodes to make the tree
+	 * 
+	 * @param: nodes: list of nodes created from user input. 
+	 * 			index: index of the node that children are being added to
+	 */
 	public int addChildren(List<Node> nodes, int index) {
 		try {
 			if(this.getNumChildren() > 0) {
@@ -49,8 +61,14 @@ public abstract class Node {
 		return 0;
 	}
 	
+	/**
+	 * This method evaluated the node and is implemented in every sub class
+	 */
 	public abstract double evaluate();
 	
+	/**
+	 * The following getter/setters are used to access or change attributes of the node
+	 */
 	public String getType() {
 		return type;
 	}

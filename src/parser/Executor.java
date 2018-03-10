@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nodes.Node;
-
+/**
+ * This class takes the tree of nodes and evaluates the commands
+ * 
+ * @author Summer 
+ */
 public class Executor {
 
 	public Executor() {

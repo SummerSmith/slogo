@@ -14,6 +14,9 @@ public class NewUserCommandNode extends Node {
 		numChildren = 2; //2 groupNodes
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		try {

@@ -59,6 +59,7 @@ import windows.TurtleWindow;
 
 public class TurtlePropertyScreen extends Application {
 	private final Paint BACKGROUND = Color.BLACK;
+
     private final String PROPERTY_FILENAME = "data/turtle_property_screen.properties";
     private final String TITLE_PROPERTY = "title";
     private final String WIDTH_PROPERTY = "width";
@@ -73,6 +74,7 @@ public class TurtlePropertyScreen extends Application {
     private int screen_width, screen_height;
     private static Stage stage;
    	private Properties menu_properties;
+
 	private InputStream input;
 	private Turtle myTurtle;
 	private int turtleID;
@@ -86,57 +88,57 @@ public class TurtlePropertyScreen extends Application {
     	turtleID = (int)turtle.getID();
     }
 
-    /**
-     * Initializes the stage for the turtle property screen.
-     */
-    @Override
-    public void start(Stage stage) {
-    	this.stage = stage;
-    	initialize();
-    }
+	/**
+	 * Initializes the stage for the turtle property screen.
+	 */
+	@Override
+	public void start(Stage stage) {
+		this.stage = stage;
+		initialize();
+	}
 
-    /**
-     * Sets the scene and initializes the screen properties.
-     */
-    private void initialize() {
-    	root = new Group();
-    	getProperties();
-    	setScene();
-        setStage();
-        setGUIComponents();
-    }
-    
-    private void setScene() {
-        myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
-    }
-    
-    /**
-     * Sets the stage for the turtle property screen.
-     */
-    private void setStage() {
-    	stage.setScene(myScene);
-    	stage.setTitle(title);
-    	stage.show();
-    	stage.setResizable(false);
-    }
-    
-    /**
-     * Reads in properties from a property file and gets the  
-     * screen properties.
-     */
-    private void getProperties() {
-    	menu_properties = new Properties();
-    	input = null;
-     	try {
-    		input = new FileInputStream(PROPERTY_FILENAME);
-    		menu_properties.load(input);
-    		title = menu_properties.getProperty(TITLE_PROPERTY) + " " + turtleID;
-    		screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
-    		screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
-     	} catch (IOException ex) {
-    		System.err.println("Display file input does not exist!");
-     	} catch (Exception ey) {     		
+	/**
+	 * Sets the scene and initializes the screen properties.
+	 */
+	private void initialize() {
+		root = new Group();
+		getProperties();
+		setScene();
+		setStage();
+		setGUIComponents();
+	}
+
+	private void setScene() {
+		myScene = new Scene(root, screen_width, screen_height, BACKGROUND);
+	}
+
+	/**
+	 * Sets the stage for the turtle property screen.
+	 */
+	private void setStage() {
+		stage.setScene(myScene);
+		stage.setTitle(title);
+		stage.show();
+		stage.setResizable(false);
+	}
+
+	/**
+	 * Reads in properties from a property file and gets the screen properties.
+	 */
+	private void getProperties() {
+		menu_properties = new Properties();
+		input = null;
+		try {
+			input = new FileInputStream(PROPERTY_FILENAME);
+			menu_properties.load(input);
+			title = menu_properties.getProperty(TITLE_PROPERTY) + " " + turtleID;
+			screen_width = Integer.parseInt(menu_properties.getProperty(WIDTH_PROPERTY));
+			screen_height = Integer.parseInt(menu_properties.getProperty(HEIGHT_PROPERTY));
+		} catch (IOException ex) {
+			System.err.println("Display file input does not exist!");
+		} catch (Exception ey) {
 			System.err.println("The properties for the display could not be retrieved completely.");
+
     	} finally {
     		if (input != null) {
     			try {
@@ -158,7 +160,7 @@ public class TurtlePropertyScreen extends Application {
     
     private void setLabels() {
         new TurtlePropertiesActiveLabel(new Label(), root);
-    	new TurtlePropertiesActiveInactiveLabel(new Label(), root);
+        new TurtlePropertiesActiveInactiveLabel(new Label(), root);
         new TurtlePropertiesHeaderLabel(new Label(), root);
         new TurtlePropertiesHeadingLabel(new Label(), root);
         new TurtlePropertiesIDLabel(new Label(), root);
