@@ -189,6 +189,7 @@ public class Display extends Application {
         this.animation = animation;
         animation.play();
     }
+    
 
     private void step(){
     	if(runButtonPressed) {
@@ -202,8 +203,11 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
-    				moveImageView(turtle);
-   					drawLine(turtle);
+//    				System.out.println(turtle.getNextPoints().size() + "......................");
+//    				if(turtle.getNextPoints().size() != 0) {
+    					moveImageView(turtle);
+    					drawLine(turtle);
+//    				}
     			}
 				checkErrorLabel(text);
 				CommandWindow.clearWindow();
@@ -453,7 +457,7 @@ public class Display extends Application {
         launch(args);
     }
     
-    public static void setBackgroundColor(String color) {
-    		turtle_window.setWindowColor(color);
+    public static TurtleWindow getTurtleWindow() {
+    		return turtle_window;
     }
 }

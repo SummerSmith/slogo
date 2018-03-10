@@ -50,7 +50,7 @@ public class TurtleManager {
 	}
 	
 	public static void addActiveTurtle(String id) {
-		double ID = Integer.parseInt(id) * 1.0;
+		int ID = Integer.parseInt(id);
 		if(!allTurtlesByID.containsKey(ID)) {
 			Turtle temp = new Turtle();
 			addTurtle(temp);
@@ -68,7 +68,7 @@ public class TurtleManager {
 	}
 	
 	public static void removeActiveTurtle(String id) {
-		double ID = Integer.parseInt(id) * 1.0;
+		int ID = Integer.parseInt(id);
 		if(allTurtlesByID.containsKey(ID) && activeTurtles.contains(allTurtlesByID.get(ID))) {
 			activeTurtles.remove(allTurtlesByID.get(ID));
 		}

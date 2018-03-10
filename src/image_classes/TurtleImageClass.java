@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo_team12.Display;
 import slogo_team12.TurtlePropertyScreen;
@@ -30,6 +32,9 @@ public class TurtleImageClass extends ImageClass {
 		super(image_name, root);
 		myTurtle = turtle;
 		myImageView = getImageView();
+		Circle clip = new Circle(myImageView.getFitWidth());
+		myImageView.setClip(clip);
+		
 		initialize();
 	}
 	
