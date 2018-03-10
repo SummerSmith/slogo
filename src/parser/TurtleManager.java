@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import image_classes.TurtleImageClass;
 import javafx.collections.ObservableList;
 import turtle.Turtle;
 
+/**
+ * This class keeps track of all turtles
+ * 
+ * @author all
+ */
 public class TurtleManager {
 
 	private static List<Turtle> allTurtles = new ArrayList<Turtle>();
