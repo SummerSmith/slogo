@@ -15,12 +15,12 @@ import user_data.UserHistory;
 import windows.CommandWindow;
 import windows.TurtleWindow;
 
-public class UndoButton extends DefaultButton {
+public class RedoButton extends DefaultButton {
 
-	private static final String PROPERTIES_FILENAME = "undo_button.properties";
+	private static final String PROPERTIES_FILENAME = "redo_button.properties";
 	private Button myButton;
 		
-	public UndoButton(Button button, Group root) {
+	public RedoButton(Button button, Group root) {
 		super(button, root, PROPERTIES_FILENAME);
 		myButton = button;
 		setButtonAction();
@@ -35,18 +35,19 @@ public class UndoButton extends DefaultButton {
 	}
 	
 	private void updateLines() {
-		int lh_pointer = UserHistory.getLHPointer();
-		if(lh_pointer == -1)
+		if(UserHistory.getLHPointer() == UserHistory.getLineHistory().size() - 1)
 			return;
+		UserHistory.setLHPointer(UserHistory.getLHPointer() + 1);
+		int lh_pointer = UserHistory.getLHPointer();		
 		HashMap<Integer, ArrayList<Line>> line_history = UserHistory.getLineHistory();		
-		TurtleWindow.getPaneRoot().getChildren().removeAll(line_history.get(lh_pointer));
-		UserHistory.setLHPointer(UserHistory.getLHPointer() - 1);
+		TurtleWindow.getPaneRoot().getChildren().addAll(line_history.get(lh_pointer));
 	}
 	
 	private void updateTurtle() {
-		if(UserHistory.getTPHPointer() == 0)
+		if(UserHistory.getTPHPointer() == UserHistory.getTurtlePropertiesHistory().size() - 1) {
 			return;
-		UserHistory.setTPHPointer(UserHistory.getTPHPointer() - 1);
+		}
+		UserHistory.setTPHPointer(UserHistory.getTPHPointer() + 1);
 		int tph_pointer = UserHistory.getTPHPointer();
 		HashMap<Integer, HashMap<Turtle, Double[]>> turtle_properties_history = UserHistory.getTurtlePropertiesHistory();
 		HashMap<Turtle, Double[]> turtle_properties_map = turtle_properties_history.get(tph_pointer);

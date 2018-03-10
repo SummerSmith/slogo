@@ -39,6 +39,7 @@ import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
 import gui_elements.buttons.UndoButton;
 import gui_elements.buttons.EditVariablesButton;
+import gui_elements.buttons.RedoButton;
 import gui_elements.buttons.UserAPIButton;
 import gui_elements.combo_boxes.BackgroundColorComboBox;
 import gui_elements.combo_boxes.ComboBoxes;
@@ -138,6 +139,7 @@ public class Display extends Application {
 	private UserAPIButton user_api_button;
 	private EditVariablesButton edit_variables_button;
 	private UndoButton undo_button;
+	private RedoButton redo_button;
 	private BackgroundColorComboBox background_color_combobox;
 	private SavedCommandFilesComboBox saved_command_files_combobox;
 	private LanguageComboBox language_combobox;
@@ -377,6 +379,7 @@ public class Display extends Application {
     	edit_variables_button = new EditVariablesButton(new Button(), root);
     	user_api_button = new UserAPIButton(new Button(), root);
     	undo_button = new UndoButton(new Button(), root);
+    	redo_button = new RedoButton(new Button(), root);
     }
 
     /*
