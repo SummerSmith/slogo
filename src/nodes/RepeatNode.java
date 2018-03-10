@@ -8,6 +8,9 @@ public class RepeatNode extends Node {
 		super(name);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		int times = (int) myChildren.get(0).evaluate();

@@ -17,6 +17,9 @@ public class CommandNode extends Node {
 		super(n);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		List<Double> args = new ArrayList<Double>();

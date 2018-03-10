@@ -8,6 +8,9 @@ public class AskNode extends Node {
 		super(name);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		return 0;

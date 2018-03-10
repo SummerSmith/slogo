@@ -25,6 +25,9 @@ public class TellNode extends Node{
 		super(curr);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		double value = 0;

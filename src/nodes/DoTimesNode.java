@@ -8,6 +8,9 @@ public class DoTimesNode extends Node{
 		super(name);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		String var = myChildren.get(0).myChildren.get(0).toString(); //goes two levels down to get variable

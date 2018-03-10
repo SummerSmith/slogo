@@ -12,7 +12,10 @@ public class ArgumentNode extends Node {
 	public double getArgument() {
 		return argument;
 	}
-
+	
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		return argument;

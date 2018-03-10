@@ -9,6 +9,9 @@ public class ToNode extends Node {
 		super(name);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() { //should have 1 NewUserCommandNode child
 		double returnVal = myChildren.get(0).evaluate();

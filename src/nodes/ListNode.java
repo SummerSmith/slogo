@@ -33,7 +33,9 @@ public class ListNode extends Node{
 	}
 
 	
-	
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		double returnVal = 0;

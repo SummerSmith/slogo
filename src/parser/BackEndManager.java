@@ -46,6 +46,7 @@ public class BackEndManager {
 	Executor executor;
 	ProcessString process;
 	
+
 	public BackEndManager(String commands, String language) {
 		myTurtles = new ArrayList<>();
 		toTraverse = new ArrayList<>();
@@ -59,6 +60,9 @@ public class BackEndManager {
 		addPatterns(syntaxPath);
 	}
 
+	/**
+	 * Controls the backend. Starts with a string and ends with a tree of nodes
+	 */
 	public void parse() throws Exception {
 		strings = process.processString(unparsed);
 		construct = new ConstructNodes(strings, mySymbols, commandArguments, commandTranslations);

@@ -9,6 +9,9 @@ public class AskWithNode extends Node {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		// TODO Auto-generated method stub

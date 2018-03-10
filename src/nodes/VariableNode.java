@@ -9,6 +9,9 @@ public class VariableNode extends Node {
 		super(name);
 	}
 
+	/**
+	 * Tells the node how to evaluate its contents
+	 */
 	@Override
 	public double evaluate() {
 		if(!UserVariables.getVariablesMap().containsKey(type)) {
