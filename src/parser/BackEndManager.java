@@ -15,6 +15,14 @@ import nodes.ArgumentNode;
 import nodes.Node;
 import turtle.Turtle;
 
+
+/**
+ * This class calls the other backend classes. 
+ * It starts the original string the user types and ends with a tree of nodes
+ * 
+ * @author Summer 
+ */
+
 public class BackEndManager {
 	
 	private String unparsed;

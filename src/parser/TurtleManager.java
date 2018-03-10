@@ -30,9 +30,9 @@ public class TurtleManager {
 		allTurtles.add(t);
 	}
 	
-	public static void setActiveTurtles(List<Integer> turtleIDs) {
+	public static void setActiveTurtles(List<Double> turtleIDs) {
 		activeTurtles.clear();
-		for(int i : turtleIDs) {
+		for(double i : turtleIDs) {
 			if(!allTurtlesByID.containsKey(i)) {
 				Turtle temp = new Turtle();
 				addTurtle(temp);
@@ -72,8 +72,9 @@ public class TurtleManager {
 	}
 	
 	public static void removeActiveTurtle(String id) {
-		if(allTurtlesByID.containsKey(id) && activeTurtles.contains(allTurtlesByID.get(id))) {
-			activeTurtles.remove(allTurtlesByID.get(id));
+		int ID = Integer.parseInt(id);
+		if(allTurtlesByID.containsKey(ID) && activeTurtles.contains(allTurtlesByID.get(ID))) {
+			activeTurtles.remove(allTurtlesByID.get(ID));
 		}
 	}
 	
@@ -93,6 +94,10 @@ public class TurtleManager {
 	
 	public static List<Turtle> getAllTurtles() {
 		return allTurtles;
+	}
+	
+	public static int getAllTurtleNum() {
+		return allTurtles.size();
 	}
 	
 	public static Map<Integer, Turtle> getAllTurtlesByID() {

@@ -2,6 +2,12 @@ package nodes;
 
 import java.util.List;
 
+/**
+ * This class implements the multi-parameter commands
+ * 
+ * @author Summer 
+ */
+
 public class ListNode extends Node{
 
 	public ListNode(String name) {

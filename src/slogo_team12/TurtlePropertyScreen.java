@@ -80,13 +80,13 @@ public class TurtlePropertyScreen extends Application {
 	private int turtleID;
 
 	// Additional setup for the turtle property screen.
-	private Scene myScene;
-	private static Group root;
-
-	public TurtlePropertyScreen(Turtle turtle) {
-		myTurtle = turtle;
-		turtleID = turtle.getID();
-	}
+    private Scene myScene;
+    private static Group root;
+    
+    public TurtlePropertyScreen(Turtle turtle) {
+    	myTurtle = turtle;
+    	turtleID = (int)turtle.getID();
+    }
 
 	/**
 	 * Initializes the stage for the turtle property screen.

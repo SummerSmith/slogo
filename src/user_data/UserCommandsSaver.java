@@ -9,7 +9,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+import javafx.scene.control.Button;
 import parser.BackEndManager;
+import slogo_team12.Display;
+import windows.UserCommandsWindow;
 
 public class UserCommandsSaver {
 
@@ -31,7 +34,7 @@ public class UserCommandsSaver {
 	}
 
 	public void loadCommands(String filename) {
-		File file = new File(FILEPATH + filename);
+		File file = new File(filename);
 		try {
 			Scanner in = new Scanner(file);
 			String language = in.nextLine();

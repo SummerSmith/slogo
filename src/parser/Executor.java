@@ -5,7 +5,11 @@ import java.util.List;
 
 import error.Error;
 import nodes.Node;
-
+/**
+ * This class takes the tree of nodes and evaluates the commands
+ * 
+ * @author Summer 
+ */
 public class Executor {
 
 	public Executor() {
@@ -16,13 +20,14 @@ public class Executor {
 		try {
 			List<Double> returnValues= new ArrayList<>();
 			for(Node head : headNodes) {
-				returnValues.add(head.evaluate());
+				double res = head.evaluate();
+				if(res == -Double.MAX_VALUE) {
+					return new ArrayList<Double>();
+				}
+				returnValues.add(res);
 			}
 			return returnValues;
 		}catch(Exception e) {
-			System.err.println("Error in executor!");
-			Exception e_0 = new Exception("Unknown Commands");
-			new Error(e_0);
 			return null;
 		}
 	}

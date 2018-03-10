@@ -7,6 +7,11 @@ import error.Error;
 import slogo_team12.Display;
 import turtle.Turtle;
 
+/**
+ * This class implements the general features of a node
+ * 
+ * @author Summer and Maddie
+ */
 public abstract class Node {
 
 	protected String type;

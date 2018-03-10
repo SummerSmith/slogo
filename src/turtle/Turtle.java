@@ -1,5 +1,6 @@
 package turtle;
 
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,9 +15,12 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import parser.TurtleManager;
 import windows.TurtleWindow;
 import point.Point;
+import slogo_team12.Display;
 import slogo_team12.TurtlePropertyScreen;
 
 public class Turtle extends Parent{	
@@ -26,7 +30,8 @@ public class Turtle extends Parent{
 	private boolean pen_down;
 	private double heading;
 	private double pen_thickness;
-	private int ID, turtle_window_imageview_index;
+	private int turtle_window_imageview_index;
+	private double ID;
 	private final int WINDOW_WIDTH = TurtleWindow.getPaneWidth();
 	private final int WINDOW_HEIGHT = TurtleWindow.getPaneHeight();
 	private final double INITIAL_HEADING = 0;
@@ -37,31 +42,43 @@ public class Turtle extends Parent{
 	private List<Point> nextPoints;
     private ImageView imageView;
     private TurtlePropertyScreen turtle_property_screen;
-	private Map<Integer, List<Point>> turtle_line_map;
+	private double window_height;
+	private double window_width;
+	private LocationHandler locationHandler;
 	
 	public Turtle(){
 		initialize();
 	}
 	
 	private void initialize() {
-		setLocation(INITIAL_POINT);
+		setWindowSize();
+		locationHandler = new LocationHandler(this, window_height, window_width);
 		setTurtleIsShowing(true);
 		setHeading(INITIAL_HEADING);
-		setPenDown(true);
-		setPenThickness(DEFAULT_PEN_THICKNESS);
-		setPenColor(DEFAULT_COLOR);
+		initializePen();
 		setImageName(DEFAULT_IMAGE);
-		createTurtleStructures();
-		resetLocation();
-		createLists();
+		setPenColor(DEFAULT_COLOR);
 		turtle_window_imageview_index = TurtleWindow.getPaneRoot().getChildren().size();
+        createTurtleStructures();
+		createLists();
+		resetLocation();
+	}
+	
+	private void initializePen() {
+		setPenDown(true);
+		setPenColor("black");
+		setPenThickness(DEFAULT_PEN_THICKNESS);
+	}
+	private void setWindowSize() {
+		window_height = Display.getTurtleWindow().getPaneHeight();
+		window_width = Display.getTurtleWindow().getPaneWidth();
+
 	}
 	
 	private void createTurtleStructures() {
-		turtle_line_map = new HashMap<Integer, List<Point>>();
 		nextPoints = new ArrayList<Point>();
 	}
-		
+	
 	public double getRadian() {
 		return Math.toRadians(heading);
 	}
@@ -83,9 +100,13 @@ public class Turtle extends Parent{
 	}
 	
 	public void setLocation(Point new_location) {
-		location = new_location;
+		List<Point> path = locationHandler.handle(new_location);
+		location = path.get(path.size() - 1);
+		for(Point p : path) {
+			addNextPoint(p);
+		}
 	}
-
+	
 	public double getXLocation() {
 		return location.getX();
 	}
@@ -119,6 +140,7 @@ public class Turtle extends Parent{
     public String getPenColor() {
     	return pen_color;
     }
+    
     public void setPenColor(String color) {
     	pen_color = color;
     }
@@ -158,11 +180,7 @@ public class Turtle extends Parent{
 	public void setPenDown(boolean pen_state) {
 		pen_down = pen_state;
 	}
-	
-	public Map getTurtleLineMap() {
-		return turtle_line_map;
-	}
-	
+		
 	public ImageView getImageView() {
 		return imageView;
 	}
@@ -179,19 +197,11 @@ public class Turtle extends Parent{
 		this.image_name = image_name;
 	}
 	
-	public void updateTurtleLineMap() {
-		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
-	}
-
-	public void removeTurtleLineMapEntry() {
-		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
-	}
-	
-	public int getID() {
+	public double getID() {
 		return ID;
 	}
 	
-	public void setID(int id) {
+	public void setID(double id) {
 		ID = id;
 	}
 	
@@ -209,5 +219,9 @@ public class Turtle extends Parent{
 		
 	public String toString() {
 		return "turtle";
+	}
+	
+	public int getTurtleNum() {
+		return TurtleManager.getAllTurtleNum();
 	}
 }

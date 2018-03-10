@@ -11,6 +11,12 @@ import java.util.ArrayList;
 
 import nodes.Node;
 
+/**
+ * This class takes a list of string and returns a list of nodes
+ * 
+ * @author Summer 
+ */
+
 public class ConstructNodes {
 
 	private List<String> input;

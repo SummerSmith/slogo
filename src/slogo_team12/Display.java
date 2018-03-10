@@ -20,17 +20,21 @@ import java.util.Properties;
 
 import gui_elements.buttons.ClearButton;
 import gui_elements.buttons.RunButton;
+import gui_elements.buttons.UndoButton;
 import gui_elements.buttons.EditVariablesButton;
+import gui_elements.buttons.RedoButton;
 import gui_elements.buttons.UserAPIButton;
 import gui_elements.combo_boxes.BackgroundColorComboBox;
 import gui_elements.combo_boxes.LanguageComboBox;
+import gui_elements.combo_boxes.PenColorComboBox;
+import gui_elements.combo_boxes.SavedCommandFilesComboBox;
+import gui_elements.combo_boxes.TurtleImageComboBox;
 import gui_elements.labels.BackgroundColorLabel;
 import gui_elements.labels.CommandWindowLabel;
 import gui_elements.labels.ErrorLabel;
 import gui_elements.labels.LanguageLabel;
-import gui_elements.labels.PenColorLabel;
+import gui_elements.labels.SavedCommandFilesLabel;
 import gui_elements.labels.TurtleDisplayLabel;
-import gui_elements.labels.TurtleImageLabel;
 import gui_elements.labels.user_api_labels.UserAPILabel;
 import gui_elements.labels.user_windows_labels.UserCommandsLabel;
 import gui_elements.labels.user_windows_labels.UserHistoryLabel;
@@ -86,27 +90,29 @@ public class Display extends Application {
    	private Properties menu_properties;
 	private InputStream input;
 	private CommandWindow command_window;
-	private TurtleWindow turtle_window;
-//	private PenColorLabel pen_color_label;
-//	private BackgroundColorLabel background_color_label;
-//	private TurtleImageLabel turtle_image_label;
-//	private LanguageLabel language_label;
-//	private TurtleDisplayLabel turtle_display_label;
-//	private CommandWindowLabel command_window_label;
-//	private UserVariablesLabel user_variables_label;
-//	private UserCommandsLabel user_commands_label;
-//	private UserHistoryLabel user_history_label;
-//	private UserAPILabel user_api_label;
+	private static TurtleWindow turtle_window;
+	private SavedCommandFilesLabel pen_color_label;
+	private BackgroundColorLabel background_color_label;
+	private LanguageLabel language_label;
+	private TurtleDisplayLabel turtle_display_label;
+	private CommandWindowLabel command_window_label;
+	private UserVariablesLabel user_variables_label;
+	private UserCommandsLabel user_commands_label;
+	private UserHistoryLabel user_history_label;
+	private UserAPILabel user_api_label;
 	private static ErrorLabel error_label;
-//	private ClearButton clear_button;
-//	private RunButton run_button;
-//	private UserAPIButton user_api_button;
-//	private EditVariablesButton edit_variables_button;
-//	private BackgroundColorComboBox background_color_combobox;
-//	private LanguageComboBox language_combobox;
-//	private ImageClass slogo_image_object;
-    private Timeline animation;
-	
+	private ClearButton clear_button;
+	private RunButton run_button;
+	private UserAPIButton user_api_button;
+	private EditVariablesButton edit_variables_button;
+	private UndoButton undo_button;
+	private RedoButton redo_button;
+	private BackgroundColorComboBox background_color_combobox;
+	private SavedCommandFilesComboBox saved_command_files_combobox;
+	private LanguageComboBox language_combobox;
+	private ImageClass slogo_image_object;
+	private Timeline animation;
+
 	// Additional setup for the display
     private static Scene myScene;
     private static Group root;
@@ -150,6 +156,7 @@ public class Display extends Application {
         this.animation = animation;
         animation.play();
     }
+    
 
     private void step(){
     	if(runButtonPressed) {
@@ -163,10 +170,11 @@ public class Display extends Application {
     			BackEndManager back_end_manager = new BackEndManager(text, myLanguage);
     			back_end_manager.parse();
     			for(Turtle turtle : TurtleManager.getActiveTurtles()) {
-    				moveImageView(turtle);
-    				if(turtle.getPenDown()) {
+//    				System.out.println(turtle.getNextPoints().size() + "......................");
+//    				if(turtle.getNextPoints().size() != 0) {
+    					moveImageView(turtle);
     					drawLine(turtle);
-    				}
+//    				}
     			}
 				checkErrorLabel(text);
 				CommandWindow.clearWindow();
@@ -205,11 +213,12 @@ public class Display extends Application {
 
 	private void updateUserHistoryWindow(String text) {
 		UserController.updateUserHistoryWindow(text);
-	}
-
+    }
+    
 	private void drawLine(Turtle turtle) {
 		List<Point> nextPoints = turtle.getNextPoints();
 		ImageView imageView = turtle.getImageView();
+		List<Line> lines = new ArrayList<Line>();
 		for(int i = 0; i < nextPoints.size() - 1; i++) {
 			Point curr_point = nextPoints.get(i);
 			Point next_point = nextPoints.get(i + 1);
@@ -221,14 +230,41 @@ public class Display extends Application {
 					next_point.getY() + y_offset);
 			line.setStyle(turtle.getPenColor());
 			line.setStrokeWidth(turtle.getPenThickness());
-			TurtleWindow.getPaneRoot().getChildren().add(line);
+			if(turtle.getPenDown()) {
+				TurtleWindow.getPaneRoot().getChildren().add(line);
+			}
+			lines.add(line);
+		}
+		if(lines.size() != 0) {
+			addValuesToTurtlePropertiesHistory(turtle);
+			addLinesToLineHistory(lines);
 		}
 	}
 
+	private void addLinesToLineHistory(List<Line> lines) {
+		HashMap<Integer, ArrayList<Line>> line_history = UserHistory.getLineHistory();
+		UserHistory.setLHPointer(UserHistory.getLHPointer() + 1);
+		line_history.put(UserHistory.getLHPointer(), (ArrayList<Line>) lines);
+	}
+	
+	private void addValuesToTurtlePropertiesHistory(Turtle turtle) {
+		HashMap<Integer, HashMap<Turtle, Double[]>> turtle_properties_history = UserHistory.getTurtlePropertiesHistory();
+		double initialX = (double) TurtleWindow.getInitialTurtleX();
+		double initialY = (double) TurtleWindow.getInitialTurtleY();		
+		if(UserHistory.getTPHPointer() == -1) {
+			UserHistory.setTPHPointer(UserHistory.getTPHPointer() + 1);
+			HashMap<Turtle, Double[]> initial_turtle_properties_map = new HashMap<Turtle, Double[]>();
+			initial_turtle_properties_map.put(turtle, new Double[]{initialX, initialY, 0.0});
+			turtle_properties_history.put(0, initial_turtle_properties_map);
+		}
+		UserHistory.setTPHPointer(UserHistory.getTPHPointer() + 1);
+		HashMap<Turtle, Double[]> turtle_properties_map = new HashMap<Turtle, Double[]>();
+		turtle_properties_map.put(turtle, new Double[]{turtle.getXLocation() + initialX, turtle.getYLocation() + initialY, turtle.getHeading()});
+		turtle_properties_history.put(UserHistory.getTPHPointer(), turtle_properties_map);
+	}
+	
 	public void moveImageView(Turtle turtle) {
-		System.out.println(TurtleWindow.getInitialTurtleX() + " " + TurtleWindow.getInitialTurtleY() + " " + turtle.getXLocation() + " " + turtle.getYLocation());
 		ImageView imageView = turtle.getImageView();
-
     	imageView.setLayoutX(TurtleWindow.getInitialTurtleX() + turtle.getXLocation());
     	imageView.setLayoutY(TurtleWindow.getInitialTurtleY() + turtle.getYLocation());
     	imageView.setRotate(turtle.getHeading());
@@ -293,16 +329,15 @@ public class Display extends Application {
      * Sets up screen labels.
      */
     private void setLabels() {
-    	new PenColorLabel(new Label(), root);
-    	new BackgroundColorLabel(new Label(), root);
-    new TurtleImageLabel(new Label(), root);
-    	new LanguageLabel(new Label(), root);
-    new TurtleDisplayLabel(new Label(), root);
-    	new CommandWindowLabel(new Label(), root);
-    	new UserVariablesLabel(new Label(), root);
-    	new UserCommandsLabel(new Label(), root);
-    new UserHistoryLabel(new Label(), root);
-    	new UserAPILabel(new Label(), root);
+    	pen_color_label = new SavedCommandFilesLabel(new Label(), root);
+    	background_color_label = new BackgroundColorLabel(new Label(), root);
+    	language_label = new LanguageLabel(new Label(), root);
+    	turtle_display_label = new TurtleDisplayLabel(new Label(), root);
+    	command_window_label = new CommandWindowLabel(new Label(), root);
+    	user_variables_label = new UserVariablesLabel(new Label(), root);
+    	user_commands_label = new UserCommandsLabel(new Label(), root);
+    	user_history_label = new UserHistoryLabel(new Label(), root);
+    	user_api_label = new UserAPILabel(new Label(), root);
     	error_label = new ErrorLabel(new Label(), root);
     }
 
@@ -310,18 +345,21 @@ public class Display extends Application {
      * Sets up screen buttons.
      */
     private void setButtons() {
-    	new ClearButton(new Button(), root);
-    	new RunButton(new Button(), root);
-    	new EditVariablesButton(new Button(), root);
-    new UserAPIButton(new Button(), root);
+    	clear_button = new ClearButton(new Button(), root);
+    	run_button = new RunButton(new Button(), root);
+    	edit_variables_button = new EditVariablesButton(new Button(), root);
+    	user_api_button = new UserAPIButton(new Button(), root);
+    	undo_button = new UndoButton(new Button(), root);
+    	redo_button = new RedoButton(new Button(), root);
     }
 
     /*
      * Sets up screen comboBoxes.
      */
     private void setComboBoxes() {
-    	new BackgroundColorComboBox(new ComboBox(), turtle_window.getWindowArea(), root);
-    	new LanguageComboBox(new ComboBox(), root);
+    	background_color_combobox = new BackgroundColorComboBox(new ComboBox(), root);
+    	language_combobox = new LanguageComboBox(new ComboBox(), root);
+    	saved_command_files_combobox = new SavedCommandFilesComboBox(new ComboBox(), root);
     }
 
     /**
@@ -384,5 +422,9 @@ public class Display extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public static TurtleWindow getTurtleWindow() {
+    		return turtle_window;
     }
 }

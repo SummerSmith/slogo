@@ -9,6 +9,12 @@ import slogo_team12.Display;
 import turtle.CreateTurtle;
 import turtle.Turtle;
 
+/**
+ * This class implements the tell command
+ * 
+ * @author Summer 
+ */
+
 public class TellNode extends Node{
 
 	public TellNode(String s) {

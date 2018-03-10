@@ -14,8 +14,6 @@ public class Error{
 	private void determineErrorInfo() {
 		error_info = e.getMessage();
 		Display.setErrorString(error_info);
-		System.out.println("error occurs!");
-		System.out.println(error_info);
 	}
 	
 	public static String getString(){
@@ -23,7 +21,6 @@ public class Error{
 	}
 	
 	public static void clearString() {
-		System.out.println("enter clearString");
 		error_info = "";
 		Display.setErrorString(error_info);
 	}
