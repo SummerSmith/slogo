@@ -75,7 +75,6 @@ public class BackEndManager {
 					System.out.println("there are wrong arguments values, sop execution.");
 					return;
 				}
-				t.updateTurtleLineMap();
 			}
 		}
 		else {executor.executeCommands(headNodes);}

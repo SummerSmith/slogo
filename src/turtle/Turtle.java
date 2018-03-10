@@ -14,6 +14,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import parser.TurtleManager;
 import windows.TurtleWindow;
@@ -38,7 +39,7 @@ public class Turtle extends Parent{
 	private List<Point> nextPoints;
     private ImageView imageView;
     private TurtlePropertyScreen turtle_property_screen;
-	private Map<Integer, List<Point>> turtle_line_map;
+	private Map<Integer, Line> turtle_line_map;
 	
 	public Turtle(){
 		initialize();
@@ -59,7 +60,7 @@ public class Turtle extends Parent{
 	}
 	
 	private void createTurtleStructures() {
-		turtle_line_map = new HashMap<Integer, List<Point>>();
+		turtle_line_map = new HashMap<Integer, Line>();
 		nextPoints = new ArrayList<Point>();
 	}
 	
@@ -180,9 +181,9 @@ public class Turtle extends Parent{
 		this.image_name = image_name;
 	}
 	
-	public void updateTurtleLineMap() {
-		turtle_line_map.put(turtle_line_map.keySet().size(), nextPoints);
-	}
+//	public void updateTurtleLineMap(Line line) {
+//		turtle_line_map.put(turtle_line_map.keySet().size(), line);
+//	}
 
 	public void removeTurtleLineMapEntry() {
 		turtle_line_map.remove(turtle_line_map.keySet().size() - 1);
@@ -212,7 +213,7 @@ public class Turtle extends Parent{
 		return "turtle";
 	}
 	
-	public double getTurtleNum() {
-		return TurtleManager.getAllTurtleNum() * 1.0;
+	public int getTurtleNum() {
+		return TurtleManager.getAllTurtleNum();
 	}
 }
