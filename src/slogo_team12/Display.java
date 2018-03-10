@@ -259,7 +259,7 @@ public class Display extends Application {
 			double y_offset = TurtleWindow.getInitialTurtleY() + imageView.getFitHeight() / 2;
 			Line line = new Line(curr_point.getX() + x_offset, 
 					curr_point.getY() + y_offset, 
-					next_point.getX() + x_offset, 
+					next_point.getX() + x_offset,
 					next_point.getY() + y_offset);
 			line.setStyle(turtle.getPenColor());
 			line.setStrokeWidth(turtle.getPenThickness());
